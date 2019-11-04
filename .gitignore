@@ -23,5 +23,4 @@ config/secrets.yml.key
 
 /public/images/*
 /public/upload/*
-/public/demos/*
 /public/screenshots/*
