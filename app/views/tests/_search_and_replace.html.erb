@@ -1,0 +1,85 @@
+<form onsubmit="setprocidoratddidsearch();startloader();" action="../tests/index" method="get">
+	<input type="hidden" name="atddsteps" value="<%=@atddsteps%>"/> 
+	<table >
+	<tr>
+		  <input type="hidden" name="mode" id="mode" value="liste"/>  
+		  <td colspan="2"><input size=30 type="text" spellcheck='false' name="testname" id="testname" value="<%= @filtrename %>" class="inputbox" placeholder="<%= t('ecr_test.nom_partie_du_nom') %>"/></td>
+		  <td><input value="" type="submit" class="btnsearch" vertical-align="middle" /></td>
+	</tr>
+	
+	<tr><td><span class="textStyle" ><%= t('ecr_test.appelant_procedure') %></span></td><td>
+			<input type="hidden" id="proc_id" name="proc_id" value=""/>
+			<input class="inputbox" list="procs" id="inputprocs" name="procs" value="<%= @procs %>" onclick="this.value='';$('#inputlatdds').val('');">
+			<datalist id="procs">
+			  <OPTION id="" value="-">  
+			<% 
+			  canreplaceproc = false
+			  if @procedures != nil
+			  @procedures.each do |procedure| %> 
+			  <OPTION <% if @filtreproc.to_s == procedure.id.to_s %>selected="selected"<% end %> id="<%= procedure.id %>" value="<%= procedure.name %> (<%= procedure.funcname.gsub("\r"," ").gsub("\n"," ") %> - #<%= procedure.id %>)">
+			<% 
+			  if @filtreproc.to_s == procedure.id.to_s
+				canreplaceproc = true
+			  end
+			  end
+			  end %>
+		  </datalist>
+		  </td>
+	</tr>
+	
+	 <tr><td><span class="textStyle" ><%= t('ecr_test.appelant_step_atdd') %></span></td><td>
+			<input type="hidden" id="fatdd_id" name="fatdd_id" value=""/>
+			<input class="inputbox" list="latdds" id="inputlatdds" name="latdds" value="<%= @latdds %>" onclick="this.value='';$('#inputprocs').val('');">
+			<datalist id="latdds">
+			  <OPTION id="" value="-">  
+			<% 
+			  canreplaceatdd = false
+			  if @latddsteps != nil
+			  @latddsteps.each do |atddstep| %> 
+			  <OPTION  id="<%= atddstep.id %>" value="<%= atddstep.description.gsub("\r"," ").gsub("\n"," ") %> (#<%= atddstep.id %>)">
+			<% 
+			  if @filtreatdd.to_s == atddstep.id.to_s
+				canreplaceatdd = true
+			  end
+			  end
+			  end %>
+		  </datalist>
+		  </td>
+	</tr>
+	  
+	  <tr><td><span class="textStyle"><%= t('type') %></span></td><td>
+		  <SELECT class="inputbox" name="testtype" id="testtype" >
+			  <OPTION value="" >-</OPTION>  
+			<% @test_types.each do |testtype| %> 
+			  <OPTION <% if @filtretype.to_s == testtype.id.to_s %>selected<% end %>  value="<%= testtype.id %>" ><%= testtype.value %></OPTION>
+			<% end %>
+		  </SELECT></td>
+	</tr>
+	  
+	<tr><td><span class="textStyle"><%= t('niveau') %></span></td><td>
+		  <SELECT class="inputbox" name="testlevel" id="testlevel" >
+			<OPTION value="-" >-</OPTION>   
+			<% @test_levels.each do |testlevel| %> 
+			  <OPTION <% if @filtrelevel.to_s == testlevel.id.to_s %>selected<% end %> value="<%= testlevel.id %>" ><%= testlevel.value %></OPTION>
+			<% end %>
+		  </SELECT></td>
+	</tr>
+
+	<tr><td><span class="textStyle"><%= t('status') %></span></td><td>
+		  <SELECT class="inputbox" name="teststate" id="teststate" >
+			<OPTION value="-" >-</OPTION>   
+			<% @test_states.each do |teststate| %> 
+			  <OPTION <% if @filtrestate.to_s == teststate.id.to_s %>selected<% end %> value="<%= teststate.id %>" ><%= teststate.value %></OPTION>
+			<% end %>
+		  </SELECT></td>
+	</tr>  
+	</table>
+</form>
+
+<% if canreplaceproc == true and @can_do_something == 1 %>
+	<%= render :partial => 'tests/replace_proc' %>
+<% end %>
+
+<% if canreplaceatdd == true and @can_do_something == 1 %>
+	<%= render :partial => 'tests/replace_atdd' %>
+<% end %>

@@ -1,0 +1,44 @@
+<% if @fromrun.to_s == "" %>
+	<table>
+	<tr>
+		<td >
+            <input type="hidden" name="sheet_type" id="sheet_type" value="conception_sheet"/>    
+            <span class="titleStyle" >&nbsp;<b><%= @sheet.name  %></b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+
+
+        </td>
+		<td>
+              &nbsp;&nbsp; 
+        </td>
+		<td valign='middle'>
+            <button class="btnrefresh" title="<%= t('recharger') %>" onclick="startloader();
+                  document.getElementById('formreload').submit();"></button>
+        </td>
+
+		<% if @campains != nil %>
+			<td>
+				<span class="textStyle"><%= t('ecr_sheet.couverture_de_la_campagne') %></span>
+				<form id="reloadcampain" style="display: inline;">
+					<select name="campain" class='lookupbox' onchange="startloader();
+							document.getElementById('reloadcampain').submit();">
+						<option value="" <%if @campain.to_s==""%>selected<%end%>>-</option>
+						<% @campains.each do |campain| %>
+							<option <%if @campain.to_s==campain.id.to_s%>selected<%end%> value="<%= campain.id  %>"><%= campain.name  %></option>
+						<%  end %>
+					</select>
+					<input type="hidden" name="popup" value="<%= @popup %>"/>
+					<input type="hidden" name="sheettype" value="<%= @sheettype %>"/>
+					<input type="hidden" name="write" value="<%= @modmodif %>"/>
+					<input type="hidden" name="sheet_id" id="sheet_id" value="<%= @sheet.id %>"/>
+
+				</form>
+			</td>
+	<%end%>
+	<% if @sheetLocked %>
+		<%= render :partial => 'sheets/locked' %>
+	<% else %>    
+		<%= render :partial => 'sheets/conceptionsheet_add_element' %>
+	<% end %>
+	</tr>
+	</table>
+<%end%>

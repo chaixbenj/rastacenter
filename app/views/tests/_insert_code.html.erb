@@ -1,0 +1,15 @@
+<% if @testLocked == false %>
+	<select id="insertcode" class='lookupbox' style='margin-left:40px;'>
+		<option title='<%=  t('commentaire') %>' value='comment'><%= t('commentaire') %></option>
+		<option title='<%=  t('commentaire') %> <%=  t('a_faire') %>' value='commentodo'><%= t('a_faire') %></option>
+		<option title='<%=  t('condition') %>' value='if'><%= t('condition') %></option>
+		<option title='<%=  t('boucle_for') %>' value='for'><%= t('boucle_for') %></option>
+		<option title='<%=  t('boucle_while') %>' value='while'><%= t('boucle_while') %></option>
+		<option title='<%=  t('boucle_until') %>' value='until'><%= t('boucle_until') %></option>
+		<option title='<%=  t('code') %>' value='code'><%=  t('code') %></option>
+		<% if @atdd == "1" %>
+			<option title='<%=  t('data_table') %>' value='datatable'><%= t('data_table') %></option>
+		<% end %>
+	</select>
+	<button class='btnadd' id='btnaddcode' title='<%=  t('ajouter') %>' onclick="insertcodeinstr(document.getElementById('insertcode'), null);"></button>
+<% end %>

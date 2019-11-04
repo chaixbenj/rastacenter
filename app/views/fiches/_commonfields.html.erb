@@ -1,0 +1,58 @@
+<tr>
+	<td>
+		<span class="textStyle"><%= t('ecr_type_fiche.status') %></span></td><td>
+		<select <% if @can_manage_cards == 0 %>disabled<%end%> name="status" class="inputbox">
+			<% if @all_status != nil
+			  @all_status.each do |status| %>
+				<option <% if @fiche != nil and @fiche.status_id == status.id%>selected<% end %>  value="<%= status.id %>|$|<%= status.value %>"><%= status.value %></option>
+			  <% end
+			  end %>
+		</select>
+	</td>
+	<td>
+		<span class="textStyle"><%= t('ecr_type_fiche.cycle_assigne') %></span></td><td>
+		<select id="cycle" <% if @can_manage_cards == 0 %>disabled<%end%> name="cycle" class="inputbox">
+		   <option <% if @fiche != nil and @fiche.cycle_id == nil and @cycle_id == 0 %>selected<% end %> value="-">-</option>
+			<% if @all_cycles != nil
+			  @all_cycles.each do |cycle| %>
+				<option <% if (@fiche != nil and @fiche.cycle_id == cycle.id) or (@fiche == nil and @cycle_id == cycle.id) %>selected<% end %> value="<%= cycle.id %>"><%= cycle.value %></option>
+			  <% end
+			  end %>
+		</select>
+	</td>
+	<td>
+		<span class="textStyle"><%= t('ecr_type_fiche.priorite') %></span></td><td>
+		<select <% if @can_manage_cards == 0 %>disabled<%end%> name="priority" class="inputbox">
+			<% if @all_priorities != nil
+			  @all_priorities.each do |priority| %>
+				<option <% if @fiche != nil and @fiche.priority_id == priority.id%>selected<% end %> value="<%= priority.id %>|$|<%= priority.value %>"><%= priority.value %></option>
+			  <% end
+			  end %>
+		</select>
+	</td>
+</tr>
+<tr>
+	<td>
+		<span class="textStyle"><%= t('ecr_type_fiche.assigne_a') %></span></td><td>
+		<select id="assigne_a" <% if @can_manage_cards == 0 %>disabled<%end%> name="assigne_a" class="inputbox">
+			<option <% if @fiche != nil and @fiche.user_assign_id == nil %>selected<% end %> value="-">-</option>
+			<% if @all_users != nil
+			  @all_users.each do |user| %>
+				<option <% if @fiche != nil and @fiche.user_assign_id == user.id%>selected<% end %> value="<%= user.id %>|$|<%= user.value %>"><%= user.value %></option>
+			  <% end
+			  end %>
+		</select>
+	</td>
+	<td>
+		<span class="textStyle"><%= t('ecr_type_fiche.creer_par') %></span>
+	</td>
+	<td>
+		<span class="textStyle"><% if @fiche != nil %><%= @fiche.user_cre%>, <%= @fiche.created_at.localtime.to_s[0..-7] %><% end %></span>
+	</td>
+	<td>
+		<span class="textStyle"><%= t('ecr_type_fiche.modifier_par') %></span>
+	</td>
+	<td>
+		<span class="textStyle"><% if @fiche != nil %><%= @fiche.user_maj%>, <%= @fiche.updated_at.localtime.to_s[0..-7] %><% end %></span>
+	</td>
+</tr>

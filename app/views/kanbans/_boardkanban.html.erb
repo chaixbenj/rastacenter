@@ -1,0 +1,48 @@
+<% if @fiches != nil and @groupby != 'id' 
+	pre_group = nil
+	@fiches.each do |fiche|%>
+		<% case @groupby 
+		when 'cycle_id'
+			newvalg = fiche.cycle_id
+			titleth = fiche.cycle_name
+		when 'priority_id'
+			newvalg = fiche.priority_id	
+			titleth = fiche.priority_name							
+		when 'user_assign_id'
+			newvalg = fiche.user_assign_id
+			titleth = fiche.user_assign_name
+		when 'user_cre'
+			newvalg = fiche.user_cre
+			titleth = fiche.user_cre
+		when 'lignee_id'
+			newvalg = fiche.lignee_id
+			titleth = "##{fiche.lignee_id} : #{fiche.ligneename}"
+		end
+		if newvalg != pre_group
+			pre_group = newvalg %>
+			<tr bgcolor="lightgrey" style="border:1px solid grey;">
+				<td colspan="<%=@nbstatus%>">
+					<span class="textStyle"><b><%=titleth%></b></span>
+				</td>
+			</tr>
+			<tr style="border:1px solid grey;">
+				<% if @nbstatus > 0 
+					for i in 1..@nbstatus %>   
+						<td  valign='top' id="blocbacklog-<%= @status[i-1]%>-<%= @groupby%>-<%= newvalg %>" style="border:1px solid grey;" ondragover="draggingSwitchOver(event)" ondrop="droppedSwitch(event)"></td>
+					<% end  
+				end %>
+			</tr>  
+		<% end %>
+	  <script>
+	  add_fiche_on_kanban("<%= fiche.id %>", "<%= fiche.name %>", "<%= fiche.status_id %>", "<%= t('ecr_type_fiche.assigne_a') %> : <%= fiche.user_assign_name %>", "<%= fiche.color %>", "<%= @groupby %>", "<%= newvalg %>", "<%= fiche.hastest %><%= fiche.hasrun %>");
+	  </script>
+	<%end
+else%>
+	<tr>
+		<% if @nbstatus > 0 
+			for i in 1..@nbstatus %>   
+				<td valign='top' id="blocbacklog-<%= @status[i-1]%>-id" style="width:<%=100/@nbstatus%>%;border:1px solid grey;" ondragover="draggingSwitchOver(event)" ondrop="droppedSwitch(event)"></td>
+			<% end  
+	  end %>
+	</tr>
+<%end%>

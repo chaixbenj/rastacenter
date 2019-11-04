@@ -1,0 +1,15 @@
+<div id="divjoinfiles" style="float:right;display:none;width:20%;border-style:1px solid;"/>
+	<input type="hidden" id="filesaddbeforsave" name="fabs" value=""/>
+	<input  <% if @can_manage_cards == 0 %>disabled<%end%> type="file" id="loadfile" onchange="loadattachement(this, <% if @fiche != nil %><%=  @fiche.id %><%else%>0<% end %>)">
+	<div id="updloadedfiles">
+		<% if @downloads != nil %>
+			<% @downloads.each do |download| %>
+				<br>
+				<div class='elemfiltreselected'>
+					<a href="../upload/<%= download.guid%><%= download.name%>" download target="_blank"><%= download.name%></a>
+					&nbsp;&nbsp;<b> <% if @can_manage_cards == 1 %><span style='cursor:pointer' onclick='deljoinfile(this, "<%= download.guid%><%= download.name%>", <% if @fiche != nil %><%=  @fiche.id %><%else%>0<% end %>)'>X</span><%end%></b>
+				</div>
+			<%end%>
+		<%end%>
+	</div>
+</div>

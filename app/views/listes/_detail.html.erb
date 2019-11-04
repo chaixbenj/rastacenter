@@ -1,0 +1,38 @@
+<br>
+<form onsubmit='startloader();' action="../listes/update" method="post">
+	<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+
+	<table class="leftTable" id="vartable">
+		<tr>
+			<td><span class="textStyle"><%= t('nom') %></span></td>
+			<td><input <%if @liste.is_deletable == 0 %>disabled<% end %>  onKeyDown="showvalidbtn();" class="inputbox" size=50 maxlength='250' type="text" spellcheck='false' name="name" id="name" value="<%= @liste.name  %>" />
+			<% if @can_manage_liste == 1 %>
+				<input name="valid" value="" id="btnval" style="display: none;" type="submit" class="btnvalid" title="<%= t('valider') %>" onclick="document.getElementById('name').required=true;document.getElementById('namec').required=false;"/>&nbsp;&nbsp;&nbsp;
+			<% end %>    
+			<% if  @can_manage_liste == 1 and @liste.is_deletable == 1 %>
+				  <input name="delete" value="" type="submit" class="btndel" title="<%= t('supprimer') %>" onclick="document.getElementById('name').required=false;document.getElementById('namec').required=false;" data-confirm="<%= t('ecr_liste.confirme_supp') %>"/>
+			<% end %>
+			</td>
+		</tr>
+		<tr>
+			<td><span class="textStyle"><%= t('code') %></span></td>
+			<td>
+				<input <%if @liste.is_deletable == 0 %>disabled<% end %>  onKeyDown="showvalidbtn();" class="inputbox" size=50 maxlength='50' type="text" spellcheck='false' name="code" id="code" pattern="[A-Za-z_]{2,50}" onKeyUp="formatascode(this)" value="<%= @liste.code %>" title="<%= t('ecr_liste.format_titre') %>"/>
+			</td>
+		</tr>      
+		<tr>
+			<td><span class="textStyle"><%= t('description') %></span></td>
+			<td >
+				<textarea spellcheck='false' onKeyDown="showvalidbtn();" class="inputbox" rows=6 cols=60  name="desc" id="desc"><%= @liste.description  %></textarea>
+			</td>
+		</tr>
+		<tr><td>&nbsp;</td></tr>
+		<tr><td>&nbsp;</td></tr>
+		<tr><td><span class="textStyle"><%= t('valeurs_possibles') %></span></td></tr>
+	  
+		<%= render :partial => 'listes/values' %> 
+
+	</table>
+	<input type="hidden" name="nbvalue" id="nbvalue" value="<% if @listevalues == nil or @listevalues.length == 0 %>1<% else %><%= @listevalues.length %><% end %> "/>
+	<input type="hidden" name="liste_id" id="liste_id" value="<%= @liste.id %>"/>
+</form>

@@ -1,0 +1,10 @@
+<div id="divtestlinked" style="float:right;display:none;width:20%;border-style:1px solid;"/>
+    <% if @test_linked != nil %>
+		<% @test_linked.each do |test_linked| %>
+			<span  onclick='window.open("../tests/edit?nw=1&test_id=<%= test_linked.id %>&write=1&load=1&popup=true", "tests", "directories=0,titlebar=0,toolbar=0,menubar=0,width=1000,height=800");' class="textLink">
+				<%= test_linked.name %>
+			</span>
+			<br>
+		<%end%>
+    <%end%>
+</div>

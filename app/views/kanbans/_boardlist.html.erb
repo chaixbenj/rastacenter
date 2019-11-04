@@ -1,0 +1,57 @@
+<table id="flex" class="sortable" style="width:100%;">
+	  <tr class="listElementTh">
+		  <td ><input type="checkbox" onchange="checkAllFiche()"></input></td>
+		  <td style="cursor:pointer"><%= t('ecr_type_fiche.description') %></td>
+		  <td style="cursor:pointer"><%= t('ecr_type_fiche.status') %></td>
+		  <td style="cursor:pointer"><%= t('ecr_type_fiche.priorite') %></td>
+		  <td style="cursor:pointer"><%= t('ecr_type_fiche.cycle_assigne') %></td>
+		  <td style="cursor:pointer"><%= t('ecr_type_fiche.assigne_a') %></td>
+		  <td style="cursor:pointer"><%= t('ecr_type_fiche.creer_par') %></td>	
+		  <td style="cursor:pointer"><%= t('ecr_kanban.parent') %></td>
+		  <td style="cursor:pointer"><%= t('ecr_kanban.lignee') %></td>				
+	  </tr>
+	  
+	  <% if @fiches != nil 
+		pre_group = nil
+		@fiches.each do |fiche|
+			if  @groupby != 'id' %>
+				<% case @groupby 
+				when 'cycle_id'
+				newvalg = fiche.cycle_id
+				titleth = fiche.cycle_name
+				when 'priority_id'
+				newvalg = fiche.priority_id	
+				titleth = fiche.priority_name							
+				when 'user_assign_id'
+				newvalg = fiche.user_assign_id
+				titleth = fiche.user_assign_name
+				when 'user_cre'
+				newvalg = fiche.user_cre
+				titleth = fiche.user_cre
+				when 'lignee_id'
+				newvalg = fiche.lignee_id
+				titleth = "##{fiche.lignee_id} : #{fiche.ligneename}"
+				end
+				if newvalg != pre_group
+					pre_group = newvalg %>
+					<tr bgcolor="lightgrey"><td colspan="9"><span class="textStyle"><b><%=titleth%></b></span></td></tr>
+			
+				<% end 
+			end %>
+
+			<tr class="listElementTr" onmouseover="this.style='background-color:yellow'" onmouseout="this.style='background-color:white'">
+			  <td class="listElementTd" style="width:1%;white-space:nowrap;" bgcolor="<%= fiche.color %>"><input type="checkbox" name="ckbxfic" id="<%= fiche.id %>"  onmousedown="checkShiftFiche(event, '<%= fiche.id %>');"></input><%= fiche.id %></td>
+			  <td class="listElementTd" onclick='show_fiche(<%= fiche.id %>);'><%= fiche.name %></td>
+			  <td class="listElementTd" onclick='show_fiche(<%= fiche.id %>);'><%= fiche.status %></td>
+			  <td class="listElementTd" onclick='show_fiche(<%= fiche.id %>);'><%= fiche.priority_name %></td>
+			  <td class="listElementTd" onclick='show_fiche(<%= fiche.id %>);'><%= fiche.cycle_name %></td>
+			  <td class="listElementTd" onclick='show_fiche(<%= fiche.id %>);'><%= fiche.user_assign_name %></td>
+			  <td class="listElementTd" onclick='show_fiche(<%= fiche.id %>);'><%= fiche.user_cre %></td>
+			  <td class="listElementTd" <%if fiche.father_id != nil %>onclick='show_fiche(<%= fiche.father_id %>);' title="<%= fiche.fathername%>"<%end%>><%if fiche.father_id != nil %><%= fiche.father_id %><%else%>-<%end%></td>
+			  <td class="listElementTd" onclick='show_fiche(<%= fiche.lignee_id %>);' title="<%= fiche.ligneename%>"><%= fiche.lignee_id %></td>
+			</tr>
+		<%end
+
+	end%>
+  
+</table>

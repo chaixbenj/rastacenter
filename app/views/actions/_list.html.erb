@@ -1,0 +1,51 @@
+<div id="left">
+	<div id="btnresize" class="btnresize" onmousedown="startresizediv(event, this);"></div>
+
+	<form onsubmit="startloader();" method="post">
+		<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+		<table >
+			<tr>
+				<td><input size=20 type="text" spellcheck='false' name="actnames" id="actnames" value="<%= @actname %>" class="recherche" placeholder="<%= t('input.placeholder.recherche') %>"/></td>
+				<td><input value="" name="search" type="submit" class="btnsearch" vertical-align="middle" onclick="document.getElementById('do1').value = 'lookfor';
+					  document.getElementById('actnamec').required = false;"/></td>
+			</tr>
+		</table>
+		
+	</form>
+
+	<% @actions.each do |action| %>
+	  <div id="divitemaction<%= action.id %>" <% if action.is_modifiable == 0 %> class="ligthline"<% end %><% if action.callable_in_proc==1 and action.is_modifiable == 1 %> class="listElementVert"<% end %><% if action.callable_in_proc==0 and action.is_modifiable == 1 %> class="listElementRouge" <%  end %>>
+		  <% if action.callable_in_proc==0 and action.is_modifiable == 0 %>
+			<div class='marqueprivate' style='float: left;' title='<%= t('ecr_action.non_appelable_dans_procedure') %>'></div>
+		  <% end %>
+		  <a onclick="startloader();" class="textListStyle"    href="../actions/getone?action_id=<%= action.id %>"><%= action.name %></a>
+		  <% if @can_manage_action == 1 %>
+			<div onclick="startloader();
+				  document.getElementById('formdup<%= action.id %>').submit();" class="btncopy" title="<%= t('duppliquer') %>" style='float: right;'></div>
+			  
+		  <div onclick="document.getElementById('contentpopup').innerHTML = '<object id=objpopup width=99% data=../procedures/whocallaction?popup=true&action_id=<%= action.id %>></object>';
+				window.location.href = '#popup';
+				document.getElementById('popup').style.display = 'block';
+				document.getElementById('objpopup').setAttribute('height', 0.89 * document.body.offsetHeight);" class="btnsearchremp" title="<%= t('ecr_action.proc_action_appelantes_remplacement') %>" style='float: right;'>
+				</div>
+		   <% end %>
+				<a onclick="startloader();" class="btnedit" style="float: right;" href="../actions/getone?action_id=<%= action.id %>"><img id="editactionbtn" src="/assets/icones/btnedit1.png" title="<%= t('editer') %>"/></a>
+
+	  </div>
+					  <form id="formdup<%= action.id %>" action="../actions/duplicate" method="post">
+			  <input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+			  <input type="hidden"  name="action_id" value="<%= action.id %>"/>
+			  
+		  </form> 
+	<%  end %>
+	<br><br>    
+</div>
+
+
+<script async type="application/javascript"> 
+	<% if @action != nil %>
+		  surligne_selected("divitemaction<%= @action.id %>", "ligthline");
+		  surligne_selected("divitemaction<%= @action.id %>", "listElementVert");
+		  surligne_selected("divitemaction<%= @action.id %>", "listElementRouge")
+	<% end %>
+</script>     

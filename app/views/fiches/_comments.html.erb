@@ -1,0 +1,22 @@
+<br>
+<% if @can_manage_cards == 1 %>
+    <div class="btnnote" title="<%=  t('ecr_run.ajouter_note') %>" style="float: left;" onclick="add_comment(this, '<%=@username%>');"></div>
+<%end%>
+
+<% if @fiche != nil
+    if @comments != nil
+		nbc = 0
+		@comments.each do |comment|
+			nbc += 1 %>
+
+			<div style="display:inline;width:100%;">
+				<span class="textStyle"><%= comment.user_cre %>, <%= comment.created_at.localtime.to_s[0..-7] %> :</span>
+				<br>
+				<trix-editor id='trix_richarea<%= nbc %>' input='_richarea<%= nbc %>' style="background-color:white"  <% if @can_manage_cards == 0 %>disabled<%end%>></trix-editor>
+				<input type="hidden" id="_richarea<%= nbc %>" name="comment-<%= comment.id %>"  value="<%= comment.comment %>"/>
+			</div>
+		<% end
+    end
+end %>
+
+

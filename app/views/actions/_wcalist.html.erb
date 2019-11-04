@@ -1,0 +1,65 @@
+<br>    
+	<input type="checkbox" id="checkall" name="checkall" onclick="checkuncheckall();"/><span class="textStyle"> <%= t('tous_aucun') %></span>
+<br>
+
+<% @callingactions.each do |callingaction| %>
+
+<div class="ligthline" style="padding:5px 5px 5px 5px;">
+	<div class="inline">
+		<input type="checkbox" id="<%=  callingaction.id %>" name="chbxinput" <% if (@can_manage_action == 0 or callingaction.is_modifiable == 0 or callingaction.is_modifiable == nil) and @is_admin != 1 %>disabled<% else %> onmousedown="checkShift(event, '<%=  callingaction.id %>')" <% end %>/>
+		<span class="textStyle"><b><%= callingaction.name %></b></span>
+		<button class="btncode" onclick="if (document.getElementById('code<%= callingaction.id  %>').style.display=='none') {document.getElementById('code<%= callingaction.id  %>').style.display= 'block';} else {document.getElementById('code<%= callingaction.id  %>').style.display= 'none';}" style="float: right;"/>
+		</div>
+	</div>
+
+	<div id="code<%= callingaction.id  %>" <% if @bad_action != nil and @bad_action == callingaction.id  %>style="display: inline;"<%else%>style="display: none;"<%end%>>
+		<% if @syntaxerror != nil %>
+			<span id='idspanmessagepermanent' class='errorMessage' onclick='this.parentNode.removeChild(this);'><%= @syntaxerror %>&nbsp;&nbsp;&nbsp;<b>x</b></span>
+		<% end %>
+		<form id="chgcode<%= callingaction.id  %>" onsubmit="startloader();" method="post">
+			<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+			<div >	 
+				<div style="width:100%" <% if (@can_manage_action == 0 or callingaction.is_modifiable == 0 or callingaction.is_modifiable == nil) and @is_admin != 1 %><%else%>onkeydown="document.getElementById('btnval<%= callingaction.id  %>').style.display='inline';"<%end%>>
+					<% if (@can_manage_action == 0 or callingaction.is_modifiable == 0 or callingaction.is_modifiable == nil) and @is_admin != 1 %><%else%>
+						<input style="display:none;float:right;margin-top:5px;" type="submit" class="btnvalid" title="<%= t('valider') %>" id="btnval<%= callingaction.id  %>" value="" onclick="document.getElementById('txtareaCode<%= callingaction.id  %>').value=editor<%= callingaction.id  %>.getValue();"/>
+					<%end%>
+					
+					<pre id="editor<%= callingaction.id  %>" style="width:90%">
+						<% if @bad_action != nil and @bad_action == callingaction.id  %>
+							<%= cookies[:badactioncode] %>
+						<% else %>
+							<%= callingaction.code  %>
+						<%end%>
+					</pre>
+				</div>
+
+				<div style="float:right">
+					<input type="hidden" name="actcode" id="txtareaCode<%= callingaction.id  %>"/>
+					<script>
+						 var editor<%= callingaction.id  %> = ace.edit("editor<%= callingaction.id  %>", {
+							theme: "ace/theme/tomorrow_night",
+							mode: "ace/mode/ruby",
+							maxLines: 500,
+							minLines: 10,
+							wrap: true,
+							fontSize: 13,
+							autoScrollEditorIntoView: true
+						});
+						editor<%= callingaction.id  %>.setOptions({
+							enableBasicAutocompletion: true,
+							enableSnippets: true,
+							enableLiveAutocompletion: false
+						});
+
+					</script>	
+					<input type="hidden" name="action_id_mod" value="<%= callingaction.id  %>"/>
+					<input type="hidden" name="action_id" value="<%= @action.id  %>"/>
+					<input type="hidden" name="popup"  value="true"/>
+				</div>
+			</div>
+		</form>
+    </div>    
+    
+    
+<% end %> 
+			

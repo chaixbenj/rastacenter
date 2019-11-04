@@ -1,0 +1,18 @@
+<tr>
+  <td><span class="textStyle"><%= t('nom') %></span></td>
+  <td colspan="2"><input onKeyDown="showvalidbtn();"  <% if @action.is_modifiable == 0 and @is_admin != 1 and true == false %>disabled<% end %>  class="inputbox" size=50  maxlength='50' type="text" spellcheck='false' name="actname" id="actname" value="<%= @action.name  %>"  pattern="_[A-Za-z0-9]{2,50}" title="<%= t('ecr_action.format_titre') %>"  onKeyUp="formatasaction(this)"/>
+	  <input onClick="showvalidbtn();"  type="checkbox" <% if @can_manage_action == 0 and @is_admin != 1 and true == false %>disabled<% end %> name="scallable" id="scallable" <% if @action.callable_in_proc != nil and @action.callable_in_proc == 1 %>checked<% end %>  /><span class="textStyle"><%= t('ecr_action.appelable_dans_procedure') %> &nbsp;&nbsp;&nbsp;&nbsp;</span>
+	  <% if @can_manage_action == 1 %>
+		<input name="valid" value="" id="btnval" style="display: none" type="submit" class="btnvalid" title="<%= t('valider') %>" onclick="document.getElementById('actcode').value=editor1.getValue();majHiddenActionParams();
+			  document.getElementById('actname').required = true;"/>&nbsp;&nbsp;&nbsp;
+			 <% end %>
+			 <% if @can_manage_action == 1 and (@action.is_modifiable == 1 or  @is_admin == 1 or true == true) and (@action.nb_used == nil or @action.nb_used < 1)  %>
+		<input type="submit" class="btndel" name="delete" value="" title="<%= t('supprimer') %>" data-confirm="<%= t('ecr_action.confirme_supp') %>"/>
+	  <% end %>
+  </td>
+</tr>
+
+<tr>
+  <td><span class="textStyle"><%= t('description') %></span></td>
+  <td><textarea spellcheck='false' onKeyDown="showvalidbtn();"   <% if @action.is_modifiable == 0 and @is_admin != 1 and true == false  %>disabled<% end %> class="inputbox" rows=6 cols=60  name="actdesc" id="actdesc"><%= @action.description  %></textarea></td>
+</tr>

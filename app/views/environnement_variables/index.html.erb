@@ -1,0 +1,27 @@
+<script type="application/javascript"> 
+function searchvar() {
+    document.getElementById('environnementvariable_environnementvariable_name').required=false;
+    document.getElementById('searchname').value=document.getElementById('environnementvariable_environnementvariable_name').value;
+    document.getElementById('searchdesc').value=document.getElementById('environnementvariable_environnementvariable_description').value;
+    document.getElementById('formsearch').submit();
+}
+</script>
+
+<div id="scrollablecontent">
+	<div >
+		<div class="popupadd">
+			<%= render :partial => 'environnement_variables/head' %>          
+		</div> 
+
+		<% if @message != nil  %>
+			<span id='idspanmessage' class='<% if @OK %>succesMessage<% else %>errorMessage<% end %>' onclick='this.parentNode.removeChild(this)' style='vertical-align: top;'><%= @message %>&nbsp;<b>x</b></span>
+		<% end %>
+
+		<div id="environnementvariables">	
+		<% if @environnementvariables != nil %>    
+			<%= render  @environnementvariables %>
+		<% end %>
+		</div>
+	</div>
+</div>
+

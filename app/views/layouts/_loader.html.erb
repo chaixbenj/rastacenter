@@ -1,0 +1,6 @@
+<div id="loader"></div>
+<script type="application/javascript">
+	document.onload =  stoploader();
+	$(document).on('turbolinks:load', stoploader);
+	$(document).on('page:load', stoploader);
+</script>

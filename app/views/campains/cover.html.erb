@@ -1,0 +1,164 @@
+
+
+
+<div id="content"  <% if @popup != nil and @popup.to_s == 'true' %> style="height: 100%;" <%end%>>
+
+    <div id="left">
+<div id="btnresize" class="btnresize" onmousedown="startresizediv(event, this);"></div>
+
+
+
+        <% pre_project_id = 0
+        pre_release_id = 0
+        pre_cycle_id = 0
+        pre_campain_id = 0
+        can_suppress = true
+        @releasecyclecampains.each do |rcc| 
+          if @release != nil and rcc.release_id == @release.id and rcc.cycle_id != nil
+            can_suppress = false
+            end
+          if @cycle != nil and rcc.cycle_id == @cycle.id and rcc.campain_id != nil
+            can_suppress = false
+            end
+
+        %>
+          <!-- projet -->
+          <% if rcc.project_id != pre_project_id %>	
+            <div class="treerep" id='project<%= rcc.project_id %>'>
+                <span style="cursor:pointer" id="signeproject<%= rcc.project_id %>" onclick="showHideCampain('project<%= rcc.project_id %>');"><b><% if rcc.release_id != nil %>+&nbsp;&nbsp;<%  end  %></b></span>
+                <span ><%= rcc.project_name %></span>
+            </div>
+            <% pre_project_id = rcc.project_id 
+            end %>
+
+          <!-- release -->
+          <% if rcc.release_id != nil and rcc.release_id != pre_release_id %>	
+            <div class="treerelease" name="project<%= rcc.project_id %>" id="release<%= rcc.release_id %>">
+                <b>
+                    <span id="signerelease<%= rcc.release_id %>" onclick="showHideCampain('release<%= rcc.release_id %>');"><b><% if rcc.cycle_id != nil %>+&nbsp;&nbsp;<%  end  %></b></span>
+                    <span class="textStyle"><%= rcc.release_name %></span></b>
+                </a>                
+            </div>
+            <% pre_release_id = rcc.release_id 
+            end %>
+
+          <!-- cycle -->
+          <% if rcc.cycle_id != nil and rcc.cycle_id != pre_cycle_id %>	
+            <div class="treecycle" name="release<%= rcc.release_id %>" id="cycle<%= rcc.cycle_id %>">
+                <b><span id="signecycle<%= rcc.cycle_id %>" onclick="showHideCampain('cycle<%= rcc.cycle_id %>');"><b><% if rcc.campain_id != nil %>+&nbsp;&nbsp;<%  end  %></b></span>
+                    <span class="textStyle"><%= rcc.cycle_name %></span></b>
+                </a> 
+            </div>
+            <% pre_cycle_id = rcc.cycle_id 
+            end %>
+
+          <!-- campain -->
+          <% if rcc.campain_id != nil %>	
+
+            <div class="treecampain"  name="cycle<%= rcc.cycle_id %>" id="campain<%= rcc.campain_id %>">
+                <%  if rcc.campain_private == 1 %><div class='marqueprivate' style='float: left;' title='<%= t('privee') %>'></div><% end %>
+                <span class="textStyle"><%= rcc.campain_name %></span>
+				<img style="float: right;" src="/assets/icones/btnvoirsimple1.png" title="<%= t('voir') %>" onclick="$('#fdshow').val('detail');$('#fdcampain_id').val('<%= rcc.campain_id %>');$('#formdetail').submit();"/>
+
+				<button class='btnreport' style='float: right;' title="<%=  t('rapport') %>" onclick="surligne_selected('campain<%= rcc.campain_id %>', 'treecampain');document.getElementById('right').style.overflow = 'hidden';document.getElementById('right').innerHTML = '<object id=\'objreport\' height=\'100%\' width=\'100%\' data=\'../runs/index?rd=1&campain_id=<%= rcc.campain_id %>&popup=true\'></object>';"></button>                          
+
+            </div>
+          <% end %>
+
+
+        <%  end %>
+
+
+
+    </div>
+
+<form id="formdetail" method="post" onsubmit="startloader();">
+	<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+	<input type="hidden" id="fdcampain_id" name="campain_id" value=""/>
+</form>
+
+
+    <div id="right">
+       <%= @htmltestrepertoire %>
+    </div>
+
+</div>
+
+
+<form id="formpaste" action="../campains/paste" method="post">
+    <input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+    <input type="hidden"  id="cycle_id_destination" name="cycle_id" value=""/>
+    <input type="hidden"  id="campain_to_paste" name="campain_id" value=""/>
+	
+</form>
+
+
+<iframe id="hiddenFrame3" name="hiddenFrame3" width="0" height="0" border="0" style="display: none;"></iframe>
+
+
+
+
+<div id="popup" class="modalPopup">
+    <div>
+        <form id="deletelock" name="deletelock" action="../lockobjects/delete" method="post" target="hiddenFrame3">
+            <input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>	
+            <input type='hidden' id='ojecttypepopuped' name='obj_type' value=''/>
+            <input type='hidden' id='ojectidpopuped' name='obj_id' value=''/>
+        </form>
+        <!--a href="#close" title="Close" class="closePopup">X</a-->
+        <button onclick="document.getElementById('contentpopup').innerHTML = '';
+              document.getElementById('popup').style.display = 'none';
+              document.getElementById('deletelock').submit();
+              window.location.href = '#';"  class="closePopup">X</button>
+        <div id="contentpopup"></div>
+    </div>
+</div>
+
+
+<script type="application/javascript"> 
+<% if @campain_id.to_s != "" %>
+    surligne_selected('campain<%= @campain_id %>', 'treecampain');
+<%end%>
+  campaindisplayed = localStorage.getItem("alfyftcampaindisplayed");
+	if (campaindisplayed == null) {localStorage.setItem("alfyftcampaindisplayed","");campaindisplayed = localStorage.getItem("alfyftcampaindisplayed");}
+   	<% if @release != nil %>
+		projectdiv = document.getElementById('release<%= @release.id %>').getAttribute("name");
+		campaindisplayed = campaindisplayed.replace("$" + projectdiv + "$",""); 
+		campaindisplayed += "$" + projectdiv + "$";
+	<% end %>
+	<% if @cycle != nil %>
+		releasediv = document.getElementById('cycle<%= @cycle.id %>').getAttribute("name");
+		campaindisplayed = campaindisplayed.replace("$" + releasediv + "$",""); 
+		campaindisplayed += "$" + releasediv + "$";
+		releasediv = document.getElementById(releasediv).getAttribute("name");
+		campaindisplayed = campaindisplayed.replace("$" + releasediv + "$",""); 
+		campaindisplayed += "$" + releasediv + "$";
+	<% end %>
+	<% if @campain != nil %>
+		cyclediv = document.getElementById('campain<%= @campain.id %>').getAttribute("name");
+		campaindisplayed = campaindisplayed.replace("$" + cyclediv + "$",""); 
+		campaindisplayed += "$" + cyclediv + "$";
+		releasediv = document.getElementById(cyclediv).getAttribute("name");
+		campaindisplayed = campaindisplayed.replace("$" + releasediv + "$",""); 
+		campaindisplayed += "$" + releasediv + "$";
+		projectdiv = document.getElementById(releasediv).getAttribute("name");
+		campaindisplayed = campaindisplayed.replace("$" + projectdiv + "$",""); 
+		campaindisplayed += "$" + projectdiv + "$";
+	<% end %>
+  tcampaindisplayed = campaindisplayed.split("$$");
+  for (i=0;i<tcampaindisplayed.length;i++) {
+    element = tcampaindisplayed[i].replace("$","").replace("$","");
+    elements = document.getElementsByName(element);
+    for (j=0;j<elements.length;j++) {
+      elements[j].style.display='inline-block';
+    }
+    if (document.getElementById("signe"+element)!=null) {
+      document.getElementById("signe"+element).innerHTML="<b>-&nbsp;&nbsp;</b>";
+    } 
+   }
+
+   
+ computecover();
+   
+   
+</script>

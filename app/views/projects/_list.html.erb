@@ -1,0 +1,25 @@
+<div id="left">
+<div id="btnresize" class="btnresize" onmousedown="startresizediv(event, this);"></div>
+
+
+  <form onsubmit="startloader();" method="post">
+        <input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+    <table >
+      <tr>
+       <td><input size=20 type="text" spellcheck='false' name="pnames" id="pnames" value="<%= @pname %>" class="recherche" placeholder="<%= t('input.placeholder.recherche') %>"/></td>
+          <td><input value="" name="search" type="submit" class="btnsearch" vertical-align="middle" onclick="document.getElementById('pnamec').required=false;"/></td>
+      </tr>
+    </table>
+	
+    <% @projects.each do |project| %>
+    <a onclick="startloader()" id="project<%= project.id %>" class="treerep" href="../projects/getone?pid=<%= project.id %>" style="width:calc(100% - 10px);"><%= project.name %> <img style="float: right;" src="/assets/icones/btnedit1.png" title="<%= t('editer') %>"/></a>
+    <%  end %>
+    
+    </form>
+</div>
+
+<script async type="application/javascript"> 
+    <% if @project != nil %>
+    surligne_selected("project<%= @project.id %>", "treerep");
+    <% end %>
+</script> 

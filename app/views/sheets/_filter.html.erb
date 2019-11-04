@@ -1,0 +1,28 @@
+<form onsubmit="settestidsearch();startloader();" method="post">
+	<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+	<table >
+		<tr>
+			<td colspan='2'><input size=30 type="text" spellcheck='false' name="snames" id="snames" value="<%= @sname %>" class="inputbox" placeholder="<%= t('ecr_suite.nom_partie_du_nom') %>"/></td>
+			<td><input value="" name="search" type="submit" class="btnsearch" vertical-align="middle" onclick="document.getElementById('snamec').required = false;"/></td>
+		</tr>
+		<% if  @sheettype == 'test_suite' %>
+			<tr>
+				<td>
+					<span class="textStyle"><%= t('ecr_suite.appelant_test') %></span>
+				</td>
+				<td>
+					<input type="hidden" id="test_id" name="test_id" value=""/>
+					<input class="inputbox" list="tests" id="inputtests" name="tests" value="<%= @testnamefiltre %>" onclick="this.value = '';">
+					<datalist id="tests">	
+						<OPTION id="" value="-">   
+						<% @tests.each do |test| %> 
+							<OPTION <% if @filtretest.to_s == test.id.to_s %>selected<% end %> id="<%= test.id %>" value="<%= test.name %>" >
+						<% end %>
+					</datalist>
+				</td>
+			</tr>
+		<%end%>
+	</table>
+	<input type='hidden' name='sheettype' value='<%= @sheettype %>'/>
+	<input type="hidden" name="mode" id="mode" value="liste"/>   
+</form>

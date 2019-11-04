@@ -1,0 +1,48 @@
+<% if @atdd == "1" and @testLocked == false %>
+  <div style="display:inline-block;">
+	  <select id="typeinsert" class='inputbox' onchange="document.getElementById('conf').style.display = 'none';
+				  document.getElementById('env').style.display = 'none';
+				  document.getElementById('const').style.display = 'none';
+				  document.getElementById('jdd').style.display = 'none';
+				  document.getElementById(this.value).style.display = 'inline';">
+		  <option selected value="conf"><%= t('ecr_procedure.variable_de_conf') %></option>
+		  <option value="env"><%= t('ecr_procedure.variable_d_env') %></option>
+		  <option value="const"><%= t('ecr_procedure.constante_test') %></option>
+		  <option value="jdd"><%= t('ecr_procedure.variable_jdd') %></option>
+	  </select>
+
+	  <select id="conf" class='inputbox' style="display: inline;" >
+		  <% if @configurationvariables != nil
+			@configurationvariables.each do |configurationvariable| %>
+			  <option value="<%=  configurationvariable.name %>"><%=  configurationvariable.name %></option>
+			<% end
+		  end%>
+	  </select>
+
+	  <select id="env" class='inputbox' style="display: none;">
+		  <% if @environnementvariables != nil
+			@environnementvariables.each do |environnementvariable| %>
+			  <option value="<%=  environnementvariable.name %>"><%=  environnementvariable.name %></option>
+			<% end
+		  end%>
+	  </select>
+
+	  <select id="const" class='inputbox' style="display: none;">
+		  <% if @testconstantes != nil
+			@testconstantes.each do |testconstante| %>
+			  <option value="<%=  testconstante.name %>"><%=  testconstante.name %></option>
+			<% end
+		  end%>
+	  </select>
+
+	  <select id="jdd" class='inputbox' style="display: none;">
+		  <% if @data_set_variables != nil
+			@data_set_variables.each do |data_set_variable| %>
+			  <option value="<%=  data_set_variable.name %>"><%=  data_set_variable.name %></option>
+			<% end
+		  end%>
+	  </select>
+
+	  <img src="/assets/icones/btndroitevert1.png" no-repeat onclick="setVarInFiel(document.getElementById(document.getElementById('typeinsert').value).value);" style="padding-top: 5px;"></img>
+  </div>
+<% end %>

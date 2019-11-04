@@ -1,0 +1,27 @@
+<div style='display: inline; float: right;'>
+	<% if @can_do_something == 1 %>
+		<% if @atdd != "1" %>
+			<button class='btnfiltre' id='btnfiltre' title='<%=  t('filtre') %>' onclick='zonefiltre(true);'></button>
+			<button class='btnnofiltre' id='btnnofiltre' style="display:none;" title='<%=  t('ecr_test.tous_les_elements') %>' onclick='zonefiltre(false);'></button>
+		<% end %>
+		<% if @testLocked == false %>
+			<button class='btnpaste' name='btnpaste' title="<%=  t('coller') %>" style='display: none;' onclick='pastestep("after", "");'></button>
+			<button class='btncut' id='btncutt<%= @test_id %>' title='<%=  t('couper') %>' onclick='cutstep("<%= @atdd %>");'></button>
+		<% end %>
+		<% if @locked_project_version == 0 %>
+			<button class='btncopy' id='btncopyt<%= @test_id %>' title='<%= t('copier')%>' onclick='copystep("<%= @atdd %>");'></button>
+		<% end %>
+	<% end %>
+</div>
+<% if @atdd != "1" %>
+	<div id="zonefiltre" style='display: none;margin-top:5px;border-width:2px;border-style:solid;border-radius:5px;padding: 10px 10px 10px 10px;background-color:white;'>
+		<input type="checkbox" checked id="fcomment" onclick="filtrertestseps(this)"/><span class="textStyle"><%= t('commentaire') %></span>
+		<input type="checkbox" checked id="ftodo" onclick="filtrertestseps(this)"/><span class="textStyle"><%= t('a_faire') %></span>
+		<input type="checkbox" checked id="fcode" onclick="filtrertestseps(this)"/><span class="textStyle"><%= t('code') %></span>
+		<input type="checkbox" checked id="fproc" onclick="filtrertestseps(this)"/><span class="textStyle"><%= t('procedure') %></span>
+		<button class="btnfoldunfold" onclick="foldcomment(this);" style="float:right;"  comm-fold="false" title="<%= t('ecr_test.plier_deplier_commentaires') %>"></button>
+		<br>
+		<input onkeydown="if (event.keyCode == 13) {
+				this.blur();}" id="fval" type="text" spellcheck="false" class="inputbox" placeholder="<%= t('procedure') %>, <%= t('parametres') %>, <%= t('valeur') %>" onblur="filtrertestsepstext(this)" size="50"/>
+	</div>
+<% end %>

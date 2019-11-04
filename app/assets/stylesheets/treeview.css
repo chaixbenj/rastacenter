@@ -1,0 +1,144 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 4 sept. 2017, 14:38:45
+    Author     : bchaix 
+*/
+
+/* fonctionnel */
+
+.plusmoins {
+    cursor:pointer;
+    font-family:Arial;
+    font-size:16px;
+}
+
+.treerep {
+	background-color:rgba(48, 47, 47, 0.8);
+    display:inline-block;
+    cursor:pointer;
+    color:#ffffff;
+    font-family:Arial;
+    font-size:13px;
+    text-decoration:none;
+    padding:2px 24px;
+    margin-top:-1px;
+    border-radius:1px;
+	border: solid 1px black;
+    width:80%;
+}
+.treerep:hover {
+    background-color:rgba(48, 47, 47, 0.5);
+}
+
+.treegroup {
+    display:inline;  
+
+}
+
+.treegroupmore {
+    display: none   
+}
+.testmore {
+    display: none   
+}
+
+.treeline {
+    display:inline;  
+
+}
+
+
+
+.treetest {
+    background-color:rgba(168, 166, 166, 0.3);
+    display:inline-block;
+    cursor:pointer;
+    color:#292129;
+    font-family:Arial;
+    font-size:12px;
+    text-decoration:none;	
+    padding:3px 24px;
+    margin-top:-1px;
+	margin-left:5px;
+    border-radius:1px;
+	border: solid 1px black;
+    width:80%;	
+}
+.treetest:hover {
+    background-color:rgba(168, 166, 166, 0.6);
+}
+
+
+
+
+
+
+
+.treerelease {
+    background-color:rgba(114, 48, 1, 0.5);
+    display:none;
+    cursor:pointer;
+    color:#292129;
+    font-family:Arial;
+    font-size:13px;
+    margin-left:17px;
+    text-decoration:none;
+	-moz-border-radius:2px;
+    -webkit-border-radius:2px;
+    padding:3px 24px;
+    margin-top:-1px;
+    border-radius:1px;
+	border: solid 1px black;
+    width:80%;
+	}
+.treerelease:hover {
+    background-color:rgba(114, 48, 1, 0.8);
+}
+
+
+.treecycle {
+    background-color:rgba(255, 3, 7, 0.4);
+    display:none;
+    cursor:pointer;
+    color:#292129;
+    font-family:Arial;
+    font-size:13px;
+    margin-left:27px;
+    text-decoration:none;
+	-moz-border-radius:2px;
+    -webkit-border-radius:2px;
+    padding:3px 24px;
+    margin-top:-1px;
+    border-radius:1px;
+	border: solid 1px black;
+    width:80%;
+}
+.treecycle:hover {
+    background-color:rgba(255, 3, 7, 0.8);
+}
+
+
+
+
+.treecampain {
+    background-color:rgba(168, 166, 166, 0.3);
+    display:none;
+    cursor:pointer;
+    color:#292129;
+    font-family:Arial;
+    font-size:12px;
+    padding:4px 5px 5px 5px;
+    margin-top:-1px;
+    border-radius:1px;
+	border: solid 1px black;
+    margin-left:37px;
+    text-decoration:none;
+    width: calc(100% - 50px);
+}
+.treecampain:hover {
+    background-color:rgba(168, 166, 166, 0.6);
+}

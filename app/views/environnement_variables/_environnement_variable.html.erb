@@ -1,0 +1,57 @@
+<% if @message != nil and environnement_variable.id.to_s == @majid.to_s %>
+   <span id='idspanmessage' class='<% if @OK %>succesMessage<% else %>errorMessage<% end %>' onclick='this.parentNode.removeChild(this)' style='vertical-align: top;'><%= @message %>&nbsp;<b>x</b></span>
+  <% end %> 
+
+<div class="ligthline">
+<div class="inline">
+
+<form style="display:inline" onsubmit="startloader();" action="/environnement_variables/update" data-remote="true" rel="nofollow" data-method="put" id="formupdt<%= environnement_variable.id %>">
+    <input type="hidden" name="filtername" value="<%= @name %>"/>
+    <input type="hidden" name="filterdesc" value="<%= @description %>"/>
+    <input type="hidden" name="idelement" value="<%= environnement_variable.id %>"/>
+	<% if @envone != nil %>
+		<input type="hidden" name="envone" value="<%= @envone.id %>"/>
+	<% end %>
+	<% if @envtwo != nil %>
+		<input type="hidden" name="envtwo" value="<%= @envtwo.id %>"/>
+	<% end %>
+
+	
+	
+	<input <% if @can_manage_env_variable == 0 %>disabled<% end %> pattern="\$[A-Za-z0-9_]{2,50}" maxlength='50' onKeyUp="formatasvariable(this)"  required <% if @envtwo != nil %>size='20'<% else %>size='25'<% end %>  class='inputboxlist' type="text" spellcheck='false' name="name" id="iname<%= environnement_variable.id %>" value="<%= environnement_variable.name %>" title="<%= environnement_variable.name %>" onKeyDown='showvalidbtnid("<%= environnement_variable.id %>");' onchange='checknamevalidity("<%= environnement_variable.id %>", "<%= environnement_variable.name %>");'  />
+
+			
+  <% if @envone != nil %>
+	<input <% if @can_manage_env_variable == 0 %>disabled<% end %> type="text" spellcheck='false' onKeyUp="formatslash(this);" class='inputboxlist' placeholder="<%= t('valeur_pour') %> <%= @envone.name %>" name="valueone" id="idvalueone<%= environnement_variable.id %>" <% if @envtwo != nil %>size='50'<% else %>size='70'<% end %> maxlength='255' value="<%= environnement_variable.valueone.to_s %>" title="<%= environnement_variable.valueone.to_s %>"  onKeyDown='showvalidbtnid("<%= environnement_variable.id %>");'/>
+  <% end %>
+
+  <% if @envtwo != nil and @envone != nil  %><% if @can_manage_env_variable == 1 %>
+        <button class="btndroite" onclick="document.getElementById('idvaluetwo<%= environnement_variable.id %>').value=document.getElementById('idvalueone<%= environnement_variable.id %>').value;" title="<%= t('ecr_variable_env.copier_la_valeur_vers') %>"></button>
+       <% end %> <input <% if @can_manage_env_variable == 0 %>disabled<% end %> type="text" spellcheck='false' onKeyUp="formatslash(this);"  class='inputboxlist' placeholder="<%= t('valeur_pour') %> <%= @envtwo.name %>" name="valuetwo" id="idvaluetwo<%= environnement_variable.id %>" size='50' maxlength='255' value="<%= environnement_variable.valuetwo.to_s %>" title="<%= environnement_variable.valuetwo.to_s %>" onKeyDown='showvalidbtnid("<%= environnement_variable.id %>");'/>
+  <% end %>
+
+	<input <% if @can_manage_env_variable == 0 %>disabled<%end%> type='checkbox' name='isn' id='isn<%= environnement_variable.id %>' <%if environnement_variable.is_numeric.to_s == "1"%>checked<%end%> onclick="showvalidbtnid(<%= environnement_variable.id %>);if (this.checked==true) {document.getElementById('isb<%= environnement_variable.id %>').checked=false;}"></input><span class="textStyle"><%= t('numeric')%></span>
+	<input <% if @can_manage_env_variable == 0 %>disabled<%end%> type='checkbox' name='isb' id='isb<%= environnement_variable.id %>' <%if environnement_variable.is_boolean.to_s == "1"%>checked<%end%> onclick="showvalidbtnid(<%= environnement_variable.id %>);if (this.checked==true) {document.getElementById('isn<%= environnement_variable.id %>').checked=false;}"><span class="textStyle"><%= t('boolean')%></span></input>
+	<input <% if @can_manage_env_variable == 0 %>disabled<% end %> type="text" spellcheck='false' class='inputboxlist' placeholder="<%= t('description') %>" name="description" id="idescription<%= environnement_variable.id %>" <% if @envtwo != nil %>size='10'<% else %>size='50'<% end %> title="<%= environnement_variable.description %>"  value="<%= environnement_variable.description %>"  onKeyDown='showvalidbtnid("<%= environnement_variable.id %>");'/>
+  
+  
+    <input style="display:none" class="btnvalid" title="<%= t('valider') %>" id="btnval<%= environnement_variable.id %>" type="submit" value="" onmouseover='checknamevalidity("<%= environnement_variable.id %>", "<%= environnement_variable.name %>");' style='vertical-align: top;'/>
+</form>  
+        
+<% if @can_manage_env_variable == 1 and (environnement_variable.is_used == nil or environnement_variable.is_used == 0) %>
+    <%= button_to "", environnement_variable_path(environnement_variable), params: {filtername: @name, filterdesc: @description, envone: @envone, envtwo: @envtwo}, remote: true, method: :delete, form: {onsubmit: "startloader();"}, data: { confirm: "#{t('ecr_variable_env.confirme_supp')} #{environnement_variable.name}?" }, class: "btndel", title: t('supprimer') %>
+<% end %>
+
+
+
+
+</div>
+</div>
+<script>
+          setTimeout(function () {
+            elem = document.getElementById('idspanmessage');
+            if (elem!=null) {
+              elem.parentNode.removeChild(elem);
+            }
+        }, 2000);
+</script>  

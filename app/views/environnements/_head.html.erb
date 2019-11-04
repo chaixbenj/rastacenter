@@ -1,0 +1,20 @@
+<span class="titleStyle" style="color:#161616"><b>&nbsp;&nbsp;<%= t('ecr_environnement.nouvel_environnement') %>&nbsp;&nbsp;</b></span> 
+<br>
+<div style="display: inline-block">
+	<div style="display: inline">
+		<form onsubmit="startloader();" class="new_environnement" id="new_environnement" action="/environnements" accept-charset="UTF-8" data-remote="true" method="post" style="display: inline;margin-left: 7px;">
+			<input  pattern="[A-Za-z0-9_]{2,50}" maxlength='50' onKeyUp="formatascode(this)" required size=40 class='inputboxlist' type="text" spellcheck='false' name="name" id="environnement_environnement_name" placeholder="<%= t('nom') %>" title="<%= t('ecr_environnement.format_titre') %>"/>
+			<textarea spellcheck='false' class='inputboxlist' name="description" id="environnement_environnement_description" rows='1' cols='100' placeholder="<%= t('description') %>"></textarea>
+			<% if @can_manage_env_variable == 1 %>
+				<input type="submit" class="btnadd" title="<%= t('ajouter') %>" value="" ></input>
+			<% end %>
+		</form>  
+		<button class="btnsearch" onclick="startloader();searchenv();" title="<%= t('chercher') %>"></button>
+	</div>
+</div>	  
+    
+<form id="formsearch" action="../environnements/index" method="post">
+	<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+    <input type="hidden" name="description" id="searchdesc" value=""/>
+    <input type="hidden" name="name" id="searchname" value=""/>   
+</form>    

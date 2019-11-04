@@ -1,0 +1,95 @@
+<div style="height: 300px;overflow-y:auto;">
+	<div id="zoneecrire" style='width:calc(100% - 50px);display: inline-block;margin-top:5px;border-width:2px;border-style:solid;border-radius:5px;padding: 10px 10px 10px 10px;background-color:white;'>
+		<form id="formnotif" action="../user_notifications/new" method="post" >
+			<input type="hidden" value="<%= form_authenticity_token() %>" id="authenticity_token" name="authenticity_token"/>	
+			<input type="hidden" id="checkedids" name="checkedids" value=""/>
+			<input type="hidden" id="notif_id" name="notif_id" value=""/>
+			<div style="display:inline;width:100%">  
+				<trix-editor id='trix_richarea' input='_richarea' style="background-color:white"></trix-editor>
+				<input type="hidden" id="_richarea" name="notif"  value=""/>
+			</div>
+
+			<div style="display:inline;width:100%">
+				<div style="display:inline-block;">
+					<div style="float:left;padding: 20px 20px 20px 20px;">
+						<% if @all_users != nil %>   
+							<% if @username == "superadmin" %>
+								<input type="checkbox" name="allusersalldomaine" onclick="document.getElementById('btnval').style.display='inline-block';"/><span class="textStyle"><b>Every everybody</b></span>
+								<br>
+							<% end %>
+
+							<input type="checkbox" id="checkall" name="checkall" onclick="checkuncheckall();showvalidifdest();"/><span class="textStyle"><b> <%= t('tous_aucun') %></b></span>
+							<% @all_users.each do |user| %>
+								<div style="display:block;">
+									<input type="checkbox" name="chbxinput" id="chbxinput<%= user.id %>" value="<%= user.id %>" onclick="showvalidifdest();"><span class="textStyle" ><%= user.username %></span></input>
+								</div>  
+							<% end 
+						end %>
+					</div>
+					<div style="float:left;padding: 20px 20px 20px 20px;">
+						<input type="checkbox" id="contact_alf" name="contact_alf" onclick="showvalidifdest();"/><span class="textStyle"><b>contact_alfyft</b></span>	
+					</div>
+
+					<div style="float:left;padding: 20px 20px 20px 20px;display:none;" id="divresp">
+						<input type="checkbox" name="chbxinput" value="" id="resp_id" value="" onclick="showvalidifdest();"/><span class="textStyle" id="spanresp"></span>	
+					</div>
+					
+					<div style="float:left;padding: 20px 20px 20px 20px;">
+						<input type="submit" id="btnval" value="" class="btnvalid" style="display:none;float:right;"/>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+	(function() {
+	  var createStorageKey, host, uploadAttachment;
+	  Trix.config.attachments.preview.caption = {
+		name: false,
+		size: false
+	  };
+	  document.addEventListener("trix-attachment-add", function(event) {
+		var attachment;
+		attachment = event.attachment;
+		if (attachment.file) {
+		  return uploadAttachment(attachment);
+		}
+	  });
+	  uploadAttachment = function(attachment) {
+		var file, xhr;
+		file = attachment.file;
+		xhr = new XMLHttpRequest;
+		xhr.open("POST", "../ws/uploadimage", true);
+		xhr.setRequestHeader("X-CSRF-Token", document.getElementById("authenticity_token").value);
+		xhr.setRequestHeader("Content-Type", file.type);
+		xhr.upload.onprogress = function(event) {
+		  var progress;
+		  progress = event.loaded / event.total * 100;
+		  return attachment.setUploadProgress(progress);
+		};
+		xhr.onload = function() {
+		  var href, url;
+		  if (xhr.status === 200) {
+			imgname = "../images/" + xhr.responseText;
+			url = href = imgname;
+			return attachment.setAttributes({
+			  url: url,
+			  href: href
+			});
+		  }
+		};
+		return xhr.send(file);
+	  };
+	  createStorageKey = function(file) {
+		var date, day, time;
+		date = new Date();
+		day = date.toISOString().slice(0, 10);
+		time = date.getTime();
+		return "tmp/" + day + "/" + time + "-" + file.name;
+	  };
+
+	}).call(this);
+</script>   

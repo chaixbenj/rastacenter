@@ -1,0 +1,31 @@
+<div id='popup1'>
+
+
+	<div class="popupadd">
+		<% if @can_manage_element == 1 %>
+			<span class="titleStyle" style="color:#161616"><b>&nbsp;&nbsp;<%= t('ecr_dom_element.nouvel_element') %>&nbsp;&nbsp;</b></span> 
+			<br>
+			<div style='display: block'>
+
+				<%= render :partial => 'domelements/add' %>    			
+				<%= render :partial => 'domelements/search' %>    			
+				<%= render :partial => 'domelements/massiveinsert' %>    			
+			 
+			</div>   
+
+		<% end %>
+
+	</div>
+
+	<div style='display: block;margin-top:20px;'>   
+		<div id="domelements">	
+		<% if @domelements != nil %>    
+		<%= render  @domelements %>
+		<% end %>
+		</div>
+	</div> 
+
+	<iframe name="hiddenFrame" width="0" height="0" border="0" style="display: none;" onload="stoploader();"></iframe>
+
+  
+</div>

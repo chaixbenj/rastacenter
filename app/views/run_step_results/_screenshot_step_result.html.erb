@@ -1,0 +1,51 @@
+<% if run_step_result.steplevel != nil and run_step_result.steplevel == 'photo'  %>
+  <tr expended="" class="tr_result" <%  if run_step_result.has_diff.to_s != "1" %>status="nodiff"<%else%>status="diff"<%end%> <% if @photo.to_s == "" %>style="display:none"<% end %> name="<%= run_step_result.suite_id %>_<%= run_step_result.suite_sequence %>_<%= run_step_result.test_id %>_<%= run_step_result.test_node_id_externe %><% if run_step_result.atdd_test_id != 0 %>_<%= run_step_result.atdd_sequence %><% end %><% if @commentid != nil %>_<%= @commentid %><% end %>_<%= run_step_result.proc_id %>_<%= run_step_result.proc_sequence %>" level='photo'>
+      <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<% if moredec %>&nbsp;&nbsp;<% end %>
+
+      </td>
+      <td>
+			<% if run_step_result.lastpngname.to_s != "" and File.exists?("./public/screenshots/#{run_step_result.lastpngname}")%>
+			<% if run_step_result.refpngname == nil %>	
+			  <img width=90% style="max-width:600px" src="../screenshots/<%= run_step_result.lastpngname.to_s %>" onclick="openimage(this)" title="<%= t('ecr_run.run_photo') %>"/>
+			<% else %>
+				<% if run_step_result.diffpngname == nil %>
+				<img width=45% style="max-width:500px" id="runscsh<%= run_step_result.id_photo_last%>" src="../screenshots/<%= run_step_result.lastpngname.to_s %>" onclick="openimage(this)" title="<%= t('ecr_run.run_photo') %>"/>&nbsp;
+				<img width=45% style="max-width:500px" id="refscsh<%= run_step_result.id_photo_last%>" src="../screenshots/<%= run_step_result.refpngname.to_s %>" onclick="openimage(this)" title="<%= t('ecr_run.ref_photo') %>"/>&nbsp;
+				<%else%>
+				<img width=30% style="max-width:400px" id="runscsh<%= run_step_result.id_photo_last%>" src="../screenshots/<%= run_step_result.lastpngname.to_s %>" onclick="openimage(this)" title="<%= t('ecr_run.run_photo') %>"/>&nbsp;
+				<img width=30% style="max-width:400px" id="refscsh<%= run_step_result.id_photo_last%>" src="../screenshots/<%= run_step_result.refpngname.to_s %>" onclick="openimage(this)" title="<%= t('ecr_run.ref_photo') %>"/>&nbsp;
+				<img width=30% style="max-width:400px" id="diffscsh<%= run_step_result.id_photo_last%>" src="../screenshots/<%= run_step_result.diffpngname.to_s %>" onclick="openimage(this)" title="<%= t('ecr_run.diff_photo') %>"/>
+				<%end%>
+			<%end%>
+			<%else%>
+				<span class="textStyle">no screenshots</span>
+			<%end%>
+      </td>
+      <td > 
+
+      </td>
+      <td id="photo<%=  run_step_result.id_photo_last %>" <%  if run_step_result.has_diff.to_s != "1" %>bgcolor="#93FA5F"<%else%>bgcolor="#F96868"<%end%>>
+          <span class="textStyle"><%  if run_step_result.has_diff.to_s == "1" %><%= run_step_result.prct_diff.to_s.to_i * 0.01 %> %<%end%></span>
+      </td>
+      <td>
+		<% if @can_do_something == 1 %>
+         <button class="btnnote" title="<%=  t('ecr_run.ajouter_note') %>" style="float: left;" onclick="document.getElementById('contentpopup').innerHTML = '<object id=objpopup width=99% data=../run_step_results/comment?popup=true&step_id=<%= run_step_result.id %>></object>';
+                      window.location.href = '#popup';
+                      document.getElementById('popup').style.display = 'block';
+                      document.getElementById('objpopup').setAttribute('height', 0.50 * document.body.offsetHeight);"></button> 
+         <button class="btnbug" title="<%=  t('ecr_run.ajouter_bug') %>" style="float: left;" onclick="new_fiche('bug', '<%=  run_step_result.id %>', '');"></button> 
+         <button class="btnbug2" id="btnshowbugs<%= run_step_result.id %>" title="<%=  t('ecr_run.bug_declares') %>" style="float: left;display:none;" onclick="window.location.href = '#popupbug<%=  run_step_result.id %>';document.getElementById('popupbug<%=  run_step_result.id %>').style.display='block';"></button>  
+		<% if run_step_result.diffpngname != nil %>
+			<form  action="../run_step_results/setrefscreenshot" method="post" target="hiddenFrameNoLoad" style="display:inline-block">
+				<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+				<input type="hidden"  name="ref_id" value="<%= run_step_result.id_photo_ref%>"/>
+				<input type="hidden"  name="last_id" value="<%= run_step_result.id_photo_last%>"/>
+				<input type="hidden"  name="diff_id" value="<%= run_step_result.id_photo_diff%>"/>
+				<input id="btnreplace<%= run_step_result.id_photo_last%>" type="submit" class="btnreplace" title="<%=  t('ecr_run.remplacer_reference') %>" style="float: left;" value="" onclick="replace_screenshot(<%= run_step_result.id_photo_last%>)"></input> 
+			</form>
+			<% end %>
+			
+		<%end%>
+      </td>
+  </tr>
+<% end %>

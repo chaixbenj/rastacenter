@@ -1,0 +1,102 @@
+<tr>
+    <% if @campainname == nil%>
+		<td class="tabletdreport">
+			<% if @popup.to_s != "true" %><a href="../runs/index?rd=1&fcampain=<%= run.campain_id %>" style="cursor:pointer;">
+				<span class="textStyle"><% if run.campain_id == nil %>-<% else %><%= (run.name.to_s.split("|"))[1] %><%end%></span>
+				</a>
+			<%else%>
+				<span class="textStyle"><% if run.campain_id == nil %>-<% else %><%= (run.name.to_s.split("|"))[1] %><%end%></span>
+			<%end%>
+		</td>
+    <%end%>
+    <% if @popup == "true"%>
+		<td class="tabletdreport">
+			<span class="textStyle"><%= run.version_name %></span>
+		</td>
+    <% end %>
+    <td class="tabletdreport">
+		<%if run.campain_id != nil and run.campain_test_suite_id != nil %>
+			<% if @popup.to_s != "true" %>
+				<a href="../runs/index?rd=1&fsuite=<%= run.suite_id %>" style="cursor:pointer;">
+					<span class="textStyle"><%= (run.name.to_s.split("|"))[0] %></span>
+				</a>
+			<%else%>
+				<span class="textStyle"><%= (run.name.to_s.split("|"))[0] %></span>
+			<%end%>
+		<% end %>
+		<%if run.suite_id != nil and run.campain_test_suite_id == nil %>
+			<% if @popup.to_s != "true" %>
+				<a href="../runs/index?rd=1&fsuite=<%= run.suite_id %>" style="cursor:pointer;">
+					<span class="textStyle"><%= run.name %></span>
+				</a>
+			<%else%>
+				<span class="textStyle"><%= run.name %></span>
+			<%end%>
+		<% end %>
+		<%if run.test_id != nil and run.campain_test_suite_id == nil %>
+			<% if @popup.to_s != "true" %>
+				<a href="../runs/index?rd=1&ftest=<%= run.test_id %>" style="cursor:pointer;">
+					<span class="textStyle"><%= run.name %></span>
+				</a>
+			<%else%>
+				<span class="textStyle"><%= run.name %></span>
+			<%end%>
+		<% end%>
+    </td>
+
+    <td class="tabletdreport">
+        <span class="textStyle"><%= run.username %> <%= t('sur') %> <%= run.hostrequest %></span>
+    </td>
+    <td <%  if run.status == 'ended' and run.nbtestfail == 0 %>bgcolor="#93FA5F"<%end%><%  if run.status == 'ended' and run.nbtestfail > 0 %>bgcolor="#f48c42"<%end%> class="tabletdreport">
+        <span class="textStyle" id="status<%= run.run_id %>"><b><%= run.status %></b><%if run.name != nil %> : <% if run.nbtestpass + run.nbtestfail < run.nbtest %><span style='color:red'><% end %><%= run.nbtestpass + run.nbtestfail %>/<%= run.nbtest %> <% if run.nbtest>1 %><%= t('tests')%><% else %><%= t('test')%><%end%><% if run.nbtestpass + run.nbtestfail < run.nbtest %></span><% end %> <% if (run.nbtestpass + run.nbtestfail) > 0 %> (<%= run.nbtestpass %> OK <% if run.nbtestfail > 0 %>- <span style="color:red"><%= run.nbtestfail %> KO<%end%></span>) <%end%><%end%></span>
+    </td>
+    <td <%  if run.nbfail > 0 %>bgcolor="#F96868"<%end%> class="tabletdreport">
+        <span class="textStyle"><b><%= run.nbfail %></b></span>
+    </td>
+	<td <%  if run.nb_screenshots_diffs.to_s.to_i > 0 %>bgcolor="#F96868"<%end%> class="tabletdreport">
+        <form onsubmit="startloader();" action="../run_step_results/index" method="post" style='display:inline'>
+              <input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+              <input type="hidden" name="popup" value="<%= @popup %>"/>
+              <input type="hidden" name="run_id" value="<%= run.run_id %>"/>
+              <input type="hidden" name="photo" value="diff"/>
+              <span class="textStyle" onclick="this.parentNode.submit();" style="cursor:pointer"><b><%= run.nb_screenshots_diffs.to_s %></b></span>
+          </form>    
+    </td>
+    <td class="tabletdreport">
+        <span class="textStyle"><%= run.created_at.localtime.to_s[0..-7] %></span>
+    </td>
+    <td class="tabletdreport">
+        <span class="textStyle"><% if (run.nbtestfail + run.nbtestpass) > 0 and run.status == "ended"%><%= Time.at(run.updated_at - run.created_at).utc.strftime("%H:%M:%S") %><%end%></span>
+    </td>
+    <td class="tabletdreport">
+        <form onsubmit="startloader();" action="../run_step_results/index" method="post" style='float: left;display:inline'>
+              <input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+              <input type="hidden" name="popup" value="<%= @popup %>"/>
+              <input type="hidden" name="run_id" value="<%= run.run_id %>"/>
+              <input type='submit' class='btnreport' title='<%= t('voir')%>' value=''/>
+          </form>
+		<% if @can_do_something == 1 %>
+			<% if (@can_manage_public_campain == 1 and run.private == 0) or (run.run_user == @my_user_id) %>
+				<form onsubmit="startloader();" action="../runs/delete?popup=<%= @popup %>&campain_id=<%= @campain_id %>&suite_id=<%= @suite_id %>&test_id=<%= @test_id %>" method="post" style='float: left;display:inline'>
+					<input type='hidden' name='run_id' value='<%= run.run_id %>'/>
+					<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+					<input type='submit' class='btndel' title='<%= t('supprimer')%>' value='' data-confirm="<%= t('ecr_run.confirme_supp').gsub('{1}', run.run_id.to_s)%>" />
+				</form>
+			<% end %>  
+			<% if (@can_manage_public_campain == 1 and run.private == 0) or (run.run_user == @my_user_id) and run.status != 'ended'%>
+				<form action="../runs/stop?&run_id=<%= run.run_id %>" method="post" style='float: left;display:inline' target="hiddenFrame">
+					<input type='hidden' name='run_id' value='<%= run.run_id %>'/>
+					<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+					<input type='submit' class='btnfail' title='<%= t('stop')%>' value='' onclick="document.getElementById('status<%= run.run_id %>').innerHTML='ended';" />
+				</form>		  
+			<% end %> 
+			<% if (@can_manage_public_campain == 1 and run.private == 0) or (run.run_user == @my_user_id) and run.status == 'blocked'%>
+				<form action="../runs/unlock?&run_id=<%= run.run_id %>" method="post" style='float: left;display:inline' target="hiddenFrame">
+					<input type='hidden' name='run_id' value='<%= run.run_id %>'/>
+					<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+					<input type='submit' class='btnlaunch' title='<%= t('ecr_run.forcer_demarrer')%>' value='' onclick="document.getElementById('status<%= run.run_id %>').innerHTML='startable';" />
+				</form>		  
+			<% end %>
+		<% end %>
+    </td>
+</tr>

@@ -1,0 +1,27 @@
+<div id="content"  <% if @popup != nil and @popup.to_s == 'true' %> style="height: 100%;" <%end%>>
+	<%= render :partial => 'type_fiches/list' %>
+    
+	<div id="right">
+		<%= render :partial => 'type_fiches/add' %>
+		<% if @type_fiche != nil %>
+			<form onsubmit='startloader();' action="../type_fiches/update" method="post">
+				<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+				<input type="hidden" name="type_fiche_id" id="type_fiche_id" value="<%= @type_fiche.id %>"/>
+				<%= render :partial => 'type_fiches/detail' %>
+				<table class="leftTable90" id="fic_table_custo_field" border="2" cellpadding="4">
+					<%= render :partial => 'type_fiches/common_fields' %>
+					<%= render :partial => 'type_fiches/custom_fields' %>
+					<%= render :partial => 'type_fiches/comment_fields' %>
+				</table>
+			</form>
+		<% end %>
+    </div>
+</div>
+					  
+<div id="popup" class="modalPopup" >
+    <div style="width: 70%;height: 80%;">
+        <button onclick="document.getElementById('contentpopup').innerHTML = '';
+            document.getElementById('popup').style.display = 'none';window.location.href = '#';"  class="closePopup">X</button>
+        <div id="contentpopup" ></div>
+    </div>
+</div>

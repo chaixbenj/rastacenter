@@ -1,0 +1,24 @@
+<div id="left">
+	<div id="btnresize" class="btnresize" onmousedown="startresizediv(event, this);"></div>
+	<form onsubmit='startloader();' method="post">
+	<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+		<table >
+		  <tr>
+			  <td><input size=20 type="text" spellcheck='false' name="unames" id="unames" value="<%= @uname %>" class="recherche" placeholder="<%= t('input.placeholder.recherche') %>"/></td>
+			  <td><input value="" name="search" type="submit" class="btnsearch" vertical-align="middle" onclick="startloader();document.getElementById('pnamec').required=false;"/></td>
+		  </tr>
+		</table>
+		
+		<% @users.each do |user| %>
+		<% if  user.is_admin == 0 or user.id == @my_user_id %>
+		<a class="ligthline" id="user<%=user.id%>" href="../users/getone?usid=<%= user.id %>" onclick='startloader();'><%= user.login %>&nbsp;&nbsp;|&nbsp;&nbsp; <%= user.username %> <img style="float: right;" src="/assets/icones/btnedit1.png" title="<%= t('editer') %>"/></a>
+		<% end %>
+		<%  end %>
+	</form>
+</div>
+
+<script async type="application/javascript"> 
+    <% if @user != nil %>
+    surligne_selected("user<%= @user.id %>", "ligthline");
+    <% end %>
+</script>    

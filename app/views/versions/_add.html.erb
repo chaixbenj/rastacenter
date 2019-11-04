@@ -1,0 +1,17 @@
+<form onsubmit='startloader();' action="../versions/new" method="post">
+    <input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+
+    <table class="leftTable">
+      <tr>
+          <td>
+             <% if @can_manage_versions == 1 %>
+              <input size=30 maxlength='250' type="text" spellcheck='false' name="versioncre" id="versioncre" value="" class="recherche" placeholder="<%= t('ecr_version.ajouter') %>"/></td>
+              <td>
+              <input value="" name="add" type="submit" class="btnadd" title="<%= t('ajouter') %>" title="<%= t('ajouter') %>" vertical-align="middle" onclick="document.getElementById('versioncre').required=true;"/></td>
+          <% end %>
+          <td>
+		</td>
+      </tr>
+    </table>    
+	
+</form> 

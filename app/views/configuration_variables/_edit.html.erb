@@ -1,0 +1,22 @@
+<div id="right">
+	<%= render :partial => 'configuration_variables/add' %>
+    <% if @configurationvariable != nil %>
+    
+		<br>
+		<form onsubmit='startloader();' action="../configuration_variables/update" method="post">
+			<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+		
+			<table class="leftTable" id="vartable">
+				<%= render :partial => 'configuration_variables/namedesc' %>
+				<%= render :partial => 'configuration_variables/type' %>
+				<tr><td>&nbsp;</td></tr>
+				<%= render :partial => 'configuration_variables/values' %>
+			</table>
+
+			<input type="hidden" name="nbvalue" id="nbvalue" value="<% if @configurationvariablevalues == nil or @configurationvariablevalues.length == 0 %>1<% else %><%= @configurationvariablevalues.length %><% end %> "/>
+			<input type="hidden" name="varid" id="varid" value="<%= @configurationvariable.id %>"/>
+		
+		</form>
+    <% end %>
+
+</div>

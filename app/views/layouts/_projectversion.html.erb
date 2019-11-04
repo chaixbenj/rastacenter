@@ -1,0 +1,33 @@
+<div class="divprojvers">
+		<form style="display:inline-block;" id="formchangeproject" action="../projects/welcome" method="post">
+			<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+			<span class="textStyle" style='color:white'><%= t('projet')%></span>
+			<SELECT class="lookupbox" name="projectselectedinliste" id="projetliste" onchange="document.getElementById('formchangeproject').submit();">
+					<% if @selectedproject == nil %>
+						<OPTION selected value="-" selected><%= t('menu.selectionner_un_projet') %>
+					<% end %>
+					<% myprojects = @myprojects.split('|')
+					  for i in 0..myprojects.length-1
+						if i%2 == 0 %>
+					  <OPTION <% if @selectedproject==myprojects[i].to_i %>selected<% end %> value="<%= myprojects[i].to_i %>" ><%= myprojects[i+1].to_s %>
+					<% end
+					end %>
+			</SELECT>
+		</form>
+		<form style="display:inline-block;" id="formchangeversion" action="../projects/welcome">
+			<input type="hidden" name="sheettype" value="<%= @sheettype%>"/>
+			<span class="textStyle"  style='color:white'><%= t('version')%></span>
+			<SELECT class="lookupbox" name="versionselectedinliste" id="versionliste" onchange="deletePasteCookies();document.getElementById('formchangeversion').submit();">
+				<% myversions = @myversions.split('|')
+				for i in 0..myversions.length-1
+				if i%2 == 0 %>
+					<OPTION <% if @selectedversion==myversions[i].to_i %>selected<% end %> value="<%= myversions[i].to_i %>" ><%= myversions[i+1].to_s %>
+				<% end
+				end %>
+			</SELECT>
+		</form>
+
+	<% if @locked_project_version == 1 %>
+		<div class="btnlocked" title="<%= t('verouille') %>" style="display:inline-block;"></div>
+	<% end %>
+</div>

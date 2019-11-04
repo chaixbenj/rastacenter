@@ -1,0 +1,24 @@
+<br>    
+<input type="checkbox" id="checkall" name="checkall" onclick="checkuncheckall();"/><span class="textStyle"> <%= t('tous_aucun') %></span>
+<br>
+  <% @procedures.each do |procedure| %>
+
+    <div class="ligthline" style="padding:5px 5px 5px 5px;">
+        <div class="inline">
+            <input type="checkbox" id="<%=  procedure.id %>" name="chbxinput" <% if @can_manage_procedure == 0 %>disabled<% else %> onmousedown="checkShift(event, '<%=  procedure.id %>')" <% end %>/>
+            <span class="textStyle"><%= procedure.projectname %> / <%= procedure.funcname %> / <b><%= procedure.name %></b> (</span>
+			<% parameters = procedure.parameters.to_s.split("|$|")
+			   nbparam = ((parameters.length)/2).to_i
+			   if parameters.length - nbparam*2 > 0
+				  nbparam+=1
+			   end
+			   for i in 0..nbparam-1
+					if parameters[2*i].to_s.gsub(" ","") != "" %> 
+						<span style="textStyle"><%= parameters[2*i].to_s.gsub("\n", " ").gsub("'","\'") %><% if i < nbparam-1 %>&nbsp;,&nbsp;<% end %></span>
+					<% end  
+				end  %>  
+			<span class="textStyle">)</span>	
+			<button class="btncode" onclick='window.open("../procedures/edit?nw=1&popup=true&procedure_id=<%= procedure.id %>", "code <%= procedure.name %>", "directories=0,titlebar=0,toolbar=0,menubar=0,width=1000,height=800");' style="float: right;"/>
+		</div>
+	</div>
+<% end %>

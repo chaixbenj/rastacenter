@@ -1,0 +1,40 @@
+<% if @message != nil and environnement.id.to_s == @majid.to_s %>
+   <span id='idspanmessage' class='<% if @OK %>succesMessage<% else %>errorMessage<% end %>' onclick='this.parentNode.removeChild(this)' style='vertical-align: top;'><%= @message %>&nbsp;<b>x</b></span>
+  <% end %> 
+
+<div class="ligthline">
+<div class="inline">
+
+
+ <input <% if @can_manage_env_variable == 0 %>disabled<% end %> pattern="[A-Za-z0-9_]{2,50}" maxlength='50' onKeyUp="formatascode(this)" required size=40  class='inputboxlist' type="text" spellcheck='false' name="name" id="iname<%= environnement.id %>" value="<%= environnement.name %>" title="<%= t('ecr_environnement.format_titre') %>" onKeyDown='showupdateform("<%= environnement.id %>");' onchange='checknamevalidity("<%= environnement.id %>", "<%= environnement.name %>");'/>
+
+  <input <% if @can_manage_env_variable == 0 %>disabled<% end %> type="text" spellcheck='false' class='inputboxlist' name="description" id="idescription<%= environnement.id %>" size='100' value="<%= environnement.description %>" onKeyDown='showupdateform("<%= environnement.id %>");'/>
+
+  <% if @can_manage_env_variable == 1 %>
+	<form onsubmit="startloader();" action="/environnements/update" data-remote="true" rel="nofollow" data-method="put" style="display: none;" id="formupdt<%= environnement.id %>">
+            <input type="hidden" name="idelement" value="<%= environnement.id %>"/>
+            <input type="hidden" name="name" id="name<%= environnement.id %>" value=""/>
+            <input type="hidden" name="description" id="description<%= environnement.id %>" value=""/>
+            <input class="btnvalid" title="<%= t('valider') %>" type="submit" value=""  onclick="document.getElementById('name<%= environnement.id %>').value=document.getElementById('iname<%= environnement.id %>').value;document.getElementById('description<%= environnement.id %>').value=document.getElementById('idescription<%= environnement.id %>').value;" style='vertical-align: top;' onmouseover='checknamevalidity("<%= environnement.id %>", "<%= environnement.name %>");'/>
+	</form>
+<% end %>
+  
+<%=  link_to image_tag("/assets/icones/btnvariable1.png"), { :controller => :environnement_variables, :action => :getone, :envone => environnement.id}, class: "btn", onclick: "startloader();", title: t('variables')  %>
+  
+<% if @can_manage_env_variable == 1  %>
+    <%= button_to "",  environnement_path(environnement), remote: true, method: :delete, form: {onsubmit: "startloader();"}, data: { confirm: "#{t('ecr_environnement.confirme_supp')} #{environnement.name}?"  }, class: "btndel", title: t('supprimer') %>
+<% end %>
+
+
+	
+
+</div>
+</div>
+<script>
+          setTimeout(function () {
+            elem = document.getElementById('idspanmessage');
+            if (elem!=null) {
+              elem.parentNode.removeChild(elem);
+            }
+        }, 2000);
+</script>  

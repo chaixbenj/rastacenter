@@ -1,0 +1,149 @@
+			  <form id="formloadsheet" style="display: inline;" onsubmit="startloader();" method="post">
+				  <input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+				  <input type='hidden' name="popup" value="<%=@popup%>"/>
+				  <span class="textStyle" ><%= t('ecr_test.selectionner_une_feuille_de_conception') %></span>
+				  <select id="sheettoload" name="redirect" class='lookupbox' onchange="if (this.value != '-') {document.getElementById('formloadsheet').submit();
+}">
+							  <% if @sheets != nil  %>
+						<option value='-'>-</option>
+						<% @sheets.each do |sheet| %>
+						  <option <%  if (@sheet != nil and @sheet.id==sheet.sheet_id) %>selected<% end %>   value="<%= sheet.sheet_id  %>"><%= sheet.project_name  %> - <%= sheet.sheet_name  %></option>
+						<%  end
+						end %>
+				  </select>
+				  <input type="hidden" name="test_id" id="test_id" value="<%= @test_id %>"/>
+				  <input type="hidden" name="back_to_id" value="showtestid=<%= @test_id %>"/>
+				  <input type="hidden" name="sheetinit" id="sheetinit" value="<%= @sheet_id %>"/>
+				  <input type="hidden" name="idnodetocentre" id="idnodetocentre" value=""/>
+				  <input type="hidden" name="write" id="write" value="<%= @modmodif  %>"/>
+				  <input type="hidden" name="lock" id="lock" value="<%= @testLocked  %>"/>
+				  <input type="hidden" name="load" value="1"/>
+				  <input type="hidden" id="formloadsheetdisplay" name="display" value=""/>
+				  <input type="hidden" name="atddsteps" value="<%=@atddsteps%>"/>
+			  </form>
+			  <% if @testLocked %>
+				<% if @lockBy == nil %>
+				  <% if @modmodif == "0" %>
+					<span class="errorMessage" onclick='this.parentNode.removeChild(this)'><%= t('ecr_test.msg_mode_lecture') %>&nbsp;&nbsp;&nbsp;<b>x</b></span>
+				  <% else %>
+					<% if @locked_project_version == 0 %>
+					  <span class="errorMessage" onclick='this.parentNode.removeChild(this)'><%= t('ecr_test.msg_droit_insuffisant') %>&nbsp;&nbsp;&nbsp;<b>x</b></span>
+					<% else %>
+					  <span class="errorMessage" onclick='this.parentNode.removeChild(this)'><%= t('ecr_sheet.msg_version_verrouillee') %>&nbsp;&nbsp;&nbsp;<b>x</b></span>
+					<% end %>
+				  <% end %>
+				<% else %>
+				  <span class="errorMessage" onclick='this.parentNode.removeChild(this)'><%= t('ecr_test.msg_test_verrouille').gsub('{1}', @lockBy) %>&nbsp;&nbsp;&nbsp;<b>x</b></span>
+				<% end %>
+			  <% end %>
+
+
+			  <div id="wrapper1">
+				  <div id="div1"></div>
+			  </div>
+			  <div id="wrapper2" onmousedown="startmoveallsvg(event);" style="height: calc(100% - 20px);">
+
+				  <div id="div2">
+
+					  <input type='hidden' id='scale' value='1'/>
+					  <button class='btnzplus' onclick='zoomsvg(1.25);'></button>
+					  <button class='btnzmoins' onclick='zoomsvg(0.8);'></button>
+					  <svg id="svg" name="svg" width="3000" height="3000" background-color='white' >
+
+					  </svg>
+
+
+
+
+
+
+					  <svg id="svg2" name="svg2" width="0" height="0" background-color='white' >
+					  <defs>
+					  <marker id="circlehead" markerWidth="6" markerHeight="6" refX="1" refY="3" orient="auto" stroke="black">
+						  <circle cx="3" cy="3" r="2" stroke="black" stroke-width="1" fill="green" />
+					  </marker>
+					  <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="7" refY="2" orient="auto" stroke="black">
+						  <polygon points="0 0, 6 2, 0 4" fill="black"/>
+					  </marker>
+
+					  <linearGradient id="OrangeDegrade">
+					  <stop offset="5%" stop-color="#F60" />
+					  <stop offset="95%" stop-color="#FF6" />
+					  </linearGradient>
+
+					  <linearGradient
+						  id="vertDegrade">
+					  <stop
+						  style="stop-color:#afe9c6;stop-opacity:1;"
+						  offset="0"
+						  id="stop6011" />
+					  <stop
+						  style="stop-color:#afe9c6;stop-opacity:0;"
+						  offset="1"
+						  id="stop6013" />
+					  </linearGradient>
+					  </defs>
+					  </svg>
+
+
+				  </div>
+
+			  </div>
+		  </div>
+
+		  <form id="formredirsheet" method="post">
+			  <input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+			  <input type="hidden" name="sheet_id" id="redirsheet" value=""/>
+			  <input type="hidden" name="test_id" id="test_id" value="<%= @test_id %>"/>
+			  <input type="hidden" name="back_to_id" value="showtestid=<%= @test_id %>"/>
+			  <input type="hidden" name="write" id="write" value="<%= @modmodif  %>"/>
+			  <input type="hidden" name="lock" id="lock" value="<%= @testLocked  %>"/>
+			  <input type="hidden" name="load" value="1"/>
+			  <input type='hidden' name="popup" value="<%=@popup%>"/>
+			  <input type="hidden" name="atddsteps" value="<%=@atddsteps%>"/>
+		  </form>
+		  
+<script type="application/javascript">
+	  $(function(){
+	  $("#wrapper1").scroll(function(){
+		$("#wrapper2").scrollLeft($("#wrapper1").scrollLeft());
+	  });
+	  $(".wrapper2").scroll(function(){
+		$("#wrapper1").scrollLeft($("#wrapper2").scrollLeft());
+	  });
+	});
+     function loadDiagramme() {
+	<% if @atdd != "1" %>
+			document.getElementById('popup').style.display='none';
+
+			 svg = document.getElementById('svg');
+			 svg.parentNode.replaceChild(svg.cloneNode(false), svg);
+
+	  <% if @nodes!=nil
+		@nodes.each do |node| %>
+					  mx=<%= node.x %>;
+					  my=<%= node.y %>;
+					  name='<%= node.name.gsub("\r\n","\\n") %>';
+					  matrix = 'matrix(1 0 0 1 ' + mx.toString() + ' ' + my.toString() + ')';
+
+					  newAppElemDesign(<%= node.id_externe %>, matrix, name, '<%= node.obj_type %>', '<%= node.obj_id %>', true, true, 'testedit');
+					  if (numelem < <%= node.id_externe %>) {
+						numelem = <%= node.id_externe %>;
+					  }
+		<% end
+		end %>
+	  <% if @links!=nil
+		@links.each do |link| %>
+					  mostShortLine(<%= link.node_father_id_fk %>, <%= link.node_son_id_fk %>, true, true, <% if link.curved == nil or link.curved == 0 %> null, null, null <%  else %><%= link.inflexion_x %>, <%= link.inflexion_y %>, <%= link.curved %> <% end %> , null);
+		<% end
+		end %>
+
+	  <% if @idnodetocentre != nil and @idnodetocentre != "" %>
+						  cibleStep(<%= @sheet_id %>, <%= @idnodetocentre %>)
+	  <% end %>
+	<% end %>
+    }
+</script>		  
+<script>
+  loadDiagramme();
+</script>		  

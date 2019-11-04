@@ -1,0 +1,86 @@
+<br>
+<br>
+
+<!-- bloc insertion action -->
+
+<table>
+  <tr>
+    <td valign='top' width="auto">
+        <span class="textStyle">&nbsp;&nbsp;<%= t('ecr_procedure.inserer_une_action') %> &nbsp;&nbsp;</span>
+</td><td valign='top'>
+        <select id="select_action_to_add" name="select_action_to_add"  class='inputbox' onchange="action_return=this.options[this.selectedIndex].getAttribute('data-return');displayActionToAddParam();"> 
+            <option value="" select>-</option>
+            <% @actions.each do |action| 
+			  sreturn = ""
+				  if action.code != nil
+				  code = action.code.to_s.split("\n")
+					code.each do |lc|
+						if lc.strip.start_with? "return "  then sreturn = lc.strip.gsub("return ", "") end
+					end
+				  if sreturn != ""
+					sreturns = sreturn.split(",")
+					for i in 0..sreturns.length-1
+						sreturns[i] = 'r_' + sreturns[i].strip
+					end
+					sreturn = sreturns.join(", ")
+				  end
+			  end
+			  %>			
+            <option value="<%= action.id %>" data-return="<%=sreturn%>"><%= action.name %></option>
+            <% end %>
+        </select><div id="btnaddaction" class='btnadd' onclick='addProcedureActionToCode();' style="display:none;"></div>
+    
+    <div id="tdaddactionparams"  valign='top'/></td>
+  </tr>
+
+
+
+      <!-- inserer variable test / env -->
+	  <tr>
+              <td><span class="textStyle">&nbsp;&nbsp;<%= t('ecr_procedure.inserer_une_variable_de_conf') %> <br>&nbsp;&nbsp;<%= t('ecr_procedure.ou_d_environnement_ou_constante') %> &nbsp;&nbsp;</span></td>
+              <td><select id="typeinsert" class='inputbox' onchange="document.getElementById('conf').style.display='none';document.getElementById('env').style.display='none';document.getElementById('const').style.display = 'none';document.getElementById('jdd').style.display = 'none';document.getElementById(this.value).style.display='inline';">
+                      <option selected value="conf"><%= t('ecr_procedure.variable_de_conf') %></option>
+                      <option value="env"><%= t('ecr_procedure.variable_d_env') %></option>
+					  <option value="const"><%= t('ecr_procedure.constante_test') %></option>
+					  <option value="jdd"><%= t('ecr_procedure.variable_jdd') %></option>
+                  </select>
+              
+                  <select id="conf" class='inputbox' style="display: inline;" >
+                      <% if @configurationvariables != nil 
+                          @configurationvariables.each do |configurationvariable| %>
+                          <option value="<%=  configurationvariable.name %>"><%=  configurationvariable.name %></option>
+                      <% end
+                         end%>
+                  </select>
+              
+                  <select id="env" class='inputbox' style="display: none;">
+                      <% if @environnementvariables != nil 
+                          @environnementvariables.each do |environnementvariable| %>
+                          <option value="<%=  environnementvariable.name %>"><%=  environnementvariable.name %></option>
+                      <% end
+                         end%>
+                  </select>
+				  
+				  <select id="const" class='inputbox' style="display: none;">
+                            <% if @testconstantes != nil 
+                              @testconstantes.each do |testconstante| %>
+                                <option value="<%=  testconstante.name %>"><%=  testconstante.name %></option>
+                              <% end
+                            end%>
+                        </select>
+						
+					<select id="jdd" class='inputbox' style="display: none;">
+                            <% if @data_set_variables != nil 
+								@data_set_variables.each do |data_set_variable| %>
+                                <option value="<%=  data_set_variable.name %>"><%=  data_set_variable.name %></option>
+                              <% end
+								end%>
+                        </select>
+				  
+                  <img src="/assets/icones/btndroitevert1.png" no-repeat onclick="addTextToCode(document.getElementById(document.getElementById('typeinsert').value).value);" style="padding-top: 5px;"></img>
+              </td>    
+      </tr>
+
+      <!-- fin inserer variable test / env -->
+
+</table>

@@ -1,0 +1,20 @@
+<% if run_step_result.steplevel != nil and run_step_result.steplevel == 'comment'  
+@commentid = 'c' + run_step_result.proc_sequence.to_s %>
+  <tr expended="" class="tr_result" status="comment" style="display:none" bgcolor="#7dc4b7"  id="<%= run_step_result.suite_id %>_<%= run_step_result.suite_sequence %>_<%= run_step_result.test_id %>_<%= run_step_result.test_node_id_externe %><% if run_step_result.atdd_test_id != 0 %>_<%= run_step_result.atdd_sequence %><% end %>_<%= @commentid %>"  name="<%= run_step_result.suite_id %>_<%= run_step_result.suite_sequence %>_<%= run_step_result.test_id %>_<%= run_step_result.test_node_id_externe %><% if run_step_result.atdd_test_id != 0 %>_<%= run_step_result.atdd_sequence %><% end %>" level='comment'>
+      <td>&nbsp;&nbsp;&nbsp;&nbsp;<% if moredec %>&nbsp;&nbsp;<% end %>
+          <span  class="plusmoins" onclick="showhidereportline(this);" id="signe<%= run_step_result.suite_id %>_<%= run_step_result.suite_sequence %>_<%= run_step_result.test_id %>_<%= run_step_result.test_node_id_externe %><% if run_step_result.atdd_test_id != 0 %>_<%= run_step_result.atdd_sequence %><% end %>_<%= @commentid %>"><b>+&nbsp;&nbsp;</b></span>
+      </td>
+      <td>
+          <span class="textStyle"><%= run_step_result.detail %> </span>
+      </td>
+      <td>
+          <span class="textStyle"><%= run_step_result.expected %> </span>
+      </td>
+      <td id="result<%=  run_step_result.id %>"  bgcolor="#7dc4b7">
+          
+      </td>
+      <td>
+	  
+      </td>
+  </tr>
+<% end %>

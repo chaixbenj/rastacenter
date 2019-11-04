@@ -1,0 +1,29 @@
+<form class="new_domelement" id="new_domelement" action="/domelements" accept-charset="UTF-8" data-remote="true" method="post" onsubmit="startloader();">
+	<div style="display: inline-block">
+		<div style="display: inline">
+		 <input  required size=20  maxlength='50' class='inputbox' type="text" spellcheck='false' name="name" id="domelement_domelement_name" placeholder="<%= t('nom') %>"/>
+
+		<SELECT  class='inputbox' name="strategie" id="domelement_domelement_strategie">
+		<% @findstrategies.each do |strategie| %> 
+		<OPTION value="<%= strategie.name %>" ><%= strategie.name %>
+		<% end %>
+		</SELECT>
+
+		<textarea rows='1' cols='80' required maxlength='500' class='inputbox' type="text" spellcheck='false' name="path" id="domelement_domelement_path" placeholder="<%= t('ecr_dom_element.strategie_path_format') %>"  maxlength="500"></textarea>
+
+		<textarea spellcheck='false' class='inputbox' name="description" id="domelement_domelement_description" rows='1' cols='40' placeholder="<%= t('description') %>"></textarea>
+
+		<input type="submit" class="btnadd" title="<%= t('ajouter') %>" value="" onclick="document.getElementById('pasteadd').value='add';"></input>
+		<div class="btnsearch" onclick="$('#search_element').val($('#domelement_domelement_name').val());$('#formsearch').submit();" style="display: inline-block;"></div> 
+		<div class="btncsv" onclick="if (document.getElementById('massiveinsert').style.display=='none') {document.getElementById('massiveinsert').style='display:inline-block;margin-top:30px;'} else {document.getElementById('massiveinsert').style.display='none'}" style="display: inline-block;"></div>
+		<div  id='divbtnpaste' style="display: inline;">
+			<button id='btnpaste' class="btnpaste" style="display: <% if cookies[:domelement_copy].to_s != "" %>inline<% else %>none<% end %>;" title="<%= t('coller') %>"  onclick="document.getElementById('domelement_domelement_path').value='';document.getElementById('domelement_domelement_path').required=false;document.getElementById('domelement_domelement_name').value='';document.getElementById('domelement_domelement_name').required=false;document.getElementById('pasteadd').value='paste';document.getElementById('btnpaste').style.display='none';"></button>
+		</div>
+		</div>
+	</div>	
+	
+	<input type="hidden" name="funcandscreen_id" id="funcandscreen_id" value="<%= @funcscreen_id %>"/>  
+	<input type="hidden" name="version_id" id="version_id" value="<%= @version_id %>"/>  
+	<input type="hidden" name="popup" value="<%= @popup %>"/>
+	<input type="hidden" name="pasteadd" id="pasteadd" value=""/>
+</form>  

@@ -1,0 +1,24 @@
+<tr>
+	<td colspan=3>
+		<span class="titleStyle"><%= t('ecr_type_fiche.contenu_de_la_fiche') %> : </span>
+		<div class="btnseen" style="float:right;" title="<%=  t('voir') %>" style="float: left;" onclick="document.getElementById('contentpopup').innerHTML = '<object id=objpopup width=99% data=../type_fiches/show?popup=true&type_fiche_id=<%= @type_fiche.id %>></object>';
+			  window.location.href = '#popup';
+			  document.getElementById('popup').style.display = 'block';
+			  document.getElementById('objpopup').setAttribute('height', 0.80 * document.body.offsetHeight);"></div>
+	</td>
+</tr>
+<tr bgcolor='grey'>
+	<td colspan=3>
+		<input class="inputbox" name="fic_desc" disabled type="text" size="100" placeholder="<%= t('ecr_type_fiche.description') %>">
+	</td>
+</tr>
+<tr bgcolor='grey'>
+	<td width="33%"><span class="textStyle"><%= t('ecr_type_fiche.status') %> : </span><select name="fic_state" disabled class="inputbox"><option>Workflow element status</option></select></td>
+	<td width="33%"><span class="textStyle"><%= t('ecr_type_fiche.cycle_assigne') %> : </span><select name="fic_state" disabled class="inputbox"><option><%= t('ecr_type_fiche.cycles') %></option></select></td>
+	<td width="33%"><span class="textStyle"><%= t('ecr_type_fiche.priorite') %> : </span><select name="fic_state" disabled class="inputbox"><option>Priority</option></select></td>
+</tr>
+<tr bgcolor='grey'>
+	<td><span class="textStyle"><%= t('ecr_type_fiche.assigne_a') %> : </span><select name="fic_state" disabled class="inputbox"><option><%= t('ecr_type_fiche.utilisateurs') %></option></select></td>
+	<td><span class="textStyle"><%= t('ecr_type_fiche.creer_par') %> : username, <%= Time.now.localtime.to_s[0..-7] %></span></td>
+	<td></td>
+</tr>

@@ -1,0 +1,39 @@
+<% if @message != nil and test_constante.id.to_s == @majid.to_s %>
+   <span id='idspanmessage' class='<% if @OK %>succesMessage<% else %>errorMessage<% end %>' onclick='this.parentNode.removeChild(this)' style='vertical-align: top;'><%= @message %>&nbsp;<b>x</b></span>
+  <% end %> 
+
+<div class="ligthline">
+<div class="inline">
+
+	<form onsubmit="startloader();" action="/test_constantes/update" data-remote="true" rel="nofollow" data-method="put" style="display: inline-block;" id="formupdt<%= test_constante.id %>">
+            <input type="hidden" name="idelement" value="<%= test_constante.id %>"/>
+			
+			<input <% if @can_manage_test_constante != 1 %>disabled<%end%> name="name" pattern="\$[A-Za-z0-9_]{2,50}" onKeyUp="formatasvariable(this)" required size="30" maxlength='50'  class='inputboxlist' type="text" spellcheck='false' name="name" id="iname<%= test_constante.id %>" value="<%= test_constante.name %>" title="<%= test_constante.name %>" onKeyDown='showvalidbtnid(<%= test_constante.id %>);' onchange='checknamevalidity("<%= test_constante.id %>", "<%= test_constante.name %>");'/>
+			
+			<input <% if @can_manage_test_constante != 1 %>disabled<%end%> name="value" type="text" maxlength='250' onKeyUp="formatslash(this);" spellcheck='false' class='inputboxlist' name="value" id="ivalue<%= test_constante.id %>" size="70" value="<%= test_constante.value %>" title="<%= test_constante.value %>" onKeyDown='showvalidbtnid(<%= test_constante.id %>);' placeholder="<%= t('valeur') %>"/> 
+ 
+			<input <% if @can_manage_test_constante != 1 %>disabled<%end%> name="description" type="text" maxlength='250' spellcheck='false' class='inputboxlist' name="description" id="idescription<%= test_constante.id %>" size="40" value="<%= test_constante.description %>" title="<%= test_constante.description %>" onKeyDown='showvalidbtnid(<%= test_constante.id %>);' placeholder="<%= t('description') %>"/>
+
+			<input <% if @can_manage_test_constante != 1 %>disabled<%end%> type='checkbox' name='isn' id='isn<%= test_constante.id %>' <%if test_constante.is_numeric.to_s == "1"%>checked<%end%> onclick="showvalidbtnid(<%= test_constante.id %>);if (this.checked==true) {document.getElementById('isb<%= test_constante.id %>').checked=false;}"></input><span class="textStyle"><%= t('numeric')%></span>
+			<input <% if @can_manage_test_constante != 1 %>disabled<%end%> type='checkbox' name='isb' id='isb<%= test_constante.id %>' <%if test_constante.is_boolean.to_s == "1"%>checked<%end%> onclick="showvalidbtnid(<%= test_constante.id %>);if (this.checked==true) {document.getElementById('isn<%= test_constante.id %>').checked=false;}"><span class="textStyle"><%= t('boolean')%></span></input>
+
+            <input id="btnval<%= test_constante.id %>" class="btnvalid" style="display:none" title="<%= t('valider') %>" type="submit" value=""  style='vertical-align: top;' onmouseover='checknamevalidity("<%= test_constante.id %>", "<%= test_constante.name %>");'/>
+	</form>
+  
+<% if @can_manage_test_constante == 1  %>
+    <%= button_to "",  test_constante_path(test_constante), remote: true, method: :delete, form: {onsubmit: "startloader();"}, data: { confirm: "#{t('ecr_test_constante.confirme_supp')} #{test_constante.name}?"  }, class: "btndel", title: t('supprimer') %>
+<% end %>
+
+
+	
+
+</div>
+</div>
+<script>
+          setTimeout(function () {
+            elem = document.getElementById('idspanmessage');
+            if (elem!=null) {
+              elem.parentNode.removeChild(elem);
+            }
+        }, 2000);
+</script>  

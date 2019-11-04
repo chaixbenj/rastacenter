@@ -1,0 +1,6 @@
+<% if @username == "superadmin" %>
+	<div id="content"  <% if @popup != nil and @popup.to_s == 'true' %> style="height: 100%;" <%end%>>
+		<%= render :partial => 'domaines/list' %>    
+		<%= render :partial => 'domaines/detail' %>    
+	</div>
+<% end %>

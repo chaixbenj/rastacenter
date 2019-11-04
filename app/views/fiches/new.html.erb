@@ -1,0 +1,6 @@
+    <% if @type_fiches != nil
+    @type_fiches.each do |type_fiche| %>
+<div class="divselectfiche">
+    <a  class="selectfiche" style="background-color:<%=type_fiche.color%>;" id="type_fiche<%=type_fiche.id%>" href="../fiches/edit?&type_fiche_id=<%= type_fiche.id %>&father_id=<%= @father_id %>" onclick='startloader();' title="<%= type_fiche.name %>"><b><%= type_fiche.name %></b></a>
+</div>  <%  end 
+    end%>

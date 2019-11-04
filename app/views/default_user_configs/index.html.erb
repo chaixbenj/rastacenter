@@ -1,0 +1,29 @@
+<div id="scrollablecontent">
+<% if @can_do_something == 1 %>
+        <form action="../default_user_configs/update" method="post">
+            <input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+            <br>
+            <table style="margin-left:10px;">
+				<tr>
+					<td>
+						<span class="textStyle"><b><%=  t('machine') %></b></span>
+					</td>
+					<td>
+						<select name="computer" class="inputbox" onchange="showvalidbtn();">
+							<option <% if @default_computer == "" %>selected<% end %> value="">-</option>
+                                  <% @computers.each do |computer| %>
+                                <option <% if @default_computer ==  computer.hostrequest %>selected<% end %> value="<%=  computer.hostrequest %>"><%=  computer.hostrequest %></option>
+                              <% end %>            
+                        </select> 
+                    </td>
+					<td>
+						<input value="" style="display: none" id="btnval" type="submit" class="btnvalid" title="<%= t('valider') %>" onclick="startloader();"/>
+					</td>
+				</tr>
+
+				<%= render :partial => 'default_user_configs/configs' %>         
+				
+			</table>
+        </form>
+	<%end%>
+</div>

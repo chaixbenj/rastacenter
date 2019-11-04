@@ -1,0 +1,47 @@
+<% if @suitename != nil %>
+  <span class='textStyle'><%= t('suite_de_test')%> : <b><a onclick="startloader();" class="textLink" href="../sheets/edit?write=1&sheet_id=<%= @suite_id %>&load=1&sheettype=test_suite&back_to_id=shid%3D<%= @suite_id %>"><%= @suitename %></a></b>  </span>&nbsp;&nbsp;
+<%end%>
+<% if @testname != nil %>
+  <span class='textStyle'><%= t('test')%> : <b><a  onclick="startloader();" class="textLink"  href="../tests/edit?test_id=<%= @test_id %>&write=1&load=1&back_to_id=showtestid%3D<%= @test_id %>%26do%3Dshowtest" ><%= @testname %></a></b>  </span>
+<%end%>
+<% if @campainname != nil and (@popup == 'false' or @filtre == true) %>
+  <span class='textStyle'><%= t('campagne')%> : <b><a onclick="startloader();" class="textLink"  href="../campains/edit?write=1&campain_id=<%= @campain_id %>&back_to_id=campain_id%3D<%= @campain_id %>%26show%3Ddetail"><%= @campainname %></a></b>  </span>
+<%end%>
+<button class="btnrefresh" title="<%= t('recharger') %>" onclick="startloader();document.getElementById('formreload').submit();"  style="display:inline-block;margin-top:3px;"></button>
+
+<% if @filtre %>
+	<a onclick="startloader();"  href="../runs/index" title="<%= t('ecr_run.supprimer_filtre')%>" style="display:inline-block;padding-left:20px;margin-top:3px;"><div class="btnnofiltre"></div></a>   
+	<% end %>
+	<% if @conceptionsheets != nil %>
+	<div style="float:right; margin-right:30px;">
+		 <span class="textStyle" ><%= t('ecr_run.couverture_de_la_feuille_de_conception') %></span>
+		<form id="loadconceptionsheetresult" style="display: inline;" action="../sheets/edit"  >
+			<!--select name="sheet_id" class='lookupbox' onchange="startloader();document.getElementById('loadconceptionsheetresult').submit();"-->
+			<select name="sheet_id" class='lookupbox' onchange="if (this.value !='') {document.getElementById('contenu').innerHTML='<object width=99% height=' + (document.body.offsetHeight - 40) + 'px data=../sheets/edit?fromrun=true&popup=true&sheettype=conception_sheet&write=0&campain=<%= @campain_id %>&sheet_id=' + this.value + '></object>';}">
+					<option value="" selected>-</option>
+				  <% @conceptionsheets.each do |sheet| %>
+					  <option value="<%= sheet.id  %>"><%= sheet.name  %></option>
+					  <%  end %>
+			  </select>
+			<input type="hidden" name="popup" value="<% if @filtre %>false<%else%>true<%end%>"/>
+			<input type="hidden" name="sheettype" value="conception_sheet"/>
+			<input type="hidden" name="write" value="0"/>
+			<input type="hidden" name="campain" value="<%= @campain_id %>"/>
+		</form>
+	</div>	
+<%end%>
+
+<br>
+<br>
+
+<form id="formreload" method="post">
+	<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+	<input type="hidden" name="popup" value="<%= @popup %>"/> 
+	<input type="hidden" name="test_id" value="<%= @test_id %>"/> 
+	<input type="hidden" name="suite_id" value="<%= @suite_id  %>"/>
+	<input type="hidden" name="campain_id" value="<%= @campain_id  %>"/>
+	<input type="hidden" name="fsuite" value="<%= @fsuite_id  %>"/>
+	<input type="hidden" name="ftest" value="<%= @ftest_id  %>"/>
+	<input type="hidden" name="fcampain" value="<%= @fcampain_id  %>"/>
+</form>
+<iframe id="hiddenFrame" name="hiddenFrame" width="0" height="0" border="0" style="display: none;"></iframe>   

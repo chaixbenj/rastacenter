@@ -1,0 +1,960 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 12 juil. 2017, 12:39:47
+    Author     : bchaix
+*/
+
+
+.menuadmin{
+    background:url(icones/menuadmin.png) no-repeat;
+    background-position: center; 
+    cursor:pointer;
+    border:none;
+    width:60px;
+    height:31px;
+    margin-left: 100px;
+    margin-right: 100px;
+    vertical-align: bottom;
+}
+.menuparametrer{
+    background:url(icones/menuparametrer.png) no-repeat;
+    background-position: center; 
+    cursor:pointer;
+    border:none;
+    width:60px;
+    height:31px;
+    margin-left: 10px;
+    margin-right: 10px;
+    vertical-align: bottom;
+}
+.menuconcevoir{
+    background:url(icones/menuconcevoir.png) no-repeat;
+    background-position: center; 
+    cursor:pointer;
+    border:none;
+    width:60px;
+    height:31px;
+    margin-left: 10px;
+    margin-right: 10px;
+    vertical-align: bottom;
+}
+.menuexecuter{
+    background:url(icones/menuexecuter.png) no-repeat;
+    background-position: center; 
+    cursor:pointer;
+    border:none;
+    width:60px;
+    height:31px;
+    margin-left: 10px;
+    margin-right: 10px;
+    vertical-align: bottom;
+}
+
+.menukanban{
+    background:url(icones/menukanban.png) no-repeat;
+    background-position: center; 
+    cursor:pointer;
+    border:none;
+    width:60px;
+    height:31px;
+    margin-left: 10px;
+    margin-right: 10px;
+    vertical-align: bottom;
+}
+
+.menuaide{
+    position: fixed; 
+    background:url(icones/menuaide.png) no-repeat;
+    background-position: top; 
+    cursor:pointer;
+    border:none;
+    width:60px;
+    height:42px;
+    top: 2px;
+    right: 80px;
+}
+.menututo{
+    background:url(icones/menututo.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:21px;
+    height:21px;
+    position: fixed; 
+    top: 45px;
+    left: 20px; 
+}
+.menututo2{
+    background:url(icones/menututo2.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:21px;
+    height:21px;
+}	
+.menulogout{
+    position: fixed; 
+    background:url(icones/menulogout.png) no-repeat;
+    background-position: top; 
+    cursor:pointer;
+    border:none;
+    width:60px;
+    height:42px;
+    top: 2px;
+    right: 20px;
+}
+
+
+.menulogin{
+    background:url(icones/menulogin.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:40px;
+    height:42px;
+    //float: right;
+	vertical-align: middle;
+}
+
+.btn{
+    cursor:pointer;
+    border:none;
+    width:21px;
+    height:21px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+}
+
+.btnaddfiche{
+    background:url(icones/btnaddfiche1.png) no-repeat;
+    position: fixed; 
+    top:43px;
+    right:0px;
+    cursor:pointer;
+    border:none;
+    width:42px;
+    height:33px;
+}
+
+.btnlocked{
+    background:url(icones/btnlocked1.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:11px;
+    height:11px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+}
+
+.btndelocked{
+    background:url(icones/btndelocked1.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:11px;
+    height:11px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+}
+
+.btnen{
+    background:url(icones/en.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:28px;
+    height:27px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+    float:right;
+}
+.btnes{
+    background:url(icones/es.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:28px;
+    height:27px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+    float:right;
+}
+.btnfr{
+    background:url(icones/fr.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:28px;
+    height:27px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+    float:right;
+}
+
+.btncsv{
+    background:url(icones/btncsv1.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:21px;
+    height:21px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+}
+
+.btnnotif{
+    background:url(icones/btnnotif1.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:21px;
+    height:21px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+}
+
+.btnzplus{
+    background:url(icones/btnzoomplus1.png) no-repeat;
+    position: fixed; 
+    bottom:0px;
+    right:42px;
+    cursor:pointer;
+    border:none;
+    width:42px;
+    height:42px;
+}
+
+.btnzmoins{
+    background:url(icones/btnzoommoins1.png) no-repeat;
+    position: fixed; 
+    bottom:0px;
+    right:85px;
+    cursor:pointer;
+    border:none;
+    width:42px;
+    height:42px;
+}
+
+.btnmaximize{
+    background:url(icones/btnmaximize1.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:21px;
+    height:21px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+    background-color:white;
+}
+.btnminimize{
+    background:url(icones/btnminimize1.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:21px;
+    height:21px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+    background-color:white;
+}
+
+.btnhold{
+    background:url(icones/btnhold1.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:21px;
+    height:21px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+}
+
+.btndonthold{
+    background:url(icones/btndonthold1.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:21px;
+    height:21px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+}
+
+.btnreport{
+    background:url(icones/btnreport1.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:21px;
+    height:21px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+}
+
+.btnreplace{
+    background:url(icones/btnreplace1.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:21px;
+    height:21px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+}
+
+.btnnote{
+    background:url(icones/btnnote1.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:21px;
+    height:21px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+}
+
+.btnbug{
+    background:url(icones/btnbug1.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:21px;
+    height:21px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+}
+
+.btnbug2{
+    background:url(icones/btnbug2.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:21px;
+    height:21px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+}
+
+.btnmore{
+    background:url(icones/btnmore1.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:21px;
+    height:21px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+}
+
+.btncopy{
+    background:url(icones/btncopy1.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:21px;
+    height:21px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+}
+
+.btndup{
+    background:url(icones/btndup1.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:21px;
+    height:21px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+}
+
+.btnfiltre{
+    background:url(icones/btnfiltre1.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:21px;
+    height:21px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+}
+
+.btnfoldunfold{
+    background:url(icones/btnfoldunfold1.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:21px;
+    height:21px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+}
+
+.btnaddfiltre{
+    background:url(icones/btnaddfiltre1.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:21px;
+    height:21px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+}
+
+.btnnofiltre{
+    background:url(icones/btnnofiltre1.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:21px;
+    height:21px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+}
+
+.btnenregistrer{
+    background:url(icones/btnenregistrer1.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:21px;
+    height:21px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+}
+
+.btnphoto{
+    background:url(icones/btnphoto1.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:21px;
+    height:21px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+}
+.btnphotobig{
+    background:url(icones/btnphoto2.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:42px;
+    height:42px;
+    margin-left: 7px;
+    margin-right: 7px;
+	margin-top: -7px;
+    vertical-align: top;
+}
+.btncut{
+    background:url(icones/btncut1.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:21px;
+    height:21px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+}
+
+.btnpasteafter{
+    background:url(icones/btnpasteafter1.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:21px;
+    height:21px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+}
+
+.btnpaste{
+    background:url(icones/btnpaste1.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:21px;
+    height:21px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+}
+
+.btnpastebefore{
+    background:url(icones/btnpastebefore1.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:21px;
+    height:21px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+}
+
+.btnvariable{
+    background:url(icones/btnvariable1.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:21px;
+    height:21px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+}
+
+.btnvariableforce{
+    background:url(icones/btnvariableforce1.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:21px;
+    height:21px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+}
+
+.btncible{
+    background:url(icones/btncible1.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:21px;
+    height:21px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+}
+
+.btndroite{
+    background:url(icones/btndroite1.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:21px;
+    height:21px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+}
+
+.btndroitevert{
+    background:url(icones/btndroitevert1.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:21px;
+    height:21px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+}
+
+.btngauche{
+    background:url(icones/btngauche1.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:21px;
+    height:21px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+}
+.btnvalid{
+    background:url(icones/btnvalid1.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:21px;
+    height:21px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+}
+.btnvalid:active  /* use Dot here */
+{   
+    background:url(icones/btnvalid2.png) no-repeat;
+}
+
+
+.btnadd{
+    background:url(icones/btnadd1.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:21px;
+    height:21px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+}
+.btnadd:active  /* use Dot here */
+{   
+    background:url(icones/btnadd2.png) no-repeat;
+}
+
+.btndiag{
+    background:url(icones/btnmodifierdiag1.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:50px;
+    height:50px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+}
+
+.btndiagsmall{
+    background:url(icones/btnmodifiersmall.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:21px;
+    height:21px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+}
+.btnseediag{
+    background:url(icones/btnvoirdiag1.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:50px;
+    height:50px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+}
+
+.btnseediagsmall{
+    background:url(icones/btnvoirdiagsmall.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:50px;
+    height:50px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+}
+
+.btnsearch{
+    background:url(icones/btnsearch1.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:21px;
+    height:30px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+}
+.btnsearch:active  /* use Dot here */
+{   
+    background:url(icones/btnsearch2.png) no-repeat;
+}
+
+
+.btnsearchremp{
+    background:url(icones/btnsearchremp1.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:21px;
+    height:21px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+}
+
+.btnseen{
+    background:url(icones/btnvoirsimple1.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:21px;
+    height:21px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+}
+
+
+.btnfail{
+    background:url(icones/btnfail1.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:21px;
+    height:21px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+}
+.btnfail:active  /* use Dot here */
+{   
+    background:url(icones/btnfail2.png) no-repeat;
+}
+
+.btnhisto{
+    background:url(icones/btnhisto1.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:21px;
+    height:21px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+}
+.btnhisto:active  /* use Dot here */
+{   
+    background:url(icones/btnhisto2.png) no-repeat;
+}
+
+.btnlaunch{
+    background:url(icones/btnlaunch1.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:21px;
+    height:21px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+}
+.btnlaunch:active  /* use Dot here */
+{   
+    background:url(icones/btnlaunch2.png) no-repeat;
+}
+
+.btnmassupdt{
+    background:url(icones/btnmassupdt1.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:21px;
+    height:21px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+}
+
+.btndel{
+    background:url(icones/btndel2.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:21px;
+    height:21px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+
+}
+.btndel:active  /* use Dot here */
+{   
+    background:url(icones/btndel3.png) no-repeat;
+}
+
+
+.btnversion{
+    background:url(icones/btnversion1.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:21px;
+    height:21px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+}
+.btnversion:active  /* use Dot here */
+{   
+    background:url(icones/btnversion2.png) no-repeat;
+}
+
+
+.btnrefresh{
+    background:url(icones/btnrefresh1.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:23px;
+    height:23px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+}
+
+.btncode{
+    background:url(icones/btncode1.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:21px;
+    height:21px;
+    vertical-align: top;
+}
+
+
+.btnaddfolder{
+    background:url(icones/btnaddfolder1.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:20px;
+    height:20px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+}
+
+.btnaddtest{
+    background:url(icones/btnaddtest1.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:20px;
+    height:20px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+}
+
+.btnedit{
+    background:url(icones/btnedit1.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:20px;
+    height:20px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+}
+
+.btnmodefolder{
+    background:url(icones/btnmodefolder1.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:30px;
+    height:30px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+}
+
+.btnkanban{
+    background:url(icones/menukanban.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:27px;
+    height:21px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+}
+
+.btnmodeliste{
+    background:url(icones/btnmodeliste1.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:21px;
+    height:21px;
+    margin-left: 7px;
+    margin-right: 7px;
+    vertical-align: top;
+}
+
+.buttonblue {
+    -moz-box-shadow: 0px 1px 0px 0px #f0f7fa;
+    -webkit-box-shadow: 0px 1px 0px 0px #f0f7fa;
+    box-shadow: 0px 1px 0px 0px #f0f7fa;
+    background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #33bdef), color-stop(1, #019ad2));
+    background:-moz-linear-gradient(top, #33bdef 5%, #019ad2 100%);
+    background:-webkit-linear-gradient(top, #33bdef 5%, #019ad2 100%);
+    background:-o-linear-gradient(top, #33bdef 5%, #019ad2 100%);
+    background:-ms-linear-gradient(top, #33bdef 5%, #019ad2 100%);
+    background:linear-gradient(to bottom, #33bdef 5%, #019ad2 100%);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#33bdef', endColorstr='#019ad2',GradientType=0);
+    background-color:#33bdef;
+    -moz-border-radius:6px;
+    -webkit-border-radius:6px;
+    border-radius:6px;
+    border:1px solid #057fd0;
+    display:inline-block;
+    cursor:pointer;
+    color:#ffffff;
+    font-family:Arial;
+    font-size:14px;
+    font-weight:bold;
+    padding:2px 2px 2px 2px;
+    text-decoration:none;
+}
+.buttonblue:hover {
+    background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #019ad2), color-stop(1, #33bdef));
+    background:-moz-linear-gradient(top, #019ad2 5%, #33bdef 100%);
+    background:-webkit-linear-gradient(top, #019ad2 5%, #33bdef 100%);
+    background:-o-linear-gradient(top, #019ad2 5%, #33bdef 100%);
+    background:-ms-linear-gradient(top, #019ad2 5%, #33bdef 100%);
+    background:linear-gradient(to bottom, #019ad2 5%, #33bdef 100%);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#019ad2', endColorstr='#33bdef',GradientType=0);
+    background-color:#019ad2;
+}
+.buttonblue:active {
+    position:relative;
+    top:1px;
+}
+
+.buttonred {
+    -moz-box-shadow: 0px 1px 0px 0px #f0f7fa;
+    -webkit-box-shadow: 0px 1px 0px 0px #f0f7fa;
+    box-shadow: 0px 1px 0px 0px #f0f7fa;
+    background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ea4e2e), color-stop(1, #f2741a));
+    background:-moz-linear-gradient(top, #ea4e2e 5%, #f2741a 100%);
+    background:-webkit-linear-gradient(top, #ea4e2e 5%, #f2741a 100%);
+    background:-o-linear-gradient(top, #ea4e2e 5%, #f2741a 100%);
+    background:-ms-linear-gradient(top, #ea4e2e 5%, #f2741a 100%);
+    background:linear-gradient(to bottom, #ea4e2e 5%, #f2741a 100%);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ea4e2e', endColorstr='#f2741a',GradientType=0);
+    background-color:#ea4e2e;
+    -moz-border-radius:6px;
+    -webkit-border-radius:6px;
+    border-radius:6px;
+    border:1px solid #057fd0;
+    display:inline-block;
+    cursor:pointer;
+    color:#ffffff;
+    font-family:Arial;
+    font-size:12px;
+    font-weight:bold;
+    padding:5px 5px 5px 5px;
+    margin-right:20px;
+    text-decoration:none;
+}
+.buttonred:hover {
+    background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #f2741a), color-stop(1, #ea4e2e));
+    background:-moz-linear-gradient(top, #f2741a 5%, #ea4e2e 100%);
+    background:-webkit-linear-gradient(top, #f2741a 5%, #ea4e2e 100%);
+    background:-o-linear-gradient(top, #f2741a 5%, #ea4e2e 100%);
+    background:-ms-linear-gradient(top, #f2741a 5%, #ea4e2e 100%);
+    background:linear-gradient(to bottom, #f2741a 5%, #ea4e2e 100%);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f2741a', endColorstr='#ea4e2e',GradientType=0);
+    background-color:#f2741a;
+}
+.buttonred:active {
+    position:relative;
+    top:1px;
+}
+
+.marqueprivate{
+    background:#d0451b;
+    border-radius:50%;
+    width:5px;
+    height:5px;
+    border:1px solid #679403; 
+    margin-top: 3px;
+    margin-right: 7px;
+}
+
+.marqueinactive{
+    background:black;
+    border-radius:50%;
+    width:5px;
+    height:5px;
+    border:1px solid #679403; 
+    margin-top: 3px;
+    margin-right: 7px;
+}
+
+.btnresize{
+    background:url(icones/btnresize1.png) no-repeat;
+    cursor:col-resize;
+    border:none;
+    width:6px;
+    height:100%;
+    vertical-align: top;
+    margin-right: 0px;
+    position: fixed; 
+    top:71px;
+    left:calc(30% + 3px);
+}

@@ -1,0 +1,45 @@
+<tr>
+	<td><span class="textStyle"><%= t('parametres') %></span></td>
+	<td >
+	  <table id="paramtable">
+		  <% if @action.parameters.to_s == "" or @action.parameters.to_s == "|$|"  %>
+			<tr>
+				<td>
+					<select onKeyDown="showvalidbtn();"  <% if @action.is_modifiable == 0 and @is_admin != 1 and true == false  %>disabled<% end %>  id="paramtype" name="paramtype" class='lookupbox'> 
+						<option selected value="none" ><%= t('none') %></option>
+						<option value="element"><%= t('DOM_element') %></option>
+						<option value="value"><%= t('valeur') %></option>
+					</select>
+				</td>
+				<td><input onKeyUp="formatasparam(this)"  <% if @action.is_modifiable == 0 and @is_admin != 1 and true == false  %>disabled<% end %>  id="paramname" name="paramname" type="text" spellcheck='false' class="inputbox" placeholder="<%= t('ecr_action.nom_du_parametre') %>" size="20"  pattern="[A-Za-z0-9]{2,50}" title="<%= t('ecr_action.format_param') %>"  onKeyUp="formatasparam(this)"/></td>
+				<td><% if (@action.is_modifiable == 1 or @is_admin == 1 or true == true) and  @can_manage_action == 1 %><img id="addactionbtn" src="/assets/icones/btnadd1.png" class="btnadd" title="<%= t('ajouter') %>" onclick="addActionParam();showvalidbtn();" ></img><% end %> </td>
+			</tr>    
+		</table>
+		<input type="hidden" id="nbparamintable" value="1"/>
+	  <% else 
+		parameters = @action.parameters.split("|$|")
+		nbparam = ((parameters.length)/2).to_i
+		if parameters.length - nbparam*2 > 0
+		  nbparam+=1
+		  end
+		firstparam = true
+		for i in 0..nbparam-1 %>
+	<tr>
+	  <td>
+		  <select onKeyDown="showvalidbtn();"  <% if @action.is_modifiable == 0 and @is_admin != 1 and true == false  %>disabled<% end %> id="paramtype" name="paramtype" class='lookupbox'> 
+			  <option <% if parameters[2*i].to_s == "none" %> selected <% end %> value="none" ><%= t('none') %></option>
+			  <option <% if parameters[2*i].to_s == "element" %> selected <% end %> value="element"><%= t('DOM_element') %></option>
+			  <option <% if parameters[2*i].to_s == "value" %> selected <% end %> value="value"><%= t('valeur') %></option>
+		  </select>
+	  </td>
+	  <td><input onKeyUp="formatasparam(this)"  <% if @action.is_modifiable == 0 and @is_admin != 1 and true == false  %>disabled<% end %> id="paramname" name="paramname" type="text"  maxlength='30' spellcheck='false' class="inputbox" placeholder="param name" size="20" value="<%= parameters[2*i+1].to_s %>"/></td>
+	  <td><% if firstparam and @can_manage_action == 1 and (@action.is_modifiable == 1 or @is_admin == 1 or true == true)  %> <img id="addactionbtn" src="/assets/icones/btnadd1.png" class="btnadd" title="<%= t('ajouter') %>" onclick="addActionParam();"></img><% end %> </td>
+	</tr>    
+	  <%  
+	  firstparam = false
+	  end  %>
+	<input type="hidden" id="nbparamintable" value="<%= nbparam %>"/>	
+	</table>   
+	<% end %>
+	</td>
+</tr>

@@ -1,0 +1,32 @@
+<div id='popup1'>
+<div class="popupadd">
+<span class="titleStyle" style="color:#161616"><b>&nbsp;&nbsp;<%= @funcname %>&nbsp;&nbsp;</b></span> 
+            <br>
+			</div>
+	<% @procedures.each do |procedure| 
+		nok = procedure.nbprocpass
+		nko = procedure.nbprocfail
+		nno = procedure.nbprocnorun
+		nout = procedure.nboutrun
+		ntot = (nok + nko + nno + nout) / 100.00
+		pok = (nok.to_f / ntot)
+		pko = (nko.to_f / ntot) 
+		pno = (nno.to_f / ntot)
+		pout = (nout.to_f / ntot) 
+		%>
+		<div style='width:100%;display:inline-block;margin-right:0px;margin-left:0px'>
+			<div style='width:30%;display:inline-block;margin-right:0px;margin-left:0px'>
+				<span class="textStyle"><%= procedure.name %></span>
+			</div>
+
+			<div style='width:68%;display:inline-block;margin-right:0px;margin-left:0px'>
+				
+<div style='display:inline-block;background-color:#42f450;width:<%=pok%>%;margin-right:0px;margin-left:0px'><% if nok > 0 %><span style="float:right;color:white;margin-right:0px;margin-left:0px"><%= nok %></span><%end%></div><div style='display:inline-block;background-color:#ef0202;width:<%=pko%>%;margin-right:0px;margin-left:0px'><% if nko > 0 %><span style="float:right;color:white;margin-right:0px;margin-left:0px"><%= nko %></span><% end %></div><div style='display:inline-block;background-color:orange;width:<%=pno%>%;margin-right:0px;margin-left:0px'><% if nno > 0 %><span style="float:right;color:white;margin-right:0px;margin-left:0px"><%= nno %></span><% end %></div><div style='display:inline-block;background-color:#b7b3b3;width:<%=pout%>%;margin-right:0px;margin-left:0px'><% if nout > 0 %><span style="float:right;color:white;margin-right:0px;margin-left:0px"><%= nout %></span><% end %></div>
+				
+			</div>
+		</div>
+
+	<% end %>
+
+
+</div>

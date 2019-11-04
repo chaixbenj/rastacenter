@@ -1,0 +1,10 @@
+<% if @fiche != nil%>
+	<button class="btnrefresh" style="float:right" onclick="$('#reload').val(1);$('#fiche_form_id').submit();"></button>
+<%end%>
+<% if @fiche != nil && @is_gherkin == 1 && @can_manage_public_test == 1 %>
+	<form id="formfichetoatdd" method="post" action="../tests/index" style="inline;float:right;" target="_parent">
+		<input type="hidden" value="<%= form_authenticity_token() %>" id ="token" name="authenticity_token"/>
+		<input type="hidden" name="fiche_id" value="<%=@fiche_id%>"/>
+		<input type="submit" name="convertatdd" class="buttonblue" value="<%=t('ecr_fiche.convert_atdd')%>"/>
+	</form>
+<%end%>

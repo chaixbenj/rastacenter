@@ -1,0 +1,109 @@
+<div id="left">
+	<div id="btnresize" class="btnresize" onmousedown="startresizediv(event, this);"></div>
+
+	<% pre_project_id = 0
+	pre_release_id = 0
+	pre_cycle_id = 0
+	@can_suppress = true
+	@releasecyclecampains.each do |rcc| 
+	  if @release != nil and rcc.release_id == @release.id and rcc.cycle_id != nil
+		@can_suppress = false
+		end
+	  if @cycle != nil and rcc.cycle_id == @cycle.id and rcc.campain_id != nil
+		@can_suppress = false
+		end
+
+	%>
+	  <!-- projet -->
+	  <% if rcc.project_id != pre_project_id %>	
+		<div class="treerep" id='project<%= rcc.project_id %>'>
+			<span style="cursor:pointer" id="signeproject<%= rcc.project_id %>" onclick="showHideRelease('project<%= rcc.project_id %>');"><b><% if rcc.release_id != nil %>+&nbsp;&nbsp;<%  end  %></b></span>
+			<span ><%= rcc.project_name %></span>
+			<% if @can_manage_release == 1 %>
+			  <button onclick="startloader();document.getElementById('new_release_project_id').value=<%= rcc.project_id%>;document.getElementById('formdaddrelease').submit();" class="btnadd" style='float: right;' title="<%= t('ecr_release.ajouter_release') %>" ></button>
+			<% end %>
+		</div>
+		<% pre_project_id = rcc.project_id 
+		end %>
+
+	  <!-- release -->
+	  <% if rcc.release_id != nil and rcc.release_id != pre_release_id %>	
+		<div class="treerelease" name="project<%= rcc.project_id %>" id="release<%= rcc.release_id %>">
+				<span id="signerelease<%= rcc.release_id %>" onclick="showHideRelease('release<%= rcc.release_id %>');"><b><% if rcc.cycle_id != nil %>+&nbsp;&nbsp;<%  end  %></b></span>
+				<span class="textStyle"><%= rcc.release_name %></span>
+			<% if @can_manage_release == 1 %>
+			  <button onclick="startloader();document.getElementById('new_cycle_release_id').value=<%= rcc.release_id%>;document.getElementById('formdaddcycle').submit();" class="btnadd" style='float: right;' title="<%= t('ecr_release.ajouter_cycle') %>" ></button>
+			<% end %>
+			<a href="../releases/getone?release_id=<%= rcc.release_id %>">
+				<img style="float: right;" src="/assets/icones/btnedit1.png" title="<%= t('editer') %>"/>
+			</a>                
+		</div>
+		<% pre_release_id = rcc.release_id 
+		end %>
+
+	  <!-- cycle -->
+	  <% if rcc.cycle_id != nil and rcc.cycle_id != pre_cycle_id %>	
+		<div class="treecycle" name="release<%= rcc.release_id %>" id="cycle<%= rcc.cycle_id %>">
+			
+				<span class="textStyle"><%= rcc.cycle_name %></span>
+			<a href="../releases/getone?cycle_id=<%= rcc.cycle_id %>">
+				<img style="float: right;" src="/assets/icones/btnedit1.png" title="<%= t('editer') %>"/>
+			</a>                
+		</div>
+		<% pre_cycle_id = rcc.cycle_id 
+		end %>
+
+
+	<%  end %>
+
+	<form id="formdaddrelease" action="../releases/new" method="post">
+		<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+		<input type="hidden" id="new_release_project_id" name="project_id" value=""/>
+		
+	</form>
+	<form id="formdaddcycle" action="../cycles/new" method="post">
+		<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+		<input type="hidden" id="new_cycle_release_id" name="release_id" value=""/>
+		
+	</form>
+
+</div>
+
+<script type="application/javascript"> 
+	<% if @release != nil %>
+		surligne_selected('release<%= @release.id %>', 'treerelease');
+	<%end%>
+	  <% if @cycle != nil %>
+		surligne_selected('cycle<%= @cycle.id %>', 'treecycle');
+	<%end%>
+
+	  releasedisplayed = localStorage.getItem("alfyftreleasedisplayed"); 
+	if (releasedisplayed == null) {localStorage.setItem("alfyftreleasedisplayed","");releasedisplayed = localStorage.getItem("alfyftreleasedisplayed");}
+   	<% if @release != nil %>
+		projectdiv = document.getElementById('release<%= @release.id %>').getAttribute("name");
+		releasedisplayed = releasedisplayed.replace("$" + projectdiv + "$",""); 
+		releasedisplayed += "$" + projectdiv + "$";
+	<% end %>
+	<% if @cycle != nil %>
+		releasediv = document.getElementById('cycle<%= @cycle.id %>').getAttribute("name");
+		releasedisplayed = releasedisplayed.replace("$" + releasediv + "$",""); 
+		releasedisplayed += "$" + releasediv + "$";
+		releasediv = document.getElementById(releasediv).getAttribute("name");
+		releasedisplayed = releasedisplayed.replace("$" + releasediv + "$",""); 
+		releasedisplayed += "$" + releasediv + "$";
+	<% end %>
+
+  treleasedisplayed = releasedisplayed.split("$$");
+  for (i=0;i<treleasedisplayed.length;i++) {
+    element = treleasedisplayed[i].replace("$","").replace("$","");
+    elements = document.getElementsByName(element);
+    for (j=0;j<elements.length;j++) {
+      elements[j].style.display='inline-block';
+    }
+    if (document.getElementById("signe"+element)!=null) {
+      document.getElementById("signe"+element).innerHTML="<b>-&nbsp;&nbsp;</b>";
+    } 
+   }
+
+
+</script>

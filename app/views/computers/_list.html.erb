@@ -1,0 +1,22 @@
+        <div id="computers" >	
+            <% @computers.each do |computer| %>   
+              <form style="display: inline" action="../computers/delete" onsubmit="startloader();" method="post">
+			  <input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+                  <div class="ligthline" style="width:95%">
+                      <span  style="display:inline-block;width: 18%"><%= computer.hostrequest %></span>
+                        <div style="display:inline-block;width: 40%">
+                      <span ><%= t('derniere_connexion') %>&nbsp;</span>
+                      <span style="color:<% if (Time.now.to_i - computer.last_connexion.to_i) / 60 > 6 %>red;<%else%>green;<%end%>">
+                          <b><%= computer.last_connexion.localtime.to_s[0..-7] %></b>
+                      </span>
+                        </div>
+                      <input type="hidden" name="computer_id" value="<%= computer.id %>"/> 
+                      <% if @can_manage_computer == 1 %>
+                        <input  type="submit" class="btndel" name="delete" value="" style="float: right;"/>                      
+                      <%end%>
+                  </div>
+              </form>
+
+            <% end %>
+
+        </div>

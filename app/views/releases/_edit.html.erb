@@ -1,0 +1,96 @@
+   <div id="right">
+
+        <% 
+        @element = nil
+        if @release != nil
+          @element = @release
+          controller = "releases"
+          end
+        if @cycle != nil
+          @element = @cycle
+          controller = "cycles"
+          end
+
+
+        if @element != nil %>
+
+          <br>
+          <form onsubmit="startloader();" style="display: inline;" action="../<%= controller %>/update" method="post">
+              <input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+			  
+              <table class="leftTable">
+                  <tr>
+                      <td><span class="textStyle"><%= t('nom') %></span></td>
+                      <td><input <% if @can_manage_release == 0 or @disabled == 'disabled' %>disabled<%end%> required onKeyDown="showvalidbtn();" class="inputbox" size=50 type="text" maxlength='250' spellcheck='false' name="pname" id="pname" value="<%= @element.name  %>"/>
+                          <% if (@can_manage_release == 1 and (controller == "releases" or controller == "cycles")) or (controller == "campains" and ((@can_manage_public_campain == 1 and @element.private == 0) or @element.owner_user_id == @my_user_id)) %>
+                            <input name="valid" value="" id="btnval" type="submit" style="display: none;" class="btnvalid" title="<%= t('valider') %>" />&nbsp;&nbsp;&nbsp;
+                            <% if @can_suppress == true %>
+                              <input name="delete" value="" type="submit" class="btndel" title="<%= t('supprimer') %>" data-confirm="<%= t('ecr_release.confirme_supp') %>"/>
+                            <% end %>
+                          <% end %>
+                      <td>
+                  </tr>
+                  <tr>
+                      <td><span class="textStyle"><%= t('description') %></span></td>
+                      <td><textarea <% if @can_manage_release == 0 or @disabled == 'disabled' %>disabled<%end%> spellcheck='false' onKeyDown="showvalidbtn();" class="inputbox" rows=6 cols=60  name="pdesc" id="pdesc"><%= @element.description  %></textarea></td>
+                  </tr>
+              </table>
+
+              <br>
+
+
+              <br>
+              <table class="leftTable">
+                  <tr><td colspan="2"> <b><span class="textStyle"><%= t('ecr_projet.champs_libres') %></span> </b> </td></tr> 
+                  <tr>
+                      <td><span class="textStyle"><%= t('nom') %></span></td>
+                      <td><span class="textStyle"><%= t('valeur') %></span></td>
+                  </tr>
+                  <tr>
+                      <td><input <% if @can_manage_release == 0 or @disabled == 'disabled' %>disabled<%end%> onKeyDown="showvalidbtn();" class="inputbox"  size=50 type="text" maxlength='100' spellcheck='false' name="pstring1" id="pstring1" value="<%= @element.string1  %>"/></td>
+                      <td><input <% if @can_manage_release == 0 or @disabled == 'disabled' %>disabled<%end%> onKeyDown="showvalidbtn();" class="inputbox"  size=50 type="text" maxlength='100' spellcheck='false' name="pvalue1" id="pvalue1" value="<%= @element.value1  %>"/></td>
+                  </tr>
+                  <tr>
+                      <td><input <% if @can_manage_release == 0 or @disabled == 'disabled' %>disabled<%end%> onKeyDown="showvalidbtn();" class="inputbox"  size=50 type="text" maxlength='100' spellcheck='false' name="pstring2" id="pstring2" value="<%= @element.string2  %>"/></td>
+                      <td><input <% if @can_manage_release == 0 or @disabled == 'disabled' %>disabled<%end%> onKeyDown="showvalidbtn();" class="inputbox"  size=50 type="text" maxlength='100' spellcheck='false' name="pvalue2" id="pvalue2" value="<%= @element.value2  %>"/></td>
+                  </tr>
+                  <tr>
+                      <td><input <% if @can_manage_release == 0 or @disabled == 'disabled' %>disabled<%end%> onKeyDown="showvalidbtn();" class="inputbox"  size=50 type="text" maxlength='100' spellcheck='false' name="pstring3" id="pstring3" value="<%= @element.string3  %>"/></td>
+                      <td><input <% if @can_manage_release == 0 or @disabled == 'disabled' %>disabled<%end%> onKeyDown="showvalidbtn();" class="inputbox"  size=50 type="text" maxlength='100' spellcheck='false' name="pvalue3" id="pvalue3" value="<%= @element.value3  %>"/></td>
+                  </tr>
+                  <tr>
+                      <td><input <% if @can_manage_release == 0 or @disabled == 'disabled' %>disabled<%end%> onKeyDown="showvalidbtn();" class="inputbox"  size=50 type="text" maxlength='100' spellcheck='false' name="pstring4" id="pstring4" value="<%= @element.string4  %>"/></td>
+                      <td><input <% if @can_manage_release == 0 or @disabled == 'disabled' %>disabled<%end%> onKeyDown="showvalidbtn();" class="inputbox"  size=50 type="text" maxlength='100' spellcheck='false' name="pvalue4" id="pvalue4" value="<%= @element.value4  %>"/></td>
+                  </tr>
+                  <tr>
+                      <td><input <% if @can_manage_release == 0 or @disabled == 'disabled' %>disabled<%end%> onKeyDown="showvalidbtn();" class="inputbox"  size=50 type="text" maxlength='100' spellcheck='false' name="pstring5" id="pstring5" value="<%= @element.string5  %>"/></td>
+                      <td><input <% if @can_manage_release == 0 or @disabled == 'disabled' %>disabled<%end%> onKeyDown="showvalidbtn();" class="inputbox"  size=50 type="text" maxlength='100' spellcheck='false' name="pvalue5" id="pvalue5" value="<%= @element.value5  %>"/></td>
+                  </tr>
+                  <tr>
+                      <td><input <% if @can_manage_release == 0 or @disabled == 'disabled' %>disabled<%end%> onKeyDown="showvalidbtn();" class="inputbox"  size=50 type="text" maxlength='100' spellcheck='false' name="pstring6" id="pstring6" value="<%= @element.string6  %>"/></td>
+                      <td><input <% if @can_manage_release == 0 or @disabled == 'disabled' %>disabled<%end%> onKeyDown="showvalidbtn();" class="inputbox"  size=50 type="text" maxlength='100' spellcheck='false' name="pvalue6" id="pvalue6" value="<%= @element.value6  %>"/></td>
+                  </tr>
+                  <tr>
+                      <td><input <% if @can_manage_release == 0 or @disabled == 'disabled' %>disabled<%end%> onKeyDown="showvalidbtn();" class="inputbox"  size=50 type="text" maxlength='100' spellcheck='false' name="pstring7" id="pstring7" value="<%= @element.string7  %>"/></td>
+                      <td><input <% if @can_manage_release == 0 or @disabled == 'disabled' %>disabled<%end%> onKeyDown="showvalidbtn();" class="inputbox"  size=50 type="text" maxlength='100' spellcheck='false' name="pvalue7" id="pvalue7" value="<%= @element.value7  %>"/></td>
+                  </tr>
+                  <tr>
+                      <td><input <% if @can_manage_release == 0 or @disabled == 'disabled' %>disabled<%end%> onKeyDown="showvalidbtn();" class="inputbox"  size=50 type="text" maxlength='100' spellcheck='false' name="pstring8" id="pstring8" value="<%= @element.string8  %>"/></td>
+                      <td><input <% if @can_manage_release == 0 or @disabled == 'disabled' %>disabled<%end%> onKeyDown="showvalidbtn();" class="inputbox"  size=50 type="text" maxlength='100' spellcheck='false' name="pvalue8" id="pvalue8" value="<%= @element.value8  %>"/></td>
+                  </tr>
+                  <tr>
+                      <td><input <% if @can_manage_release == 0 or @disabled == 'disabled' %>disabled<%end%> onKeyDown="showvalidbtn();" class="inputbox"  size=50 type="text" maxlength='100' spellcheck='false' name="pstring9" id="pstring9" value="<%= @element.string9  %>"/></td>
+                      <td><input <% if @can_manage_release == 0 or @disabled == 'disabled' %>disabled<%end%> onKeyDown="showvalidbtn();" class="inputbox"  size=50 type="text" maxlength='100' spellcheck='false' name="pvalue9" id="pvalue9" value="<%= @element.value9  %>"/></td>
+                  </tr>
+                  <tr>
+                      <td><input <% if @can_manage_release == 0 or @disabled == 'disabled' %>disabled<%end%> onKeyDown="showvalidbtn();" class="inputbox"  size=50 type="text" maxlength='100' spellcheck='false' name="pstring10" id="pstring10" value="<%= @element.string10  %>"/></td>
+                      <td><input <% if @can_manage_release == 0 or @disabled == 'disabled' %>disabled<%end%> onKeyDown="showvalidbtn();" class="inputbox"  size=50 type="text" maxlength='100' spellcheck='false' name="pvalue10" id="pvalue10" value="<%= @element.value10  %>"/></td>
+                  </tr>
+              </table>
+
+              <input type="hidden" name="elem_id" id="elem_id" value="<%= @element.id %>"/>
+
+
+            <% end %>
+        </form>
+    </div>

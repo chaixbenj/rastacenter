@@ -1,0 +1,22 @@
+
+
+<div id='popup1'>
+
+    
+	
+
+        <form style="display: inline;" action="../run_step_results/comment" method="post">
+		<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+            <input type="hidden" name="popup" value="<%= @popup %>"/>
+            <input type="hidden" name="step_id" value="<%= @step_id %>"/>
+			<div class="popupadd">
+			<span class="titleStyle" style="color:#161616"><b>&nbsp;&nbsp;<%= t('ecr_run.ajouter_note') %>&nbsp;&nbsp;</b></span> 
+              <input value="" style="display: inline" id="btnval" type="submit" class="btnvalid" title="<%= t('valider') %>" onclick="startloader();"/>
+            </div><textarea style="display: block;" spellcheck='false'   class="inputbox" rows=10 cols=50  name="comment" id="txtareaCode" onkeydown="textareatab(event, this);"><%= @comment  %></textarea>
+        </form>
+        <span style="display: inline-block;" class="textStyle"><%= @histo  %></span>
+    </div> 
+ 
+
+</div>
+

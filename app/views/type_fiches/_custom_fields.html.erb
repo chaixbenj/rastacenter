@@ -1,0 +1,42 @@
+<tr>
+	<td colspan="3">
+	  <% if @can_manage_worflows_and_card == 1 %>
+			<span class="textStyle"><%= t('ecr_type_fiche.completer_et_glisser') %></span><br>
+			<div id='insertcustofield' draggable="true" ondragstart="dragTypeFicheStarted(event, this)" class="elembleu" role="div">
+				<input class='inputbox' disabled type='text' size='5' value='' id='nextuserfield' role="ucf"/>
+				<input type='hidden' size='5' id='nextuserfieldhidden' role="ucfh"/>
+				<input class='inputbox' id="cn" role='cn' name='' type='text' size='10'  maxlength='250' placeholder='<%= t('nom') %>' onKeyDown='showvalidbtn();' />
+				<select class='inputbox' id="ct" role='ct' name='' onchange='showvalidbtn();active_choix_liste(this.value, "select_liste" + this.id.replace("ct",""));'>
+					<option selected value='text'><%= t('ecr_type_fiche.type_text') %></option>
+					<option value='list'><%= t('ecr_type_fiche.type_list') %></option>
+					<option value='textarea'><%= t('ecr_type_fiche.type_textarea') %></option>
+				</select>
+				<select style='display:none;' class='inputbox' id='select_liste' name='' role='ccl' onchange='showvalidbtn();'>
+					<option value='user'><%= t('ecr_type_fiche.utilisateurs') %></option>
+					<option value='project'><%= t('ecr_type_fiche.projets') %></option>
+					<option value='release'><%= t('ecr_type_fiche.releases') %></option>
+					<option value='cycle'><%= t('ecr_type_fiche.cycles') %></option>
+					<option value='campain'><%= t('ecr_type_fiche.campains') %></option>
+					<option value='schemaapp'><%= t('ecr_type_fiche.schemaapps') %></option>
+					<option value='funcandscreen'><%= t('ecr_type_fiche.funcandscreens') %></option>
+					<option value='test'><%= t('ecr_type_fiche.tests') %></option>
+					<option value='testsuite'><%= t('ecr_type_fiche.testsuites') %></option>
+					<% if @listes != nil
+						@listes.each do |liste| %>
+							<option value='<%= liste.code %>'><%= liste.name %></option>
+						<% end
+					end %>
+				</select><br>
+				<input class='inputbox' id="cobl" role='cobl' name='' type='checkbox' onclick='showvalidbtn();'><span class='textStyle' id="spanobl"><%= t('obligatoire') %></span></input>
+				<div class="btndel" onclick="showvalidbtn();this.parentNode.remove(this);" style="display:none;" id="btndel"></div>
+			</div>
+			<div class="btnadd" onclick="showvalidbtn();add_row();" style="float:right;" title="<%= t('ecr_type_fiche.ajouter_une_ligne_de_champs_custo') %>"></div>
+	  <% end %>
+	</td>
+</tr>	  
+	  
+<% if @bloc_custo != nil %><%= @bloc_custo %><% end %>
+
+<script async type="application/javascript"> 
+	nextUCFdispo();
+</script>     

@@ -1,0 +1,18 @@
+<% if (@popup == nil or @popup != "true") and (@hors_appli == nil or @hors_appli==false) and session[:uid] != nil  %>
+	<div width="100%" class="bandeau2">
+		<a id="logo" <% if @hors_appli or session[:uid] == nil or @donotshowmenu != nil %> href="#" style="top:50px"<%else%>  href="../projects/welcome?f=1"<%end%>></a>
+		<% if @hors_appli == nil and session[:uid] != nil and @donotshowmenu == nil %>
+			<%= render :partial => 'layouts/newmessage' %>
+			<% if @myprojects != nil and @myprojects != "" %>
+				<%= render :partial => 'layouts/newfiche' %>
+				<%= render :partial => 'layouts/menu' %>
+				<%= render :partial => 'layouts/searchfiche' %>	
+				<%= render :partial => 'layouts/info' %>	
+				<%= @location %>
+				<%= render :partial => 'layouts/projectversion' %>
+			<% end %>
+			<a class="menulogout" title="<%= t('menu.deconnexion') %>" href="../users/logout"></a>
+			<button title="<%= t('menu.information') %>" class="menuaide" onclick="document.getElementById('popupinfo').style.display = 'block';" ></button>
+		<% end  %>
+	</div>
+<% end %>

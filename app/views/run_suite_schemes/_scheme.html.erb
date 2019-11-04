@@ -1,0 +1,54 @@
+<div id="wrapper1">
+	<div id="div1"></div>
+</div>
+<div id="wrapper2"  onmousedown="startmoveallsvg(event);" <% if @popup != nil and @popup == 'true' %> style="height: 100%;" <%end%>>
+    <div id="div2">
+
+		<input type='hidden' id='scale' value='1'/>
+		<button class='btnzplus' onclick='zoomsvg(1.25);'></button>
+		<button class='btnzmoins' onclick='zoomsvg(0.8);'></button>
+        <svg id="svg" name="svg" width="3000" height="3000" background-color='white' >
+
+        </svg>
+
+        <svg id="svg2" name="svg2" width="0" height="0" background-color='white' >
+            <defs id="diagdefs">
+                <marker id="circlehead" markerWidth="6" markerHeight="6" refX="1" refY="3" orient="auto" stroke="black">
+                    <circle cx="3" cy="3" r="2" stroke="black" stroke-width="1" fill="green" />
+                </marker>
+                <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="7" refY="2" orient="auto" stroke="black">
+                    <polygon points="0 0, 6 2, 0 4" fill="black"/>
+                </marker>
+                <linearGradient
+                    id="blackDegrade">
+                <stop
+                    style="stop-color:#737B7F;stop-opacity:1;"
+                    offset="0"
+                    id="stop6011" />
+                <stop
+                    style="stop-color:#737B7F;stop-opacity:0;"
+                    offset="1"
+                    id="stop6013" />
+                </linearGradient>
+
+                <linearGradient id="notrundegrade">
+                  <stop offset="20%" stop-color="#737B7F" />
+                  <stop offset="80%" stop-color="#737B6F" />
+                </linearGradient>
+
+                <linearGradient id="OrangeDegrade">
+					<stop offset="5%" stop-color="#F60" />
+					<stop offset="95%" stop-color="#FF6" />
+                </linearGradient>
+
+				<linearGradient id="blueDegrade">
+					<stop offset="75%" stop-color="green" />
+					<stop offset="0%" stop-color="red" />
+                </linearGradient>
+
+
+			</defs>
+		</svg>
+    </div>
+</div>
+

@@ -1,0 +1,29 @@
+<script type="application/javascript"> 
+function searchvar() {
+    document.getElementById('data_set_variable_data_set_variable_name').required=false;
+    document.getElementById('searchname').value=document.getElementById('data_set_variable_data_set_variable_name').value;
+    document.getElementById('searchdesc').value=document.getElementById('data_set_variable_data_set_variable_description').value;
+    document.getElementById('formsearch').submit();
+}
+
+
+</script>
+
+<div id="scrollablecontent">
+	<div >
+		<div class="popupadd">
+			<%= render :partial => 'data_set_variables/head' %>             
+		</div> 
+
+		<% if @message != nil  %>
+			<span id='idspanmessage' class='<% if @OK %>succesMessage<% else %>errorMessage<% end %>' onclick='this.parentNode.removeChild(this)' style='vertical-align: top;'><%= @message %>&nbsp;<b>x</b></span>
+		<% end %>
+		
+		<div id="data_set_variables">	
+			<% if @data_set_variables != nil %>    
+				<%= render  @data_set_variables %>
+			<% end %>
+		</div>
+	</div>
+</div>
+

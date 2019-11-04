@@ -1,0 +1,9 @@
+<form method="post">
+	<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+    <table >
+      <tr>
+          <td><input size=20 type="text" spellcheck='false' name="name" id="searchname" value="<%= @name %>" class="recherche" placeholder="<%= t('input.placeholder.recherche') %>"/></td>
+          <td><input value="" name="search" type="submit" class="btnsearch" vertical-align="middle" onclick="startloader();"/></td>
+      </tr>
+    </table>
+</form>	

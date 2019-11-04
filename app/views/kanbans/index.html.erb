@@ -1,0 +1,104 @@
+
+<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token" id="token"/>
+
+<input type="hidden" id="kanbanscreen"/>
+<div id="content">
+	<%= render :partial => 'kanbans/list' %>
+    <div id="right" style="overflow-y:hidden;">
+        <div style="display:block;height:auto;">
+            <table id="kanban_table_header"  width="100%;" cellspacing="0" cellpadding="0"> <!--style="position:absolute;top:70px;"-->
+                <% if @kanban_statuses != nil %>
+					<tr>
+						<td colspan="<%= @kanban_statuses.length %>">
+							<%= render :partial => 'kanbans/head' %>  
+						</td>
+					</tr>
+                <%end%>
+                
+				<tr>
+                   <%= render :partial => 'kanbans/boardheader' %>
+
+                </tr>
+				</table>
+        </div>
+        <div id="contentkanban" style="display:block;height:calc(100% - 50px);overflow-y: scroll;">
+            <table id="kanban_table_fiche" style="width:100%;table-layout:fixed;background-color:whitesmoke;">
+                <% if @mode.to_s != 'liste' %>	
+					<%= render :partial => 'kanbans/boardkanban' %>
+				<%else%>
+					<%= render :partial => 'kanbans/boardlist' %>
+				<%end%>
+			</table>
+		</div>
+	</div>
+</div>
+
+
+<script async type="application/javascript"> 
+<% if @kanban != nil %>
+    surligne_selected("kanban<%= @kanban.id %>", "treetest");
+<% end %>
+<% if @fiches != nil and @mode.to_s != 'liste' and @groupby == 'id'
+  @fiches.each do |fiche|%>
+        add_fiche_on_kanban("<%= fiche.id %>", "<%= fiche.name %>", "<%= fiche.status_id %>", "<%= t('ecr_type_fiche.assigne_a') %> : <%= fiche.user_assign_name %>", "<%= fiche.color %>", "<%= @groupby %>", "", "<%= fiche.hastest %><%= fiche.hasrun %>");
+  <%end
+end%>
+</script>     
+
+<script>
+  filtres = document.getElementsByName('multiliste');
+  for (i = 0; i < filtres.length; i++) {
+      filtres[i].setAttribute("onmouseover", "this.style='height:80px';");
+      filtres[i].setAttribute("onmouseout", "this.style='height=20px';");
+  }
+
+<% if @kanban_filters != nil 
+  @kanban_filters.each do |filter| %>
+
+    <% if filter.field_name == 'ucf_name'  %>
+      <% if filter.value_id > 0  %>
+          if (document.getElementById("custoliste$$<%=filter.field_value%>$$<%=filter.value_id%>")) {
+              document.getElementById("custoliste$$<%=filter.field_value%>$$<%=filter.value_id%>").checked = true;
+              displayfilter(document.getElementById("custoliste$$<%=filter.field_value%>$$<%=filter.value_id%>"), '$custoliste$<%=filter.field_value%>');
+          }
+      <%else%>
+          document.getElementById("custotext$$<%=filter.field_value%>").value = "<%=filter.value_name%>";
+      <%end%>
+    <%else%>
+        if (document.getElementById("<%=filter.field_name%>_<%=filter.value_id%>")) {
+              document.getElementById("<%=filter.field_name%>_<%=filter.value_id%>").checked = true;
+                    displayfilter(document.getElementById("<%=filter.field_name%>_<%=filter.value_id%>"), '<%=filter.field_name%>');
+                      }
+    <%end%>
+  <%end
+end%>
+
+
+<% if @kanban_tempo_filters != nil 
+  @kanban_tempo_filters.each do |filter| %>
+    <% if filter[0] == 'ucf_name'  %>
+      <% if filter[2] > 0  %>
+                        if (document.getElementById("custoliste$$<%=filter[1]%>$$<%=filter[2]%>")) {
+                            document.getElementById("custoliste$$<%=filter[1]%>$$<%=filter[2]%>").checked = true;
+                            displayfilter(document.getElementById("custoliste$$<%=filter[1]%>$$<%=filter[2]%>"), '$custoliste$<%=filter[1]%>');
+                        }
+      <%else%>
+                        document.getElementById("custotext$$<%=filter[1]%>").value = "<%=filter[3]%>";
+      <%end%>
+    <%else%>
+      <%if filter[2] == -1 %>
+                        if (document.getElementById("<%=filter[0]%>_<%=filter[2]%>")) {
+                              document.getElementById("<%=filter[0]%>_<%=filter[2]%>").value = "<%=filter[3]%>";
+                                }
+      <%else%>
+                                if (document.getElementById("<%=filter[0]%>_<%=filter[2]%>")) {
+                                      document.getElementById("<%=filter[0]%>_<%=filter[2]%>").checked = true;
+                                            displayfilter(document.getElementById("<%=filter[0]%>_<%=filter[2]%>"), '<%=filter[0]%>');
+                                              }
+      <%end
+    end%>
+  <%end
+end%>
+showhidekbfilteronload();
+document.getElementById("contentkanban").scrollTop = localStorage.getItem("alfyftscrollkbn");;
+</script>

@@ -1,0 +1,15 @@
+<form onsubmit="startloader();" style="display: inline;" action="../domaines/new" method="post">
+	<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+	<table class="leftTable">
+		<tr>
+			<td>
+				<input size=30 maxlength='50' type="text" spellcheck='false' name="newlogin" id="newlogin" value="" class="recherche" placeholder="<%= t('ecr_user.ajouter') %>"/>
+			</td>
+			<td>
+				<input value="" name="add" type="submit" class="btnadd" title="<%= t('ajouter') %>" vertical-align="middle" onclick="document.getElementById('newlogin').required=true;"/>
+			</td>
+			<td>
+			</td>
+		</tr>
+	</table>
+</form>

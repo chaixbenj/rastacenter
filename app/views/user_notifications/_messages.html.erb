@@ -1,0 +1,39 @@
+<div id="content" style="height:calc(100% - 300px);overflow-y:auto;">
+	<% lastgroupenotif = nil
+	@notifications.each do |notification| %>
+		<% if notification.link_notif_id != lastgroupenotif %>
+			<div style="display:inline-block;width: 100%;height:0px;border:solid;"></div>
+		<% end
+			lastgroupenotif = notification.link_notif_id
+		%>
+		<div  id="notif<%= notification.id %>" class="ligthline" <%if notification.lu==2 %>style="width:80%; float:right;"<%end%><%if notification.lu==1 %>style="width:80%; float:left;"<%end%> <%if notification.lu==0 %>style="border-style:solid;border-color:red;width:80%;float:left;"<%end%> >
+			<span class="textStyle"><b><%if notification.lu==2 %><%= t('envoye') %><%else%><%= t('recu') %><%end%> <%= notification.created_at.localtime.to_s[0..-7] %><%if notification.lu!=2 %>, from : <%= notification.sent_by %><%end%></b><br>
+				<%= notification.message.html_safe %>
+			</span>
+			<form id="formnotifupdate" action="../user_notifications/update" method="post" target="hiddenframenotif" onsubmit="startloader();">
+				<input type="hidden" value="<%= form_authenticity_token() %>" id="authenticity_token" name="authenticity_token"/>
+				<input type="hidden" value="<%= notification.id %>" name="notif_id"/>
+				<input type="submit" name="delete" class="btndel" style="float:right" value="" title="<%=t('supprimer')%>"/>
+				<%if notification.lu==0 %><input type="submit" id="seen<%=notification.id%>" name="seen" class="btnseen" style="float:right" value=""  title="<%=t('vu')%>"/><%end%>
+			</form>
+			<%if notification.lu!=2 %>
+				<%if notification.sent_by_id != nil%>
+					<div class="btndroite" style="float:right"  title="<%=t('repondre')%>" onclick="
+							document.getElementById('notif_id').value=<% if notification.link_notif_id!=nil %><%=notification.link_notif_id%><%else%><%=notification.id%><%end%>;
+							if (document.getElementById('chbxinput<%= notification.sent_by_id %>')) {
+								document.getElementById('chbxinput<%= notification.sent_by_id %>').checked = true } else {
+								if ('<%=notification.sent_by%>' == 'contact_alfyft') {
+								document.getElementById('contact_alf').checked = true
+								} else {
+									document.getElementById('resp_id').value=<%=notification.sent_by_id%>;
+									document.getElementById('resp_id').checked=true;
+									document.getElementById('spanresp').innerHTML='<b><%=notification.sent_by%><b>';
+									document.getElementById('divresp').style.display='inline';}}
+								showvalidifdest();">
+					</div>
+				<%end%>
+			<%end%>
+		</div>
+	<% end %>
+</div>
+<iframe id="hiddenframenotif" name="hiddenframenotif" width="0" height="0" border="0" style="display: none;" onload="majnotif('popup');"></iframe>

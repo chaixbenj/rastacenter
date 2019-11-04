@@ -1,0 +1,4 @@
+<% if @message != nil %>
+  <span id='idspanmessage' class='<% if @OK %>succesMessage<% else %>errorMessage<% end %>' onclick='this.parentNode.removeChild(this)'><%= @message %>&nbsp;<b>x</b></span>
+<% end %>
+<span id='idwaitMessage' class='waitMessage' ><%= t('message.en_cours') %></span>

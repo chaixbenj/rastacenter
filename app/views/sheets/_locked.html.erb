@@ -1,0 +1,13 @@
+<% if @lockBy == nil %>
+	<% if @modmodif == "0" %>
+		<span class="errorMessage" onclick='this.parentNode.removeChild(this)'><%= t('ecr_sheet.msg_mode_lecture') %>&nbsp;&nbsp;&nbsp;<b>x</b></span>
+	<% else %>
+		<% if @locked_project_version == 1 %>
+			<span class="errorMessage" onclick='this.parentNode.removeChild(this)'><%= t('ecr_sheet.msg_version_verrouillee') %>&nbsp;&nbsp;&nbsp;<b>x</b></span>
+		<% else %>    
+			<span class="errorMessage" onclick='this.parentNode.removeChild(this)'><%= t('ecr_sheet.msg_droit_insuffisant') %>&nbsp;&nbsp;&nbsp;<b>x</b></span>
+		<% end %>
+	<% end %>
+<% else %>
+	<span class="errorMessage" onclick='this.parentNode.removeChild(this)'><%= t('ecr_sheet.msg_feuille_verrouillee').gsub("{1}", @lockBy) %>&nbsp;&nbsp;&nbsp;<b>x</b></span>
+<% end %>

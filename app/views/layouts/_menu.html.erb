@@ -1,0 +1,62 @@
+<div class="divmenup">
+  <div class="topmenu"></div>
+  <div class="divmenu">
+	  <ul id="nav" class="dropdown dropdown-horizontal" >
+		  <li class="menuadmin" title="<%= t('menu.administrer') %>">
+			  <ul>
+
+				  <li class="last"><a <% if @selectedproject!= nil %>href="../roles/index" <% end %> onclick='startloader();'><%= t('menu.roles') %></a></li>
+				  <li class="last"><a <% if @selectedproject!= nil %>href="../users/index" <% end %> onclick='startloader();'><%= t('menu.utilisateurs') %></a></li>
+				  <li class="last"><a <% if @selectedproject!= nil %>href="../computers/index" <% end %> onclick='startloader();'><%= t('menu.machines') %></a></li>
+				  <li class="last"><a <% if @selectedproject!= nil %>href="../versions/index" <% end %> onclick='startloader();'><%= t('menu.archives') %></a></li>
+
+				  <li class="first"><a href="#"><%= t('menu.configurer') %></a>
+					  <ul>
+						  <li class="first"><a <% if @selectedproject!= nil %>href="../listes/index" <% end %> onclick='startloader();'><%= t('menu.listes') %></a></li>
+						  <li class="first"><a <% if @selectedproject!= nil %>href="../sheets/index?sheettype=workflow&mode=folder" <% end %> onclick='startloader();'><%= t('menu.workflow') %></a></li>
+						  <li class="first"><a <% if @selectedproject!= nil %>href="../type_fiches/index" <% end %> onclick='startloader();'><%= t('menu.type_fiches') %></a></li>
+						  <li class="first"><a <% if @selectedproject!= nil %>href="../kanbans/parametrize" <% end %> onclick='startloader();'><%= t('menu.kanban_config') %></a></li>
+					  </ul>
+
+			  </ul>
+		  </li>
+		  </li>
+		  <li class="menuparametrer" title="<%= t('menu.parametrer') %>">
+			  <ul>
+				  <li class="first"><a <% if @selectedproject!= nil %>href="../projects/index" <% end %> onclick='startloader();'><%= t('menu.projets') %></a></li>
+				  <li class="first"><a <% if @selectedproject!= nil %>href="../releases/index" <% end %> onclick='startloader();'><%= t('menu.releases') %></a></li>
+				   <li class="first"><a <% if @selectedproject!= nil %>href="../environnements/index" <% end %> onclick='startloader();'><%= t('menu.environnements') %></a></li>
+
+				   <li class="first"><a <% if @selectedproject!= nil %>href="../appium_caps/index" <% end %> onclick='startloader();'><%= t('menu.configuration_appium') %></a></li>
+
+				  <li class="first"><a <% if @selectedproject!= nil %>href="../configuration_variables/index"<% end %> onclick='startloader();'><%= t('menu.variables_conf') %></a></li>
+				  <li class="first"><a <% if @selectedproject!= nil %>href="../data_sets/index"<% end %> onclick='startloader();'><%= t('menu.data_sets') %></a></li>
+				  <li class="last"><a <% if @selectedproject!= nil %>href="../test_constantes/index"<% end %> onclick='startloader();'><%= t('menu.constantes_de_test') %></a></li>
+			  </ul>
+		  </li>
+		  <li class="menuconcevoir" title="<%= t('menu.concevoir') %>">
+			  <ul>
+				  <li class="first"><a <% if @selectedproject!= nil %>href="../actions/index"<% end %> onclick='startloader();'><%= t('menu.actions_unitaires') %></a></li>
+				  <li class="first"><a <% if @selectedproject!= nil %>href="../sheets/index?sheettype=conception_sheet&mode=folder" <% end %> onclick='startloader();'><%= t('menu.feuilles_conception') %></a></li>
+				  <li class="first"><a <% if @selectedproject!= nil %>href="../funcandscreens/index" <% end %> onclick='startloader();'><%= t('menu.fonctions_et_ecrans') %></a></li>
+				  <li class="first"><a <% if @selectedproject!= nil %>href="../tests/index" <% end %> onclick='startloader();'><%= t('menu.tests') %></a></li>
+				  <li class="first"><a <% if @selectedproject!= nil %>href="../tests/index?atddsteps=1" <% end %> onclick='startloader();'><%= t('menu.atddsteps') %></a></li>
+				  <li class="last"><a <% if @selectedproject!= nil %>href="../sheets/index?sheettype=test_suite&mode=folder" <% end %> onclick='startloader();'><%= t('menu.suites_de_tests') %></a></li>
+			  </ul>
+		  </li>
+		  <li class="menuexecuter" title="<%= t('menu.executer') %>">
+			  <ul>
+				  <li class="first"><a <% if @selectedproject!= nil %>href="../default_user_configs/index" <% end %> onclick='startloader();'><%= t('menu.configuration_par_defaut') %></a></li>
+				  <li class="first"><a <% if @selectedproject!= nil %>href="../campains/index" <% end %> onclick='startloader();'><%= t('menu.campagnes') %></a></li>
+				  <li class="first"><a <% if @selectedproject!= nil %>href="../runs/index" <% end %> onclick='startloader();'><%= t('menu.runs') %></a></li>
+				  <li class="last"><a <% if @selectedproject!= nil %>href="../campains/cover" <% end %> onclick='startloader();'><%= t('menu.couverture') %></a></li>
+			  </ul>
+		  </li>
+		  <li class="menukanban" title="<%= t('menu.kanban') %>">
+			  <ul>
+				  <li class="first"><a <% if @selectedproject!= nil %>href="../kanbans/index" <% end %> onclick='startloader();'><%= t('menu.kanban') %></a></li>
+			  </ul>
+		  </li>
+	  </ul>
+  </div>
+</div>

@@ -1,0 +1,49 @@
+<form id="formreordersteps" action="../teststeps/reorder" method="post" target="hiddenFrame2">
+	<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+	<input type="hidden" name="test_id" value="<%= @test_id %>"/>
+	<input type="hidden" name="istart" id="istart" value=""/>
+	<input type="hidden" name="idest" id="idest" value=""/>
+	<input type='hidden' name="popup" value="<%=@popup%>"/>
+	<input type="hidden" name="atddsteps" value="<%=@atddsteps%>"/>
+</form>
+
+<form id="formdeletestep" action="../teststeps/delete" method="post" target="hiddenFrame2">
+	<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+	<input type="hidden" name="test_id" value="<%= @test_id %>"/>
+	<input type="hidden" name="step_id" id="step_id" value=""/>
+	<input type='hidden' name="popup" value="<%=@popup%>"/>
+	<input type="hidden" name="atddsteps" value="<%=@atddsteps%>"/>
+</form>
+
+<form id="formholdstep" action="../teststeps/hold" method="post" target="hiddenFrame2">
+	<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+	<input type="hidden" name="test_id" value="<%= @test_id %>"/>
+	<input type="hidden" name="step_id" id="hold_step_id" value=""/>
+	<input type='hidden' name="popup" value="<%=@popup%>"/>
+	<input type="hidden" name="atddsteps" value="<%=@atddsteps%>"/>
+</form>
+
+<form id="formunholdstep" action="../teststeps/unhold" method="post" target="hiddenFrame2">
+	<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+	<input type="hidden" name="test_id" value="<%= @test_id %>"/>
+	<input type="hidden" name="step_id" id="unhold_step_id" value=""/>
+	<input type='hidden' name="popup" value="<%=@popup%>"/>
+	<input type="hidden" name="atddsteps" value="<%=@atddsteps%>"/>
+</form>
+
+<form id="formchangeparamvalue" action="../teststeps/changeparamvalue" method="post" target="hiddenFrame2">
+	<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+	<input type="hidden" name="test_id" value="<%= @test_id %>"/>
+	<input type="hidden" name="step_id" id="chgtpval_stepid" value=""/>
+	<input type="hidden" name="parameters" id="chgtpval_params" value=""/>
+	<input type='hidden' name="popup" value="<%=@popup%>"/>
+	<input type="hidden" name="atddsteps" value="<%=@atddsteps%>"/>
+</form>
+
+<form id="formtododone" action="../teststeps/tododone" method="post" target="hiddenFrameNoLoad">
+	<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+	<input type="hidden" name="test_id" value="<%= @test_id %>"/>
+	<input type="hidden" name="step_id" id="steptododone" value=""/>
+	<input type='hidden' name="popup" value="<%=@popup%>"/>
+	<input type="hidden" name="atddsteps" value="<%=@atddsteps%>"/>
+</form>

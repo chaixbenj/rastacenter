@@ -1,0 +1,20 @@
+<% if @hors_appli or session[:uid] == nil or @donotshowmenu != nil %>
+	<form class="langue">
+		<input class="btnes" value="" type="submit" onclick="document.getElementById('locale').value='es';"/>
+		<input class="btnen" value="" type="submit" onclick="document.getElementById('locale').value='en';"/>
+		<input class="btnfr" value="" type="submit" onclick="document.getElementById('locale').value='fr';"/>
+		<input type="hidden" name="locale" id="locale" value="<%= @locale %>"/>
+	</form>
+	<div id="page-wrapper" <%if @page=="doc" or @page=="formation"%>style="height:100%"<% end %>>
+		<div id="header-wrapper">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<header id="header">
+							<div id='logo1'></div>
+						</header>
+					</div>
+				</div>
+			</div>
+		</div>
+<% end %>

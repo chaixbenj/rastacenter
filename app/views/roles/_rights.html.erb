@@ -1,0 +1,107 @@
+<tr>
+	<td><span class="textStyle"><%= t('ecr_role.peut_faire_quelque_chose') %></span></td>
+	<td colspan="2"><input <%if @can_manage_role != 1   or @role.name == "admin" %> disabled <% end %> <% if @role.droits[22] == '1'  %>checked='true'<% end %>  id="droit22" class="textStyle" size=50 type="checkbox" name="droit" value="" onClick="showvalidbtn();" ></input></td>
+</tr>
+<tr><td>&nbsp;</td></tr>
+
+<!-- ADMINISTRER -->
+<tr>
+	<td><span class="textStyle"><%= t('ecr_role.gestion_des_utilisateurs') %></span></td>
+	<td colspan="2"><input <%if @can_manage_role != 1   or @role.name == "admin" %> disabled <% end %> <% if @role.droits[0] == '1'  %>checked='true'<% end %> id="droit0"  class="textStyle" size=50 type="checkbox" name="droit" value="" onClick="showvalidbtn();" ></input></td>
+</tr>
+<tr>
+	<td><span class="textStyle"><%= t('ecr_role.gestion_des_roles') %></span></td>
+	<td colspan="2"><input <%if @can_manage_role != 1   or @role.name == "admin" %> disabled <% end %> <% if @role.droits[1] == '1'  %>checked='true'<% end %> id="droit1"  class="textStyle" size=50 type="checkbox" name="droit" value="" onClick="showvalidbtn();" ></input></td>
+</tr>
+<tr>
+	<td><span class="textStyle"><%= t('ecr_role.gestion_des_machines') %></span></td>
+	<td colspan="2"><input <%if @can_manage_role != 1   or @role.name == "admin" %> disabled <% end %> <% if @role.droits[15] == '1'  %>checked='true'<% end %>  id="droit15" class="textStyle" size=50 type="checkbox" name="droit" value="" onClick="showvalidbtn();" ></input></td>
+</tr>
+<tr>
+	<td><span class="textStyle"><%= t('ecr_role.gestion_des_versions') %></span></td>
+	<td colspan="2"><input <%if @can_manage_role != 1   or @role.name == "admin" %> disabled <% end %> <% if @role.droits[19] == '1'  %>checked='true'<% end %>  id="droit19" class="textStyle" size=50 type="checkbox" name="droit" value="" onClick="showvalidbtn();" ></input></td>
+</tr>
+<tr>
+	<td><span class="textStyle"><%= t('ecr_role.gestion_des_listes') %></span></td>
+	<td colspan="2"><input <%if @can_manage_role != 1   or @role.name == "admin" %> disabled <% end %> <% if @role.droits[11] == '1'  %>checked='true'<% end %> id="droit11"  class="textStyle" size=50 type="checkbox" name="droit" value="" onClick="showvalidbtn();" ></input></td>
+</tr>	  
+<tr>
+	<td><span class="textStyle"><%= t('ecr_role.gestion_des_workflows_et_fiches') %></span></td>
+	<td colspan="2"><input <%if @can_manage_role != 1   or @role.name == "admin" %> disabled <% end %> <% if @role.droits[18] == '1'  %>checked='true'<% end %>  id="droit18" class="textStyle" size=50 type="checkbox" name="droit" value="" onClick="showvalidbtn();" ></input></td>
+</tr>
+<tr><td>&nbsp;</td></tr>
+
+
+<!-- PARAMETRER -->
+<tr>
+	<td><span class="textStyle"><%= t('ecr_role.gestion_des_projets') %></span></td>
+	<td colspan="2"><input <%if @can_manage_role != 1   or @role.name == "admin" %> disabled <% end %> <% if @role.droits[2] == '1'  %>checked='true'<% end %> id="droit2"  class="textStyle" size=50 type="checkbox" name="droit" value="" onClick="showvalidbtn();" ></input></td>
+</tr>
+<tr>
+	<td><span class="textStyle"><%= t('ecr_role.gestion_des_releases') %></span></td>
+	<td colspan="2"><input <%if @can_manage_role != 1   or @role.name == "admin" %> disabled <% end %> <% if @role.droits[13] == '1'  %>checked='true'<% end %> id="droit13"  class="textStyle" size=50 type="checkbox" name="droit" value="" onClick="showvalidbtn();" ></input></td>
+</tr>	  
+<tr>
+	<td><span class="textStyle"><%= t('ecr_role.gestion_des_variables_d_environnement') %></span></td>
+	<td colspan="2"><input <%if @can_manage_role != 1   or @role.name == "admin" %> disabled <% end %> <% if @role.droits[9] == '1'  %>checked='true'<% end %>  id="droit9" class="textStyle" size=50 type="checkbox" name="droit" value="" onClick="showvalidbtn();" ></input></td>
+</tr>
+<tr>
+	<td><span class="textStyle"><%= t('ecr_role.gestion_des_capabilities_appium') %></span></td>
+	<td colspan="2"><input <%if @can_manage_role != 1   or @role.name == "admin" %> disabled <% end %> <% if @role.droits[17] == '1'  %>checked='true'<% end %>  id="droit17" class="textStyle" size=50 type="checkbox" name="droit" value="" onClick="showvalidbtn();" ></input></td>
+</tr>
+<tr>
+	<td><span class="textStyle"><%= t('ecr_role.gestion_des_variables_de_conf') %></span></td>
+	<td colspan="2"><input <%if @can_manage_role != 1   or @role.name == "admin" %> disabled <% end %> <% if @role.droits[10] == '1'  %>checked='true'<% end %>  id="droit10" class="textStyle" size=50 type="checkbox" name="droit" value="" onClick="showvalidbtn();" ></input></td>
+</tr>	
+<tr>
+	<td><span class="textStyle"><%= t('ecr_role.gestion_des_jeux_de_donnee') %></span></td>
+	<td colspan="2"><input <%if @can_manage_role != 1   or @role.name == "admin" %> disabled <% end %> <% if @role.droits[20] == '1'  %>checked='true'<% end %>  id="droit20" class="textStyle" size=50 type="checkbox" name="droit" value="" onClick="showvalidbtn();" ></input></td>
+</tr>	  
+<tr>
+	<td><span class="textStyle"><%= t('ecr_role.gestion_des_constantes_de_tests') %></span></td>
+	<td colspan="2"><input <%if @can_manage_role != 1   or @role.name == "admin" %> disabled <% end %> <% if @role.droits[16] == '1'  %>checked='true'<% end %>  id="droit16" class="textStyle" size=50 type="checkbox" name="droit" value="" onClick="showvalidbtn();" ></input></td>
+</tr>	  
+<tr><td>&nbsp;</td></tr>
+
+
+<!-- CONCEVOIR -->
+<tr>
+	<td><span class="textStyle"><%= t('ecr_role.gestion_des_actions_elementaires') %></span></td>
+	<td colspan="2"><input <%if @can_manage_role != 1   or @role.name == "admin" %> disabled <% end %> <% if @role.droits[3] == '1'  %>checked='true'<% end %> id="droit3"  class="textStyle" size=50 type="checkbox" name="droit" value="" onClick="showvalidbtn();" ></input></td>
+</tr>
+<tr>
+	<td><span class="textStyle"><%= t('ecr_role.gestion_des_feuilles_de_conception_publiques') %></span></td>
+	<td colspan="2"><input <%if @can_manage_role != 1   or @role.name == "admin" %> disabled <% end %> <% if @role.droits[4] == '1'  %>checked='true'<% end %> id="droit4"  class="textStyle" size=50 type="checkbox" name="droit" value="" onClick="showvalidbtn();" ></input></td>
+</tr>
+<tr>
+	<td><span class="textStyle"><%= t('ecr_role.gestion_des_repertoires_d_objets') %></span></td>
+	<td colspan="2"><input <%if @can_manage_role != 1   or @role.name == "admin" %> disabled <% end %> <% if @role.droits[5] == '1'  %>checked='true'<% end %> id="droit5"  class="textStyle" size=50 type="checkbox" name="droit" value="" onClick="showvalidbtn();" ></input></td>
+</tr>
+<tr>
+	<td><span class="textStyle"><%= t('ecr_role.gestion_des_procedures') %></span></td>
+	<td colspan="2"><input <%if @can_manage_role != 1   or @role.name == "admin" %> disabled <% end %> <% if @role.droits[6] == '1'  %>checked='true'<% end %> id="droit6"  class="textStyle" size=50 type="checkbox" name="droit" value="" onClick="showvalidbtn();" ></input></td>
+</tr>
+<tr>
+	<td><span class="textStyle"><%= t('ecr_role.gestion_des_repertoires_de_tests') %></span></td>
+	<td colspan="2"><input <%if @can_manage_role != 1   or @role.name == "admin" %> disabled <% end %> <% if @role.droits[7] == '1'  %>checked='true'<% end %> id="droit7"  class="textStyle" size=50 type="checkbox" name="droit" value="" onClick="showvalidbtn();" ></input></td>
+</tr>
+<tr>
+	<td><span class="textStyle"><%= t('ecr_role.gestion_des_tests_publics') %></span></td>
+	<td colspan="2"><input <%if @can_manage_role != 1   or @role.name == "admin" %> disabled <% end %> <% if @role.droits[8] == '1'  %>checked='true'<% end %> id="droit8"  class="textStyle" size=50 type="checkbox" name="droit" value="" onClick="showvalidbtn();" ></input></td>
+</tr>
+<tr>
+	<td><span class="textStyle"><%= t('ecr_role.gestion_des_suites_de_test_publiques') %></span></td>
+	<td colspan="2"><input <%if @can_manage_role != 1   or @role.name == "admin" %> disabled <% end %> <% if @role.droits[12] == '1'  %>checked='true'<% end %>  id="droit12" class="textStyle" size=50 type="checkbox" name="droit" value="" onClick="showvalidbtn();" ></input></td>
+</tr>
+<tr><td>&nbsp;</td></tr>
+
+<!-- EXECUTER / SUIVRE  -->
+<tr>
+	<td><span class="textStyle"><%= t('ecr_role.gestion_des_campagnes_publiques') %></span></td>
+	<td colspan="2"><input <%if @can_manage_role != 1   or @role.name == "admin" %> disabled <% end %> <% if @role.droits[14] == '1'  %>checked='true'<% end %>  id="droit14" class="textStyle" size=50 type="checkbox" name="droit" value="" onClick="showvalidbtn();" ></input></td>
+</tr>
+<tr>
+	<td><span class="textStyle"><%= t('ecr_role.creation_modification_de_fiche') %></span></td>
+	<td colspan="2"><input <%if @can_manage_role != 1   or @role.name == "admin" %> disabled <% end %> <% if @role.droits[21] == '1'  %>checked='true'<% end %>  id="droit21" class="textStyle" size=50 type="checkbox" name="droit" value="" onClick="showvalidbtn();" ></input></td>
+</tr>
+

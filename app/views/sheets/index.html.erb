@@ -1,0 +1,79 @@
+<script type="application/javascript"> 
+    var supprimer_dossier_msg = "<%= t('ecr_sheet.supprimer_repertoire_confirmation') %>";
+    var supprimer_sheet_msg = "<%= t('ecr_sheet.supprimer_element_confirmation') %>";
+</script>  
+
+<div id="content"  <% if @popup != nil and @popup.to_s == 'true' %> style="height: 100%;" <%end%>>
+
+	<%= render :partial => 'sheets/list' %>
+
+    <div id="right">
+        <% if @sheet != nil %>
+			<%if @sheettype != 'workflow'%>
+				<%= render :partial => 'sheets/detail' %>
+			<%else%>
+				<iframe src="../sheets/edit?popup=true&write=1&sheet_id=<%= @sheet.id %>&sheettype=<%= @sheettype %>" width="100%" height="100%" frameBorder="0" onload="document.getElementById('right').style.overflow = 'hidden'"></iframe> 
+			<%end%>
+		<% end %> 
+    </div>
+
+</div>
+
+<form id="formadd_sheet" action="../sheets/add_sheet" method="post">
+    <input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+    <input type="hidden" name="shid" value="<% if @sheet != nil %><%= @sheet.id %><% end %>"/>
+    <input type="hidden" name="folder" id="asfolder" value=""/> 
+    <input type='hidden' name='sheettype' value='<%= @sheettype %>'/>	
+    <input type='hidden' name='mode' value='<%= @mode %>'/>
+</form> 
+<form id="formadd_folder" action="../sheets/add_folder" method="post">
+    <input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+    <input type="hidden" name="shid" value="<% if @sheet != nil %><%= @sheet.id %><% end %>"/>
+    <input type="hidden" name="folder" id="affolder" value=""/> 
+    <input type='hidden' name='sheettype' value='<%= @sheettype %>'/>	
+    <input type='hidden' name='mode' value='<%= @mode %>'/>
+</form> 
+
+<form id="formsheetindex" action="../sheets/index" method="post">
+    <input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+    <input type="hidden" name="shid" id="sheettoshow" value="<% if @sheet != nil %><%= @sheet.id %><% end %>"/>
+    <input type="hidden" name="mode"  value="<%= @mode %>"/>   
+    <input type='hidden' name='sheettype' value='<%= @sheettype %>'/>	
+</form> 
+
+<form id="formrenamefolder" action="../sheets/rename" method="post" target="hiddenFrame">
+    <input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>	
+    <input type="hidden" name="rfolder" id="rfolder" value=""/>
+    <input type="hidden" name="rfoldername" id="rfoldername" value=""/>
+    <input type="hidden" name="what" id="what" value="folder"/>
+    <input type='hidden' name='sheettype' value='<%= @sheettype %>'/>	
+</form>    
+
+<form id="formrenamesheet" action="../sheets/rename" method="post" target="hiddenFrame">
+    <input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>	
+    <input type="hidden" name="rsheet" id="rsheet" value=""/>
+    <input type="hidden" name="rsheetname" id="rsheetname" value=""/>
+    <input type="hidden" name="what" id="what" value="sheet"/>
+    <input type='hidden' name='sheettype' value='<%= @sheettype %>'/>	
+</form>   
+
+<form id="formdelete" action="../sheets/delete" method="post" target="hiddenFrame">
+    <input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>	
+    <input type="hidden" name="idtodel" id="idtodel" value=""/>
+    <input type="hidden" name="delwhat" id="delwhat" value="sheet"/>
+    <input type='hidden' name='sheettype' value='<%= @sheettype %>'/>	
+</form> 
+
+<form id="formpaste" action="../sheets/paste" method="post" onsubmit="startloader();">
+    <input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+    <input type="hidden"  id="folder_id_destination" name="folder_id" value=""/>
+    <input type="hidden"  id="sheet_or_folder_to_paste" name="sheet_or_folder_to_paste" value=""/>
+    <input type='hidden' name='sheettype' value='<%= @sheettype %>'/>
+    <input type='hidden' name='mode' value='<%= @mode %>'/>
+
+</form>
+
+<iframe id="hiddenFrame" name="hiddenFrame" width="0" height="0" border="0" style="display: none;"></iframe>   
+
+
+

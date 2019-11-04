@@ -1,0 +1,52 @@
+<br>
+<table class="leftTable" id="sheetdetail">
+	<form onsubmit="startloader();" action="../sheets/update" method="post">
+		<input type='hidden' name='sheettype' value='<%= @sheettype %>'/>
+		<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+		<tr>
+			<td><span class="textStyle"><%= t('nom') %></span></td>
+			<td><input <% if (@can_manage != 1 and @sheet.owner_user_id != @my_user_id) or  @locked_project_version == 1 %>disabled<% end %>  class="inputbox" size=30 maxlength='250' type="text" spellcheck='false' name="sname" id="sname" value="<%= @sheet.name  %>" onKeyDown="showvalidbtn();"/>
+				<input <% if (@can_manage != 1 and @sheet.owner_user_id != @my_user_id) or  @locked_project_version == 1 %>disabled<% end %>   type="checkbox" name="sprivate" id="sprivate" <% if @sheet.private == 1 %>checked<% end %>  onClick="showvalidbtn();"/><span class="textStyle"><%= t('privee')%>     </span>
+				<% if (@can_manage == 1 or @sheet.owner_user_id == @my_user_id) and @locked_project_version == 0 %>
+					<input name="valid" value="" id="btnval" style="display: none;" type="submit" class="btnvalid" title="<%= t('valider') %>" onclick="document.getElementById('sname').required = true;
+						document.getElementById('snamec').required = false;"/>&nbsp;&nbsp;&nbsp;
+					<span class="textStyle">&nbsp;&nbsp;&nbsp;(<%= t('creee_par') %>  <b><%= @ownername  %></b>) </span> 
+				<% end %>
+			<td>
+		</tr>
+		<tr>
+			<td><span  class="textStyle"><%= t('description') %></span></td>
+			<td><textarea <% if (@can_manage != 1 and @sheet.owner_user_id != @my_user_id) or  @locked_project_version == 1 %>disabled<% end %> spellcheck='false' class="inputbox" rows=6 cols=60  name="sdesc" id="sdesc" onKeyDown="showvalidbtn();"><%= @sheet.description  %></textarea></td>
+		</tr>
+		<input type="hidden" name="shid" id="shid" value="<%= @sheet.id %>"/>
+		<input type="hidden" name="mode" value="<%= @mode %>"/>
+	</form>
+	<tr></tr>
+	<tr>
+		<td colspan='2' align="middle">
+			<table>
+				<tr>
+					<td>
+						<form onsubmit="startloader();" action="../sheets/edit" method="post">
+							<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+							<input type="hidden" name="write" value="1"/>
+							<input type="hidden" name="sheet_id" value="<%= @sheet.id %>"/>
+							<input type="hidden" name="load" value="1" />
+							<input type="hidden" name="sheettype" value="<%= @sheettype %>" />
+							<input type="hidden" name="back_to_id" value="shid=<%= @sheet.id %>" />
+							<input type="submit" value="" name="" class="btndiag" title="<%= t('ecr_sheet.modifier_la_feuille') %>" <% if (@can_manage != 1 and @sheet.owner_user_id != @my_user_id) or @locked_project_version == 1 %>disabled<% end %>/>
+						</form>
+					</td><td>
+						<form onsubmit="startloader();" action="../sheets/edit" method="post">
+							<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+							<input type="hidden" name="write" value="0"/>
+							<input type="hidden" name="sheet_id" value="<%= @sheet.id %>"/>
+							<input type="hidden" name="load" value="1" />
+							<input type="hidden" name="sheettype" value="<%= @sheettype %>" />
+							<input type="hidden" name="back_to_id" value="shid=<%= @sheet.id %>" />
+							<input type="submit" value="" name="" class="btnseediag" title="<%= t('ecr_sheet.voir_la_feuille') %>" />
+						</form>
+			</table>
+		</td>
+	</tr>
+</table>   

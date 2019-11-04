@@ -1,0 +1,19 @@
+<div id="left">
+	<div id="btnresize" class="btnresize" onmousedown="startresizediv(event, this);"></div>
+	<span  style='float: left;' class="titleStyle" style="color:#000000">&nbsp;<%= t('ecr_suite.suite_de_test') %> : <b><%= @sheet.name  %></b>  </span>   
+	<% if @popup == nil or @popup.to_s != 'true' %>
+		<% if @can_do_something == 1 %>
+			<button class='btnlaunch' style='float: left;margin-bottom:3px;' title="<%=  t('tester') %>" onclick="document.getElementById('contentpopup').innerHTML = '<object id=\'objpopup\' width=\'99%\' data=\'../run_configs/testindex?popup=true&type=suite&elem_id=<%= @sheet.id %>\'></object>';
+				window.location.href = '#popup';
+				document.getElementById('popup').style.display = 'block';
+				document.getElementById('objpopup').setAttribute('height', 0.89 * document.body.offsetHeight);"></button>
+		<%end%>
+		<button class='btnreport'  style='float: left;margin-bottom:3px;' title="<%= t('rapport') %>" onclick="document.getElementById('contentpopup').innerHTML = '<object id=\'objpopup\' width=\'99%\' data=\'../runs/index?rd=1&popup=true&suite_id=<%= @sheet.id %>\'></object>';window.location.href = '#popup';document.getElementById('popup').style.display = 'block';
+		  document.getElementById('objpopup').setAttribute('height', 0.89 * document.body.offsetHeight);"> </button>
+		<button class="btnrefresh"  style='float: left;margin-bottom:3px;' title="<%= t('recharger') %>" onclick="startloader();
+		  document.getElementById('formreload').submit();"></button>
+	<%end%>
+	<div id="tests">    
+		<%= @htmltestrepertoire  %>
+	</div>
+</div>

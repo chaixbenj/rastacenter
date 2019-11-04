@@ -1,0 +1,59 @@
+<% if @message != nil and procedure.id.to_s == @majid.to_s %>
+   <span id='idspanmessage' class='<% if @OK %>succesMessage<% else %>errorMessage<% end %>' onclick='this.parentNode.removeChild(this)'  style='vertical-align: top;'><%= @message %>&nbsp;<b>x</b></span>
+  
+  <% end %>
+
+<div class="ligthline">
+<div class="inline">
+
+  <input <% if @can_manage_procedure == 0 %>disabled<% end %> required size=30 maxlength='50' class='inputbox' type="text" spellcheck='false' name="name" id="iname<%= procedure.id %>" value="<%= procedure.name %>"  pattern="[A-Za-z0-9_]{2,50}" title="<%= t('ecr_procedure.format_titre') %>" onchange='checknamevalidity("<%= procedure.id %>", "<%= procedure.name %>");'  onKeyUp="formatasprocedure(this)" onKeyDown='showupdateform("<%= procedure.id %>");'/>
+
+  <textarea <% if @can_manage_procedure == 0 %>disabled<% end %> spellcheck='false' class='inputbox' name="description" id="idescription<%= procedure.id %>" rows='1' cols='60' onKeyDown='showupdateform("<%= procedure.id %>");'><%= procedure.description %> </textarea>
+
+
+  <% if @can_manage_procedure == 1 and (procedure.is_used == nil or procedure.is_used == 0) %>
+  <div style="float:right;margin-right: 7px;">
+    <%= button_to "", procedure_path(procedure), params: {funcandscreen_id: @funcandscreen_id, version_id: @version_id, popup: @popup}, remote: true, method: :delete, form: {onsubmit: "startloader();"}, data: { confirm: "#{t('ecr_procedure.confirme_supp')} #{procedure.name}?" }, class: "btndel", title: "#{t('supprimer')}", style: 'display: inline;float: right;'  %>
+  </div>    
+  <% end %>
+
+
+<% if @can_manage_procedure == 1  %>  
+  <div style="float:right;margin-right: 7px;">
+  <button onclick="startloader();document.getElementById('btnpaste').style.display='inline';document.getElementById('formdup<%= procedure.id %>').submit();" class="btncopy" title="<%= t('copier') %>" style='display: inline;float: right;'></button>
+       <form id="formdup<%= procedure.id %>" action="../procedures/copy" method="post" style='display: inline;' target="hiddenFrame">
+          <input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+          <input type="hidden"  name="procedure_id" value="<%= procedure.id %>"/>
+          <input type="hidden" name="popup" value="<%= @popup %>"/>
+        </form>
+  </div>
+  <% end %>
+ 
+    <div style="float:right;margin-right: 7px;">
+          <button style='display: inline;float: right;' class="btncode" title="<%= t('code') %>"  onclick='window.open("../procedures/edit?nw=1&popup=true&procedure_id=<%= procedure.id %>", "code <%= procedure.name %>", "directories=0,titlebar=0,toolbar=0,menubar=0,width=1000,height=800");'/>
+    </div>      
+          
+<% if @can_manage_procedure == 1  %>
+  <div style="float:right;margin-right: 7px;">
+  <form action="/procedures/update" data-remote="true" rel="nofollow" data-method="put" style="display: none;" id="formupdt<%= procedure.id %>" onsubmit="startloader();">
+            <input type="hidden" name="funcandscreen_id" id="funcandscreen_id" value="<%= procedure.funcandscreen_id %>"/>  
+            <input type="hidden" name="version_id" id="version_id" value=""/>
+            <input type="hidden" name="idelement" value="<%= procedure.id %>"/>
+            <input type="hidden" name="name" id="name<%= procedure.id %>" value=""/>
+            <input type="hidden" name="description" id="description<%= procedure.id %>" value=""/>
+            <input type="hidden" name="popup" value="<%= @popup %>"/>
+            <input class="btnvalid" style="float: right;" title="<%= t('valider') %>" type="submit" value="" onmouseover="checknamevalidity('<%= procedure.id %>', '<%= procedure.name %>');" onclick="document.getElementById('name<%= procedure.id %>').value=document.getElementById('iname<%= procedure.id %>').value;document.getElementById('description<%= procedure.id %>').value=document.getElementById('idescription<%= procedure.id %>').value;"/>
+	</form>
+  </div>
+  <% end %>	
+
+</div>
+</div>
+<script>
+          setTimeout(function () {
+            elem = document.getElementById('idspanmessage');
+            if (elem!=null) {
+              elem.parentNode.removeChild(elem);
+            }
+        }, 2000);
+</script>  

@@ -1,0 +1,64 @@
+
+
+<div id='popup1'>
+
+    <div>
+
+        <form action="../run_configs/testupdate" method="post">
+            <input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+            <input type="hidden" name="type" value="<%= @type %>"/>
+            <input type="hidden" name="popup" value="<%= @popup %>"/>
+            <input type="hidden" name="run" value="<%= @run_id %>"/>
+            <input type="hidden" name="elem_id" value="<%= @elem_id %>"/>
+			<input type="hidden" name="campain_id" value="<%= @campain_id %>"/>
+			<div class="popupadd">
+            <span class="titleStyle" style="color:#161616"><b>&nbsp;&nbsp;<%= t('ecr_test.valider_conf_de_lancement') %>&nbsp;&nbsp;</b></span> 
+            <% if @run_id == nil or @run_id.to_s == ""  %>
+            <input value="" style="display: inline" id="btnval" type="submit" class="btnvalid" title="<%= t('valider') %>" onclick="startloader();document.getElementById('idwaitMessage').style.display='inline-block';"/>
+            <% else %>
+            <a onclick="startloader();"  href="../run_step_results/index?popup=true&run_id=<%= @run_id %>"> <div class="btnreport" title="<%= t('rapport') %>" style="display:inline-block;"></div></a> 
+			<a onclick="startloader();"  href="../run_configs/testindex?popup=true&type=<%=  @type %>&elem_id=<%=  @elem_id %>"> <div class="btnlaunch" title="<%= t('relancer') %>" style="display:inline-block;"></div></a> 		
+            <% end %>
+
+            </div>
+
+        
+            
+            <table>
+                <tr><td><span class="textStyle"><b><%=  t('machine') %></b></span></td><td>
+                        
+                       <select name="computer" class="inputbox" >
+                                  <% @computers.each do |computer| %>
+                                <option <% if @default_computer ==  computer.hostrequest %>selected<% end %> value="<%=  computer.hostrequest %>"><%=  computer.hostrequest %></option>
+                              <% end %>            
+                        </select> 
+                        
+                        
+                    </td></tr>
+                <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+                    
+                    
+                <% if @default_user_configs != nil 
+                  prec_variable = 0
+                  @default_user_configs.each do |variable| 
+                    if variable.variable_id != prec_variable %>
+                      <% if prec_variable != 0 %>
+                        </select></td></tr>
+                      <% end %>
+                      <tr>
+                          <td><span class="textStyle"><%=  variable.variable_name %></span></td>
+                          <td><select name="varvalue<%= variable.variable_id %>" class="inputbox" >
+						  <option value="">-</option>
+                                  <% prec_variable = variable.variable_id
+                                  end %>
+                                <option <%  if variable.allowed_value == variable.user_variable_value %>selected<% end %>  value="<%=  variable.allowed_value %>"><%=  variable.allowed_value %></option>
+                              <%  end
+                              end %>            
+                        </select></td></tr></table>
+
+
+
+        </form>
+    </div> 
+</div>
+

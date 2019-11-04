@@ -1,0 +1,17 @@
+<form onsubmit="startloader();" method="post">
+  <input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+  <input type="hidden" name="action_id"  value="<%= @action.id %>"/>
+  <span class="textStyle"><%=t('ecr_procedure.remplacer_l_action') %> <b><%= @action.name %></b> <%=t('ecr_procedure.dans_les_procedures_par') %> : </span>
+  <select id="replacingaction" name="replacingaction"  class='inputbox' onchange="showvalidbtn();"> 
+		  <option value="" select>-</option>
+		  <% if @actions != nil 
+			@actions.each do |action| %>
+		  <option value="<%= action.id %>"><%= action.name %></option>
+		  <% end
+		  end %>
+   </select>
+  <input type="hidden" id="proclist" name="proclist"  value=""/>
+  <input type="hidden" name="popup"  value="true"/>  
+  <input value="" id="btnval" type="submit" class="btnvalid" title="<%= t('valider') %>" vertical-align="middle" onclick="buildprocedureidstring();" style="display: none"/>
+
+</form>

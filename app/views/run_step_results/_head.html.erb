@@ -1,0 +1,23 @@
+<% if @run != nil %>
+	<div style="display:inline-block" >
+		<span class="textStyle"><%= t('run') %>_<%= @run.id %>,&nbsp;</span>
+		<span class="textStyle"><%= t('soumis_par') %> <%= @username %> <%= t('sur') %> <%= @run.hostrequest %>,&nbsp;</span>
+		<span class="textStyle"><%= t('status') %> : </span>
+		<span class="textStyle"><b><%= @run.status %></b></span>&nbsp;
+		<span class="textStyle">(<%= @run.updated_at.localtime.to_s[0..-7] %>)</span>
+	</div>
+ 
+    
+	<form onsubmit="startloader();" action="../run_step_results/index" method="post" style='float: left;display:inline;margin-top:3px;'>
+		<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+		<input type="hidden" name="popup" value="<%= @popup %>"/>
+		<input type="hidden" name="run_id" value="<%= @run.id %>"/>
+		<input type="hidden" name="photo" value="<%= @photo %>"/>
+		<input type='submit' class='btnrefresh' title='<%= t('recharger')%>' value=''/>
+	</form>
+ 
+	<div style="float:right;margin-right:20px;;margin-top:3px;"><input type="checkbox" id="spass" checked onclick="showhidepass('spass')" ><span class="textStyle">PASS</span></input>
+	<input type="checkbox" id="sss" checked onclick="showhidepass('sss')"><span class="textStyle">screenshots</span></input></div>
+	<br>
+	<br>
+<% end %> 

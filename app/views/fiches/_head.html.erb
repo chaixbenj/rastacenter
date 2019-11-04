@@ -1,0 +1,39 @@
+<input type="hidden" value="" name="reload" id="reload"/>
+<input type="hidden" value="<% if @fiche != nil %><%= @fiche.father_id %><%else%><%= @father_id %><%end%>" name="father_id"/>
+<input type="hidden" value="<%= form_authenticity_token() %>" id ="token" name="authenticity_token"/>
+<input type="hidden" value="<%= @step_id %>" name="step_id"/>
+<input type="hidden" id="addf" name="addf" value="<% if @fiche != nil %><%= @fiche.father_id %><%else%><%= @father_id %><%end%>"/>
+<input type="hidden" id="adp" name="adp" value=""/>
+<div style="display:block;width:100%;">
+	<input type="hidden" name="fiche_id" value="<%= @fiche_id %>"/>
+	<input type="hidden" name="init_type_fiche_id" value="<%= @type_fiche_id %>"/>
+	
+	<select <% if @can_manage_cards == 0 %>disabled<%end%> name="type_fiche_id" class="inputbox"  onchange="startloader();document.getElementById('fiche_form_id').submit();">
+		<% @type_fiches.each do |type_fiche| %>
+		<option <% if type_fiche.id.to_s == @type_fiche_id.to_s %>selected<%end%> value="<%= type_fiche.id %>"><b><%= type_fiche.name %></b>
+		<% end %>
+	</select>
+	
+	<span class="textStyle" style="margin-top:3px"><b>#<%= @fiche_id %></b></span>
+	
+	<br>
+	
+	<span class="textStyle" style="margin-top:3px" ><b><%= t('projet') %> : </b></span>
+	<SELECT class="inputbox" name="project_id" onchange="changeprojet();">
+		<% myprojects = @myprojects.split('|')
+		  for i in 0..myprojects.length-1
+			if i%2 == 0 %>
+		  <OPTION <% if @project_fiche_id==myprojects[i].to_i %>selected<% end %> value="<%= myprojects[i].to_i %>" ><%= myprojects[i+1].to_s %>
+			<% end
+		end %>
+	</SELECT>
+	<br>
+	
+	<input <% if @can_manage_cards == 0 %>disabled<%end%> required name="desc" class="inputbox" type="text" size='' maxlength='250' style='width:85%' placeholder="<%= t('ecr_type_fiche.description') %>" value="<% if @fiche != nil %><%=  @fiche.name %><% end %>"></input>
+	
+	<% if @can_manage_cards == 1 %>
+		<input value="" id="btnval" style="float: right;" type="submit" class="btnvalid" title="<%= t('valider') %>" />
+	<%end%>
+	
+	<br>
+</div>

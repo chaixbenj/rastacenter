@@ -1,0 +1,30 @@
+<div id="left">
+	<div id="btnresize" class="btnresize" onmousedown="startresizediv(event, this);"></div>
+
+
+	<form method="post">
+	  <input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+		<table >
+		  <tr>
+			  <td><input size=20 type="text" spellcheck='false' name="sname" id="sname" value="<%= @sname %>" class="recherche" placeholder="<%= t('input.placeholder.recherche') %>"/></td>
+			  <td><input value="" name="search" type="submit" class="btnsearch" vertical-align="middle" onclick="startloader();document.getElementById('namec').required=false;"/></td>
+		  </tr>
+		</table>
+		
+		<% if @listes != nil
+		@listes.each do |liste| %>
+		
+		<a class="ligthline" id="liste<%=liste.id%>" href="../listes/getone?liste_id=<%= liste.id %>" onclick='startloader();'><%= liste.name %><%  if liste.is_deletable == 0 %><div class='marqueprivate' style='float: left;' title='<%= t('ecr_liste.liste_systeme_titre') %>'></div><% end %><img style="float: right;" src="/assets/icones/btnedit1.png" title="<%= t('editer') %>"/></a>
+		<%  end 
+		end%>
+		
+	</form>
+    
+</div>
+
+
+<script async type="application/javascript"> 
+    <% if @liste != nil %>
+    surligne_selected("liste<%= @liste.id %>", "ligthline");
+    <% end %>
+</script>    

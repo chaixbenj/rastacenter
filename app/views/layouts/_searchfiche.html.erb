@@ -1,0 +1,13 @@
+<input  onkeyup="lookafterchangelayout();" spellcheck='false' class="inputlookfiche" list="layoutaddfs" id="inputlayoutaddfs" placeholder="<%= t('ecr_kanban.fiche_number') %>" onchange="show_selected_fiche();"> </input>
+<datalist id="layoutaddfs"><option value="-"/></datalist>
+<script>
+	function lookafterchangelayout() {
+		 if (xhrgllay) { xhrgllay.abort() }
+		clearTimeout(timerlay);
+		timerlay = setTimeout(function() {
+		   if (document.getElementById("inputlayoutaddfs")) {get_filtered_fiche_layout(document.getElementById("inputlayoutaddfs").value);}
+		}, 1000);
+	}
+	var timerlay;
+	var xhrgllay;
+</script>

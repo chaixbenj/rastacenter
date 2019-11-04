@@ -1,0 +1,19 @@
+<% if @can_manage_action == 1 %>
+	<form id="formnewact" onsubmit="startloader();" action="../actions/new" method="post">
+        <table class="leftTable">
+            <tr>
+				<td>
+					<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+					<input required pattern="_[A-Za-z0-9]{2,50}"  maxlength='50' size=30 type="text" spellcheck='false' name="actnamec" id="actnamec" value="" class="recherche" placeholder="<%= t('ajouter') %>" title="<%= t('ecr_action.format_titre') %>" onKeyUp="formatasaction(this);"/>
+                </td>
+                <td>
+                    <input  value=""  name="add" type="submit" class="btnadd" title="<%= t('ajouter') %>" vertical-align="middle"/>
+                </td>
+			</tr>
+		</table>
+   </form>
+    <button class='btnvariable' title="<%=  t('ecr_action.paquet_requis_exec') %>" style='float: right;' onclick="document.getElementById('contentpopup').innerHTML = '<object id=\'objpopup\' width=\'99%\' data=\'../required_gems/index?popup=true\'></object>';
+        window.location.href = '#popup';
+        document.getElementById('popup').style.display = 'block';
+        document.getElementById('objpopup').setAttribute('height', 0.89 * document.body.offsetHeight);"></button>
+<% end %>

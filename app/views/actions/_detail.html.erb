@@ -1,0 +1,19 @@
+<% if @badcode != nil %>
+	<span id='idspanmessagepermanent' class='errorMessage' onclick='this.parentNode.removeChild(this);'><%= @message %>&nbsp;&nbsp;&nbsp;<b>x</b></span>
+<% end %>
+
+<% if @action != nil %>
+    <br>
+	<form onsubmit="startloader();" id="formactionupdate" action="../actions/update" method="post">
+	  <input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+	  
+	  <table class="leftTable" >
+		<%= render :partial => 'actions/namedesc' %>
+		<%= render :partial => 'actions/parameters' %>
+		<%= render :partial => 'actions/insertion' %>
+	  </table>
+
+	  <%= render :partial => 'actions/code' %>
+	</form>
+
+<% end %>

@@ -1,0 +1,24 @@
+<% if @project != nil %>
+	<br>
+    <form onsubmit="startloader();" style="display: inline;" action="../projects/update" method="post">
+		<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+	
+		<table class="leftTable">
+		  <tr>
+			  <td><span class="textStyle"><%= t('nom') %></span></td>
+			<td><input <% if @can_manage_project == 0 %>disabled<%end%> onKeyDown="showvalidbtn();" class="inputbox" size=50 maxlength='250' type="text" spellcheck='false' name="pname" id="pname" value="<%= @project.name  %>"/>
+			<% if @can_manage_project == 1 %>
+				<input name="valid" value="" id="btnval" type="submit" style="display: none;" class="btnvalid" title="<%= t('valider') %>" onclick="document.getElementById('pname').required=true;document.getElementById('pnamec').required=false;"/>&nbsp;&nbsp;&nbsp;
+				<input name="delete" value="" type="submit" class="btndel" title="<%= t('supprimer') %>" onclick="document.getElementById('pname').required=false;document.getElementById('pnamec').required=false;" data-confirm="<%= t('ecr_projet.confirme_supp') %>"/>
+			<% end %>
+			</td>
+		  </tr>
+		  <tr>
+			  <td><span class="textStyle"><%= t('description') %></span></td>
+			<td><textarea <% if @can_manage_project == 0 %>disabled<%end%> spellcheck='false' onKeyDown="showvalidbtn();" class="inputbox"  rows=6 cols=60 name="pdesc" ><%= @project.description  %></textarea></td>
+		  </tr>
+		</table>
+    
+		<input type="hidden" name="pid" id="pid" value="<%= @project.id %>"/>
+    </form>
+<% end %>

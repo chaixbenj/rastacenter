@@ -1,0 +1,20 @@
+<div style="display:inline-block;width:100%;border-bottom:1px solid;">
+	<div  style="float:left;">
+		<span class="smallTitleStyle"><%= t('ecr_type_fiche.resume') %></span>
+	</div>
+<% if @fiche != nil && @is_gherkin == 1 %>
+	<div  style="float:right;width:15%;cursor:pointer;border-top:1px solid;border-left:1px solid;border-right:1px solid;" onclick="showtestlinked();">
+		<span class="smallTitleStyle" style="margin-left:20px"><%= t('tests') %></span>
+	</div>
+<% end %>
+	<div  style="float:right;width:15%;cursor:pointer;border-top:1px solid;border-left:1px solid;border-right:1px solid;" onclick="showhisto();">
+		<span class="smallTitleStyle" style="margin-left:20px"><%= t('historique') %></span>
+	</div>
+	<div  style="float:right;width:15%;cursor:pointer;border-top:1px solid;border-left:1px solid;border-right:1px solid;" onclick="showjoinfiles();">
+		<span class="smallTitleStyle" style="margin-left:20px"><%= t('fichiers_joints') %></span>
+	</div>
+	<div  style="float:right;width:15%;cursor:pointer;border-top:1px solid;border-left:1px solid;border-right:1px solid;" onclick="showparents();">
+		<span class="smallTitleStyle" style="margin-left:20px"><%= t('parents') %></span>
+	</div>
+</div>
+<br>

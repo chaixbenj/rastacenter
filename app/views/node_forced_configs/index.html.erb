@@ -1,0 +1,79 @@
+<script type="application/javascript"> 
+  <%if @forced_config.to_s == "1" %>
+      window.parent.document.getElementById('maincadre<%= @ext_node_id %>').setAttribute('style', 'fill:url(#OrangeDegrade);fill-opacity:0.25;stroke:red;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1');
+	  window.parent.document.getElementById('elG<%= @ext_node_id %>').setAttribute('forced', '1');
+	  window.parent.document.getElementById('elG<%= @ext_node_id %>').setAttribute('newthread', '1');
+	  window.parent.document.getElementById("newthread<%= @ext_node_id %>").style.display = "block";
+	  window.parent.document.getElementById("samethread<%= @ext_node_id %>").style.display = "none";
+  <% else %>
+      window.parent.document.getElementById('maincadre<%= @ext_node_id %>').setAttribute('style', 'fill:url(#blueDegrade);fill-opacity:0.25;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1');
+	  window.parent.document.getElementById('elG<%= @ext_node_id %>').setAttribute('forced', '0');
+  <%  end %>
+</script>
+
+<div id='popup1'>
+    <div>
+        <form id="formnodeforceconfig" action="../node_forced_configs/update" method="post" style="display:inline-block">
+            <input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+            <input type="hidden" name="sheet_id" value="<%= @sheet_id %>"/>
+            <input type="hidden" name="ext_node_id" value="<%= @ext_node_id %>"/>
+            <input type="hidden" name="popup" value="<%= @popup %>"/>
+			<div class="popupadd">
+				<span class="titleStyle" style="color:#161616"><b>&nbsp;&nbsp;<%= t('ecr_suite.forcer_machine') %>&nbsp;&nbsp;</b></span>
+				<% if @can_manage == 1 %>
+				  <input value="" style="display: none" id="btnval" type="submit" class="btnvalid" title="<%= t('valider') %>" onclick="startloader();"/>
+				<% end %>
+			</div>
+
+            <table>
+                 
+                <tr><td><span class="textStyle"><b> <%= t('forcer') %> </b></span></td>      
+                    <td></td> 
+                    <td></td> </tr>
+                <tr>
+					<td><input onclick="showvalidbtn();" type="checkbox" id="forcedcomputer" name="forcedcomputer" <%if @node_forced_computer != nil %>checked<% end %> ></input></td>
+					<td><span class="textStyle"><%=  t('machine') %></span><br></td>
+					<td>
+						<select onchange="document.getElementById('forcedcomputer').checked=true;showvalidbtn();" name="valueforcedcomputer" class="inputbox" >
+                                  <% @computers.each do |computer| %>
+                                <option <%  if @node_forced_computer != nil and @node_forced_computer.hostrequest == computer.hostrequest %>selected<% end %>  value="<%=  computer.hostrequest %>"><%=  computer.hostrequest %></option>
+                              <%  
+                              end %>            
+                        </select>
+					</td>
+                </tr>
+                <tr><td colspan='3'>&nbsp;</td></tr>
+                <tr class="popupadd"><td colspan ='3'><span class="titleStyle" style="color:#161616"><b>&nbsp;&nbsp;<%= t('ecr_suite.forcer_variables_de_conf') %>&nbsp;&nbsp;</b></span> </td></tr>
+                
+                <tr><td><span class="textStyle"><b> <%= t('forcer') %> </b></span></td>      
+                    <td></td> 
+                    <td></td> </tr>
+                <tr>
+                <% if @node_forced_configs != nil 
+                  prec_variable = 0
+                  @node_forced_configs.each do |variable| 
+                    if variable.variable_id != prec_variable %>
+                      <% if prec_variable != 0 %>
+                        </select></td></tr>
+                      <% end %>
+                      <tr><td><input onclick="showvalidbtn();" type="checkbox" id="forced<%= variable.variable_id %>" name="forced<%= variable.variable_id %>" <%if variable.node_forced_configs_id != nil %>checked<% end %> ></input></td>
+                          <td><span class="textStyle"><%=  variable.variable_name %></span></td>
+                          <td><select onchange="document.getElementById('forced<%= variable.variable_id %>').checked=true;showvalidbtn();" name="varvalue<%= variable.variable_id %>" class="inputbox" >
+								<option value="">-</option>
+                                  <% prec_variable = variable.variable_id
+                                  end %>
+                                <option <%  if variable.allowed_value == variable.forced_variable_value %>selected<% end %>  value="<%=  variable.allowed_value %>"><%=  variable.allowed_value %></option>
+                              <%  end
+                              end %>            
+                        </select></td>
+				</tr>
+			</table>
+        </form>
+    </div> 
+</div>
+
+<script async type="application/javascript"> 
+ <% if @can_manage == 0 %> 
+  disabledForm("formnodeforceconfig");
+ <% end %> 
+</script>                

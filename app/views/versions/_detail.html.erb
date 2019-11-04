@@ -1,0 +1,35 @@
+<br>
+<% if @version != nil and @version.id != @currentversion %>
+    <form onsubmit='startloader();'  action="../versions/update" method="post">
+		<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+		<input type="hidden" name="do" value="update"/>
+		<input type="hidden" name="dodet" id="dodet" value=""/>
+		<input type="hidden" name="version_id" id="version_id" value="<%= @version.id %>"/>
+		<input type="hidden" name="project_version_id" id="project_version_id" value=""/>
+		<table class="leftTable" >
+		  <tr>
+			  <td><span class="textStyle"><%= t('nom') %></span></td>
+			<td colspan="2"><input  <% if @can_manage_versions == 0 %>disabled<%end%> onKeyDown="showvalidbtn();" class="inputbox" size=50 maxlength='250' type="text" spellcheck='false' name="vname" id="vname" value="<%= @version.name  %>"/>
+			<% if @can_manage_versions == 1 and @version.id != @currentversion %>
+				<input value="" id="btnval" style="display: none;" type="submit" class="btnvalid" title="<%= t('valider') %>" onclick="document.getElementById('dodet').value='valid';document.getElementById('vname').required=true;document.getElementById('versioncre').required=false;" />&nbsp;&nbsp;&nbsp;
+				<input value="" id="btnversion" style="display: none;" type="submit" class="btnversion" title="<%= t('archiver') %>" onclick="$('#dodet').val('version');$('#vname').required=false;$('#versioncre').required=false;$('#idwaitMessage').css('display', 'inline-block');" />&nbsp;&nbsp;&nbsp;
+				<input value="" type="submit" class="btndel" title="<%= t('supprimer') %>" onclick="document.getElementById('dodet').value='delete';if (document.getElementById('versioncre')){document.getElementById('versioncre').required=false};document.getElementById('vname').required=false;$('#idwaitMessage').css('display', 'inline-block');" data-confirm="<%= t('ecr_version.confirme_supp') %>" title="<%= t('supprimer') %>"/>
+			<% end %>
+			</td>
+		  </tr>
+		</table>
+		<table class="leftTable">
+		   <% @projects.each do |project| %>
+			<tr>
+			  <td><input  onClick="showversionbtn();" <% if @has_archive == true %> disabled <% end %>   <%if project.project_version_id != nil %>  checked='true'<% end %> class="textStyle" size=50 type="checkbox" name="vproj<%=  project.id %>" id="vproj<%=  project.id %>" value=""></input></td>
+			  <td><span class="textStyle"><b>#<%= project.id  %></b>&nbsp<%= project.name %> </span></td>
+			  <td><% if project.locked == 1 %> <button class="btnlocked" title="<%= t('verouille') %>" value="" onclick="document.getElementById('dodet').value='delock';document.getElementById('project_version_id').value='<%= project.project_version_id %>';"></button><% end %>
+				  <% if project.locked == 0 %> <button class="btndelocked" title="<%= t('deverouille') %>" value="" onclick="document.getElementById('dodet').value='lock';document.getElementById('project_version_id').value='<%= project.project_version_id %>';"></button><% end %>
+			  </td>
+			  <td>
+			  </td>
+			</tr>
+		  <% end %>
+		</table>
+	</form>
+<% end %>

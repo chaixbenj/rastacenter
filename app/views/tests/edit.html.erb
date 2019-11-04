@@ -1,0 +1,52 @@
+<script type="application/javascript">
+	 var field;
+	 var supprimer_dossier_msg = "<%= t('ecr_test.supprimer_repertoire_confirmation') %>";
+	 var supprimer_test_msg = "<%= t('ecr_test.supprimer_test_confirmation') %>";
+	 var source;
+	 var onlycomment = false;
+	 var erreur_msg = "<%= t('message.une_erreur_est_survenue') %>";
+	 var proc_ajoutee_msg = "<%= t('message.procedure_ajoutee') %>";
+	 var supprimer_step_msg = "<%= t('ecr_test.supprimer_step_confirmation') %>";
+	 var titre_node_defaut = "<%= t('ecr_sheet.cliquez_pour_saisir') %>";
+	 var titre_del_button = "<%= t('supprimer') %>";
+	 var titre_objrep_button = "<%= t('ecr_sheet.repertoire_objets') %>";
+	 var titre_procedures = "<%= t('ecr_sheet.repertoire_procedures') %>";
+	 var titre_lien_a_partir = "<%= t('ecr_sheet.lien_a_partir') %>";
+	 var titre_lien_vers = "<%= t('ecr_sheet.lien_vers') %>";
+	 var titre_ajout_fils = "<%= t('ecr_sheet.ajouter_fils') %>";
+	 var titre_detail = "<%= t('detail') %>";
+</script>
+
+<div id="popup" class="modalPopup">
+	<div>
+		<button href="#" onclick="document.getElementById('contentpopup').innerHTML = '';
+document.getElementById('popup').style.display = 'none';
+window.location.href = '#';"  class="closePopup">X</button>
+		<div id="contentpopup"></div>
+	</div>
+</div>
+
+<input type="hidden" id="test_kind" value="<%= @atdd %>"/>
+<input type="hidden" id="atdd_param" value="<%= @atdd_param %>"/>
+
+<div id="content"  <% if @popup.to_s == 'true' %> style="height: 100%;" <%end%>>
+
+<%= render :partial => 'tests/steps' %>
+																	
+		<div id="right" <% if @atdd != "1" %>style='overflow: hidden;'<%end%>>
+
+			<% if @atdd == "1" %>
+				<%= render :partial => 'tests/select_atddstep' %>
+			<% else %>
+				<%= render :partial => 'tests/select_proc' %>
+			<% end %>
+		</div>
+</div>
+
+<%= render :partial => 'tests/edit_forms' %>
+
+<div id='messagevalide'></div>
+
+
+
+

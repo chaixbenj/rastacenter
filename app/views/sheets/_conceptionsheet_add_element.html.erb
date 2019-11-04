@@ -1,0 +1,40 @@
+<td>
+	<button class="btnadd" title="<%= t('ajouter') %>"  onclick="addElement(null, document.getElementById('objtypetoadd').value, document.getElementById('objToLink').value, false, true, 'sheetedit');"></button> 
+</td>
+<td>
+	<select id="objtypetoadd"  class='lookupbox' onChange="hideshowsheettolink();"> 
+	<option selected value="funcscreen" ><%= t('ecr_sheet.fonction_ou_ecran') %></option>
+	<option value="existingfuncscreen"><%= t('ecr_sheet.fonction_ou_ecran_existant') %></option>
+	<option value="conceptionsheet"><%= t('ecr_sheet.lien_vers_feuille_conception') %></option>
+</select>
+</td>
+<td>
+	<input type="hidden" id="objToLink" value=""/>            
+	<select id="sheettolink" class='lookupbox' onchange="document.getElementById('objToLink').value = document.getElementById('sheettolink').value;">
+	<% if @sheets != nil  
+		@i = 1
+		@sheets.each do |sheet| %>
+		<option <%  if @i==1 %>selected<% end %>  value="<%= sheet.sheet_id  %>||*$*||<%= sheet.project_name  %> - <%= sheet.sheet_name  %>"><%= sheet.project_name  %> - <%= sheet.sheet_name  %></option>
+		<% @i+=1
+		end 
+	end %>
+	</select>
+	<select id="functiontolink" class='lookupbox' onchange="document.getElementById('objToLink').value = document.getElementById('functiontolink').value;">
+	<% if @existingFunc != nil  
+		@i = 1
+		@existingFunc.each do |existingFunc| %>
+			<option <%  if @i==1 %>selected<% end %> value="<%= existingFunc.id  %>||*$*||<%= existingFunc.name  %>"><%= existingFunc.sheet_name.to_s  %> - <%= existingFunc.name  %></option>
+			<% 
+			@i+=1
+		end 
+	end %>
+	<% if @existingFuncNotLinked != nil  
+		@i = 1
+		@existingFuncNotLinked.each do |existingFunc| %>
+			<option <%  if @i==1 %>selected<% end %> value="<%= existingFunc.id  %>||*$*||<%= existingFunc.name  %>"><%= existingFunc.name  %></option>
+			<% 
+			@i+=1
+		end 
+	end %>	
+	</select>            
+</td>

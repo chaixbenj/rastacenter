@@ -1,0 +1,40 @@
+<div id="right">
+    <%= render :partial => 'domaines/add' %>   
+    <% if @domaine != nil %>
+		<br>
+		<form onsubmit="startloader();" style="display: inline;" action="../domaines/update" method="post">
+			<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+			<table class="leftTable">
+			  <tr>
+				  <td><span class="textStyle">domaine id</span></td>
+				  <td><span class="textStyle"><%= @domaine[0] %></span>
+					  <input type ='hidden' name='dom_id' value='<%=@domaine[0]%>'/>
+					<input value="" id="btnval" name="valid" type="submit" style="display: none;float:right;" class="btnvalid" title="<%= t('valider') %>"/>
+					<% if @domaine[2] != "superadmin" %> <input value="" id="btndel" name="delete" type="submit" class="btndel" style="float:right" title="<%= t('supprimer') %>"/><%end%>
+				</td>
+			  </tr>
+			  <tr>
+				  <td><span class="textStyle">administrateur domaine</span></td>
+				  <td><span class="textStyle"><%= @domaine[2] %></span>
+					  <input type ='hidden' name='admin_id' value='<%=@domaine[1]%>'/>
+				</td>
+			  </tr>
+			  <tr>
+				  <td><span class="textStyle">mot de passe </span></td>
+				  <td><input  onKeyDown="showvalidbtn();" class="inputbox" size=50 type="text" spellcheck='false' name="pwd" value="no change!"/>
+				<td>
+			  </tr>
+			  <tr>
+				  <td><span class="textStyle">mail </span></td>
+				  <td><input  onKeyDown="showvalidbtn();" class="inputbox" size=50 type="text" spellcheck='false' name="email" value="<%=@domaine[7]%>"/>
+				<td>
+			  </tr>
+			  <tr>
+				  <td><span class="textStyle">verrouillé </span></td>
+				  <td><input  onchange="showvalidbtn();" size=50 type="checkbox" name="locked" <%if @domaine[8].to_s == "1" %>checked<%end%>/>
+				<td>
+			  </tr>
+			</table>
+		</form>
+	<% end %>
+</div>

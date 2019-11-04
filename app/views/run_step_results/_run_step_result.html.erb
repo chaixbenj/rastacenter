@@ -1,0 +1,13 @@
+<% if run_step_result.atdd_test_id != 0 
+	moredec = true
+	else
+	moredec = false
+ end %>
+ 
+<%= render :partial => 'run_step_results/suite_step_result', :locals => {:run_step_result => run_step_result, :moredec => moredec} %>
+<%= render :partial => 'run_step_results/test_step_result', :locals => {:run_step_result => run_step_result, :moredec => moredec} %>
+<%= render :partial => 'run_step_results/atdd_step_result', :locals => {:run_step_result => run_step_result, :moredec => moredec} %>
+<%= render :partial => 'run_step_results/comment_step_result', :locals => {:run_step_result => run_step_result, :moredec => moredec} %>
+<%= render :partial => 'run_step_results/procedure_step_result', :locals => {:run_step_result => run_step_result, :moredec => moredec} %>
+<%= render :partial => 'run_step_results/action_step_result', :locals => {:run_step_result => run_step_result, :moredec => moredec} %>
+<%= render :partial => 'run_step_results/screenshot_step_result', :locals => {:run_step_result => run_step_result, :moredec => moredec} %>

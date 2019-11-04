@@ -1,0 +1,21 @@
+<!-- bloc paramètres procédure -->
+<br><br>
+<table><tr>
+        <td><span class="textStyle">&nbsp;&nbsp;<%= t('ecr_procedure.parametre_de_la_procedure') %> &nbsp;&nbsp;</span></td>
+        <td><% if @can_manage_procedure == 1 %><img id="addparamprocbtn" src="/assets/icones/btnadd1.png" class="btnadd" title="<%= t('ajouter') %>" onclick="addProcedureParam('','', false);"></img><% end %>
+        </td></tr>
+</table>
+<table  id="tableprocparameter">
+    <tr><td>
+</td></tr>            
+</table> 
+
+<table><tr>
+        <td><span class="textStyle">&nbsp;&nbsp;<%= t('ecr_procedure.parametre_de_sortie_procedure') %> &nbsp;&nbsp;</span></td>
+        <td><% if @can_manage_procedure == 1 %><img id="addparamprocbtn" src="/assets/icones/btnadd1.png" class="btnadd" title="<%= t('ajouter') %>" onclick="addProcedureParamOut('','');"></img><% end %>
+        </td></tr>
+</table>
+<table  id="tableprocparameterout">
+    <tr><td>
+</td></tr>            
+</table> 

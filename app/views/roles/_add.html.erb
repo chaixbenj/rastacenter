@@ -1,0 +1,19 @@
+<form onsubmit="startloader();" action="../roles/new" method="post">
+	<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+
+
+	<table class="leftTable">
+	  <tr>
+		  <td>
+			 <% if @can_manage_user == 1 %>
+			  <input size=30 maxlength='50' type="text" spellcheck='false' name="rnamec" id="rnamec" value="" class="recherche" placeholder="<%= t('ecr_role.ajouter') %>"/></td>
+			  <td>
+			  <input value="" name="add" type="submit" class="btnadd" title="<%= t('ajouter') %>" vertical-align="middle" onclick="document.getElementById('rnamec').required=true;"/></td>
+		  <% end %>
+			
+		  <td>
+		</td>
+	  </tr>
+	</table>    
+</form>  
+<br>

@@ -1,0 +1,8 @@
+<div id="divhisto" style="float:right;display:none;width:20%;border-style:1px solid;"/>
+	<% if @histos != nil %>
+		<% @histos.each do |histo| %>
+		<span class="textStyle"><b><%= histo.user_cre %>, <%= histo.created_at.localtime.to_s[0..-7] %> :</b></span><br>
+		<span class="textStyle"><%= histo.jsondesc.to_s.gsub("\n\n", "\n").gsub("\n", "<br>").html_safe %></span><br>
+		<%end%>
+	<%end%>
+</div>

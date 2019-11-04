@@ -1,0 +1,23 @@
+<div id="left">
+	<div id="btnresize" class="btnresize" onmousedown="startresizediv(event, this);"></div>
+
+
+	<form onsubmit="startloader();">
+		<table >
+		  <tr>
+			  <td><input size=20 type="text" spellcheck='false' name="dom_names" id="dom_names" value="<%= @dom_name %>" class="recherche" placeholder="<%= t('input.placeholder.recherche') %>"/></td>
+			  <td><input value="" name="search" type="submit" class="btnsearch" vertical-align="middle" onclick="document.getElementById('pnamec').required=false;"/></td>
+		  </tr>
+		</table>
+		<% @domaines.each do |domaine| %>
+		<a onclick="startloader()" id="domaine<%= domaine[0] %>" class="<% if domaine[1].to_s == "superadmin" %>listElementRouge<% else %>listElementVert<% end %>" href="../domaines/index?dom_id=<%= domaine[0] %>"><%= domaine[1] %></a>
+		<%  end %>
+    </form>
+	
+</div>
+
+<script async type="application/javascript">
+    <% if @domaine != nil %>
+    surligne_selected("domaine<%= @domaine[0] %>", "treerep");
+    <% end %>
+</script>

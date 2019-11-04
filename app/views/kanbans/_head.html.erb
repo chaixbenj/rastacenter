@@ -1,0 +1,40 @@
+<div style="display: inline;">
+	<form id="filter_form" onsubmit="startloader();" method="post">	
+		<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+		<input type="hidden" value="" name="reload" id="idreload"/>
+		<div style="display:inline-block;width:100%;">	
+
+			<% if @mode.to_s != 'liste' %>	 			  
+				<button class="btnmodeliste" name="filter" style="float:left" onclick="showkbfilter();
+				displaykanbansaveas();
+				document.getElementById('mode').value = 'liste';" title="<%= t('ecr_test.mode_liste') %>"></button>
+				<input type="hidden" id='mode' name="m" value="kanban"/>
+
+			<% else %>
+				<button class="btnkanban" name="filter" style="float:left" onclick="showkbfilter();
+				displaykanbansaveas();
+				document.getElementById('mode').value = 'kanban';" title="<%= t('ecr_kanban.mode_kanban') %>"></button> 
+				<input type="hidden" id='mode' name="m" value="liste"/>  
+				<% if @can_manage_cards == 1 %>
+					<div class="btnmassupdt"  style="float:right" onclick="showhidekbmasseupdt()" title="<%= t('ecr_kanban.mise_a_jour_massive') %>"></div> 
+				<%end%>
+			<% end %>	
+
+			<div style="float:right">
+				<span class="textStyle"><%= t('ecr_kanban.groupe_par') %></span>
+				<select class="inputbox" name="kbgrpby" onchange="document.getElementById('idreload').value='1';document.getElementById('filter_form').submit();">
+					<option <%if @groupby.to_s == 'id'%>selected<%end%> value='id'>-</option>
+					<option <%if @groupby.to_s == 'cycle_id'%>selected<%end%> value="cycle_id"><%= t('ecr_type_fiche.cycle_assigne')%></option>
+					<option <%if @groupby.to_s == 'priority_id'%>selected<%end%> value="priority_id"><%= t('ecr_type_fiche.priorite')%></option>
+					<option <%if @groupby.to_s == 'user_assign_id'%>selected<%end%> value="user_assign_id"><%= t('ecr_type_fiche.assigne_a')%></option>
+					<option <%if @groupby.to_s == 'user_cre'%>selected<%end%> value="user_cre"><%= t('ecr_type_fiche.creer_par')%></option>
+					<option <%if @groupby.to_s == 'lignee_id'%>selected<%end%> value="lignee_id"><%= t('ecr_kanban.lignee')%></option>
+				</select>
+			</div>
+
+			<div class="btnfiltre" style="float:left" onclick="showhidekbfilter()" title="<%= t('ecr_kanban.filtrer') %>"></div>                          
+		</div>
+		<%= render :partial => 'kanbans/massmaj' %>
+		<%= render :partial => 'kanbans/filter' %>  
+	</form>
+</div>

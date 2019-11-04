@@ -1,0 +1,25 @@
+<div id="left">
+	<div id="btnresize" class="btnresize" onmousedown="startresizediv(event, this);"></div>
+	<form id="fs" onsubmit="startloader();" method="post">
+		<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+		<table >
+		  <tr>
+			  <td><input size=20 type="text" spellcheck='false' name="rnames" id="rnames" value="<%= @rname %>" class="recherche" placeholder="<%= t('input.placeholder.recherche') %>"/></td>
+			  <td><input value="" name="search" type="submit" class="btnsearch" vertical-align="middle" onclick="document.getElementById('pnamec').required=false;"/></td>
+		  </tr>
+		</table>
+		
+		<% @roles.each do |role| %>
+		<a onclick="startloader();" id="role<%=role.id%>" <% if role.name == 'admin' %> class="listElementRouge"<% else %>class="ligthline"<% end %>  href="../roles/getone?roleid=<%= role.id %>"><%= role.name %><img style="float: right;" src="/assets/icones/btnedit1.png" title="<%= t('editer') %>"/></a>
+		<%  end %>
+		<!--input type='hidden' name='do' id='fsdo' value=''/>
+		<input type='hidden' name='roleid' id='fsroleid' value=''/-->
+	</form>
+</div>
+
+<script async type="application/javascript"> 
+    <% if @role != nil %>
+    surligne_selected("role<%= @role.id %>", "ligthline");
+    surligne_selected("role<%= @role.id %>", "listElementRouge")
+    <% end %>
+</script>                    

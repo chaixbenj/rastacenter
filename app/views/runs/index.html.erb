@@ -1,0 +1,14 @@
+
+<div id="<%if @popup.to_s == 'true' %>scrollablecontent100<% else %>scrollablecontent<%end%>" style="margin-left: 7px;" onmousemove="redimcol(event);" onmouseup="stopredimcol();" onmouseover="setthpositionrelative();" onmouseout="setthpositionnone();">
+	<%= render :partial => 'runs/head' %>
+	<div id="contenu" width=100%>
+		<table id="flex" class="sortable" style="border-collapse:collapse;text-align:left;border: 1px solid gray;width:100%;">
+			<%= render :partial => 'runs/table_head' %>
+			<tbody id="run" >	
+				<%= render  @runs %>
+			</tbody>
+		</table>        
+	</div>
+</div>
+
+

@@ -1,0 +1,84 @@
+
+
+<div id='popup1' style="display:block;width:100%;border-top-style: solid;border-left-style: solid;border-width:10px;border-color: <%=@type_fiche.color%>;">
+    <div style="display:block;width:100%;">	
+<div style="display:block;width:100%;">
+        <span class="textStyle"><b><%= @type_fiche.name %> #number</b></span>
+        <br><br>
+        <input class="inputbox" maxlength='250' type="text" size='' style='width:85%' placeholder="<%= t('ecr_type_fiche.description') %>"></input>
+     <br></div>  
+   
+     <div style="display:block;width:100%;">  <table style="width:100%;">
+            <tr><td>
+            <span class="textStyle"><%= t('ecr_type_fiche.status') %></span></td><td>
+            <select name="fic_state" class="inputbox">
+                <% if @all_status != nil
+                  @all_status.each do |status| %>
+                    <option><%= status.value %></option>
+                  <% end 
+                  end %>
+            </select>
+        </td><td>
+
+
+            <span class="textStyle"><%= t('ecr_type_fiche.cycle_assigne') %></span></td><td>
+            <select name="fic_cycle_assigned" class="inputbox">
+                <% if @all_cycles != nil
+                  @all_cycles.each do |cycle| %>
+                    <option><%= cycle.value %></option>
+                  <% end 
+                  end %>
+            </select>
+        </td><td>
+            <span class="textStyle"><%= t('ecr_type_fiche.priorite') %></span></td><td>
+            <select name="fic_priority" class="inputbox">
+                <% if @all_priorities != nil
+                  @all_priorities.each do |priority| %>
+                    <option><%= priority.value %></option>
+                  <% end 
+                  end %>
+            </select> 	
+        </td>
+            </tr>
+    <tr><td>  
+
+            <span class="textStyle"><%= t('ecr_type_fiche.assigne_a') %></span></td><td>
+            <select name="fic_assigne_a" class="inputbox">
+                <% if @all_users != nil
+                  @all_users.each do |user| %>
+                    <option><%= user.value %></option>
+                  <% end 
+                  end %>
+            </select>
+        </td><td>
+            <span class="textStyle"><%= t('ecr_type_fiche.creer_par') %></span></td><td><span class="textStyle"> <%= @username%>, <%= Time.now.localtime.to_s[0..-7] %></span>
+        </td>
+        
+        <td></td><td></td>
+    </tr>
+
+
+    <% if @bloc_custo != nil %><%= @bloc_custo %><% end %>
+
+</table>
+
+
+    <br>  
+    <div style="display:block;width:100%;">  
+        <span class="textStyle"><%= t('ecr_type_fiche.resume') %></span><br>
+        <div style="width:91%;">
+            <textarea name="fic_resume"  class="inputbox" cols="" rows="5" style='width:90%;'></textarea></div>
+    </div>
+
+    <div style="display:block;width:100%;">  
+        <span class="textStyle"><%= t('ecr_type_fiche.commentaires') %></span><br>
+        <div style="width:91%;">
+            <textarea name="fic_commentaire"  class="inputbox" cols="" rows="5" style='width:90%;'></textarea></div>
+    </div>
+
+</div>
+</div>   
+
+
+
+

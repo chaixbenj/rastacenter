@@ -1,0 +1,17 @@
+<form onsubmit='startloader();' action="../configuration_variables/new" method="post">
+    <input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+
+    <table class="leftTable">
+      <tr>
+          <td>
+             <% if @can_manage_configuration_variable == 1 %>
+              <input size=30 type="text" spellcheck='false' name="namec" id="namec" value="" class="recherche" placeholder="<%= t('ecr_variable_conf.ajouter') %>" pattern="\$[A-Za-z0-9_]{2,50}" maxlength='50' title="<%= t('ecr_variable_conf.format_titre') %>" onKeyUp="formatasvariable(this)"/></td>
+              <td>
+              <input value="" name="add" type="submit" class="btnadd" title="<%= t('ajouter') %>" vertical-align="middle" onclick="document.getElementById('namec').required=true;"/></td>
+          <% end %>
+          <td>
+       	</td>
+      </tr>
+    </table>    
+	
+</form> 

@@ -1,0 +1,32 @@
+<% if @existingFunc != nil
+    @existingFunc.each do |funcscreen| %>
+		<div class="ligthline" id="funcandscreen<%=funcscreen.id%>">
+			<span class="textStyle"><%= t('ecr_sheet.feuille_de_conception') %> : <%= funcscreen.sheet_name %><br>#<%= funcscreen.id %>  <b><%= funcscreen.name %></b></span>
+			<button class='elemfiltreselected' style="float:right;cursor:pointer;margin-left:2px;" onclick="surligne_selected('funcandscreen<%=funcscreen.id%>', 'ligthline');document.getElementById('contentpopupfiche').innerHTML='<object id=\'objpopup\' width=\'99%\' data=\'../domelements/index?popup=true&funcscreen_id=<%= funcscreen.id %>\'></object>';window.location.href='#popupfiche';document.getElementById('popupfiche').style.display='block';document.getElementById('objpopup').setAttribute('height', 0.89 * document.body.offsetHeight);"><%= t('ecr_funcandscreen.elements') %></button>  
+			<button class='elemfiltreselected' style="float:right;cursor:pointer;margin-left:2px;" onclick="surligne_selected('funcandscreen<%=funcscreen.id%>', 'ligthline');document.getElementById('contentpopupfiche').innerHTML='<object id=\'objpopup\' width=\'99%\' data=\'../procedures/index?popup=true&funcscreen_id=<%= funcscreen.id %>\'></object>';window.location.href='#popupfiche';document.getElementById('popupfiche').style.display='block';document.getElementById('objpopup').setAttribute('height', 0.89 * document.body.offsetHeight);"><%= t('ecr_funcandscreen.procedures') %></button>  
+		</div>
+    <%  end 
+end%>
+<% if @existingFuncNotLinked != nil
+    @existingFuncNotLinked.each do |funcscreen| %>
+		<div class="ligthline" id="funcandscreen<%=funcscreen.id%>">
+			<span class="textStyle" style="color:#ef3f0e;"><%= t('orphelin') %><br>#<%= funcscreen.id %>  <b><%= funcscreen.name %></b></span>
+			<button class='elemfiltreselected' style="float:right;cursor:pointer;margin-left:2px;" onclick="surligne_selected('funcandscreen<%=funcscreen.id%>', 'ligthline');document.getElementById('contentpopupfiche').innerHTML='<object id=\'objpopup\' width=\'99%\' data=\'../domelements/index?popup=true&funcscreen_id=<%= funcscreen.id %>\'></object>';window.location.href='#popupfiche';document.getElementById('popupfiche').style.display='block';document.getElementById('objpopup').setAttribute('height', 0.89 * document.body.offsetHeight);"><%= t('ecr_funcandscreen.elements') %></button>  
+			<button class='elemfiltreselected' style="float:right;cursor:pointer;margin-left:2px;" onclick="surligne_selected('funcandscreen<%=funcscreen.id%>', 'ligthline');document.getElementById('contentpopupfiche').innerHTML='<object id=\'objpopup\' width=\'99%\' data=\'../procedures/index?popup=true&funcscreen_id=<%= funcscreen.id %>\'></object>';window.location.href='#popupfiche';document.getElementById('popupfiche').style.display='block';document.getElementById('objpopup').setAttribute('height', 0.89 * document.body.offsetHeight);"><%= t('ecr_funcandscreen.procedures') %></button>  
+			<form id="formdelete" action="../funcandscreens/delete" method="post" style="display:inline; float:right;margin-top:4px">
+				<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>	
+				<input type="hidden" name="funcandscreen_id" value="<%=funcscreen.id%>"/>
+				<input type="hidden" name="name" value="<%= @name %>"/> 
+				<input type="submit" value="" class="btndel" style='float: right;' title="<%= t('supprimer') %>" data-confirm="<%t('ecr_funcandscreen.element_et_procedure_seront_supprime')%>"></button>
+			</form> 
+	
+		</div>
+    <%  end 
+end%>
+
+<script async type="application/javascript"> 
+    <% if @funcandscreen != nil %>
+    surligne_selected("funcandscreen<%= @funcandscreen.id %>", "ligthline");
+    <% end %>
+</script>         
+

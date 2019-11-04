@@ -1,0 +1,40 @@
+<div id="banner-wrapper">
+	<div class="container">
+	<div id="banner">
+	
+	
+
+
+<form name="login" id="formlogin" onsubmit='startloader();' method="post" action="../users/login">
+	<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+	<input type="hidden" name="locale" value="<%= @locale %>"/>
+    <div class="row main-row">
+		<div class="col-4 col-3-medium col-1-small"></div>
+		<div class="col-4 col-6-medium col-12-small">
+			<section>
+				<br>
+				<br>
+				<br>
+				<input required size="20" type="text" spellcheck='false' name="login" id="login" class="inputboxlogin" placeholder="<%= t('ecr_connexion.identifiant') %>"/>
+				<br>
+				<br>
+				<input required size="20" type="password" name="pwd" id="pwd" class="inputboxlogin" placeholder="<%= t('ecr_connexion.mot_de_passe') %>"/>
+				<br>
+				<br>
+				<br>
+				<input type="submit" class="button" id="btnvalid" title="<%= t('valider') %>" value="<%= t('valider') %>">
+			</section>
+		</div>
+	</div>
+</form>
+</div>
+</div>
+</div>
+<div style="display:inline-block;height:20px;"></div>
+<div style="display:inline-block;width:100%;background:black;position:absolute;bottom:0px;left:0px">
+	<span class="textStyle" style="color:white;float:right;">© 2018 Alfyftesting&nbsp;&nbsp;&nbsp;</span>
+</div>
+
+<script>
+  stoploader();
+</script>

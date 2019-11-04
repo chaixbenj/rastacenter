@@ -1,0 +1,14 @@
+<div id="scrollablecontent" style="margin-left: 7px;">
+    <div >
+        <br>
+        <div style="display: inline-block">
+            <div style="display: inline">
+                <form onsubmit="startloader();" style="display: inline">
+                    <input  class='recherche' type="text" spellcheck='false' name="sname" placeholder="<%= t('input.placeholder.recherche') %>" value="<%= @name %>"/>
+                    <input type="submit" class="btnsearch" title="<%= t('input.placeholder.recherche') %>" value="" ></input>
+                </form>  
+            </div>
+        </div>	 
+        <%= render :partial => 'computers/list' %> 
+    </div>
+</div>

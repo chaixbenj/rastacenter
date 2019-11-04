@@ -1,0 +1,18 @@
+<% if @usernotifications!= nil and @usernotifications.length > 0 and @popup.to_s != 'true' %>
+	<div style="overflow-y:scroll;width:100%;max-height:25%;">
+		<% @usernotifications.each do |notification| %>
+			<div  id="notif<%= notification.id %>" class="ligthline" style="border-style:solid;border-color:red;width:100%;float:left;display:inline-block;">
+			<span class="textStyle"><b><%= t('recu') %> <%= notification.created_at.localtime.to_s[0..-7] %>, from : <%= notification.sent_by %></b><br>
+			<%= notification.message.html_safe %>
+			</span>
+			<form action="../user_notifications/update" method="post" target="hiddenframenotif" onsubmit="startloader();">
+				<input type="hidden" value="<%= form_authenticity_token() %>" id="authenticity_token" name="authenticity_token"/>
+				<input type="hidden" value="<%= notification.id %>" name="notif_id"/>
+				<input type="submit" name="delete" class="btndel" style="float:right" value=""/>
+				<%if notification.lu==0 %><input type="submit" id="seen<%=notification.id%>" name="seen" class="btnseen" style="float:right" value=""/><%end%>
+			</form>
+			</div>
+		<% end %>
+	</div>
+	<iframe id="hiddenframenotif" name="hiddenframenotif" width="0" height="0" border="0" style="display: none;" onload="majnotif('main');"></iframe>
+<% end %>

@@ -1,0 +1,46 @@
+<div id="divparents" style="float:right;display:none;width:20%;border-style:1px solid;"/>
+	<span class="textStyle"><b><%= t('ecr_fiche.pere')%></b></span>
+	<% if @father != nil %>
+		<br>
+		<div class='elemfiltreselected' style="border-color:<%=@father.color%>">
+			<a class="textStyle" href="../fiches/edit?fiche_id=<%= @fiche.father_id %>"><%= @father.typename %>#<%= @fiche.father_id %> : <%= @father.name %></a>
+			&nbsp;&nbsp;<b> <% if @can_manage_cards == 1 %><span style='cursor:pointer' onclick='deletefichefather();'>X</span><%end%></b>
+		</div>
+		<input type="hidden" id="delp" name="delp" value="0"/>
+	<%else%>
+		<br>
+		<input  onkeyup="lookafterchange();" <% if @can_manage_cards == 0 %>disabled<%end%> class="inputbox" list="addfs" id="inputaddfs" placeholder="<%= t('ecr_fiche.id_parent')%>" onchange="getselectedfiche();" value="<%= @father_id %>"> </input>
+		<datalist id="addfs"><option value="-"/></datalist>
+		<script>
+			function lookafterchange() {
+			 if (xhrgl) { xhrgl.abort() }
+			clearTimeout(timer);
+			timer = setTimeout(function() {
+			   if (document.getElementById("inputaddfs")) {get_filtered_fiche(document.getElementById("inputaddfs").value);}
+			}, 1000);
+			}
+			var timer;
+			var xhrgl;
+		</script>
+	<%end%>
+	<%if @onglet.to_s == "parent"%>
+		<script>
+			showparents();
+		</script>
+	<%end%>
+	<br>
+	<br>
+	<span class="textStyle"><b><%= t('ecr_fiche.parents_et_descendants')%></b></span>
+	<br>
+	<% if @lignee != nil
+		@lignee.each do |ficheliee|
+			if ficheliee.id != @fiche.father_id and ficheliee.id != @fiche.id %>
+				<br>
+				<div class='elemfiltreselected' style="border-color:<%=ficheliee.color%>">
+					<a class="textStyle" href="../fiches/edit?fiche_id=<%= ficheliee.id %>"><%=  ficheliee.typename %>#<%=  ficheliee.id %> : <%=  ficheliee.name %></a>
+				</div>
+
+			<% end
+		end
+	end %>
+</div>

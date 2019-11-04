@@ -1,0 +1,25 @@
+<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+<input type="hidden" name="procedure_id" id="procedure_id" value="<%= @procedure.id %>"/> 
+<input type="hidden" name="procedure_parameters" id="procedure_parameters" value=""/>
+<input type="hidden" name="procedure_parameters_out" id="procedure_parameters_out" value=""/>
+<input type="hidden" name="procedure_code" id="procedure_code" value=""/>
+<input type="hidden" name="popup" id="popup" value="<%= @popup %>"/>
+<table class="popupadd" >
+	<tr>
+		<td>
+			<span class="titleStyle" style="color:#161616">&nbsp;&nbsp;<%= t('ecr_procedure.procedure_code_titre') %>  : <b><%= @procedure.name %> &nbsp;&nbsp;</b></span> 
+		</td>
+		<td>
+			<% if @can_manage_procedure == 1 %>
+				<input value="" name="valid" type="submit" class="btnvalid" title="<%= t('valider') %>" vertical-align="middle" onclick="document.getElementById('txtareaCode').value=editor1.getValue();buildQueryString();" method="post"/>  
+			<% end  %>
+		</td>
+	</tr>
+	<tr>
+	<% if @badcode != nil  %>
+		<td>
+			<span id='idspanmessagepermanent' class='errorMessage' onclick='this.parentNode.removeChild(this)'><%= @message %>&nbsp;&nbsp;&nbsp;<b>x</b></span>
+		</td>
+	<% end %>
+	</tr>
+</table>

@@ -1,0 +1,18 @@
+<% if @can_manage_cards == 1 %>
+	<button class='btnaddfiche' style='float: left;' title="<%=  t('nouvelle_fiche') %>" onclick="new_fiche('', '', '');"></button>
+<% end%>
+<div id="popupfiche" class="modalPopup">
+  <div id="innerfiche" class="modalPopupdiv">
+	  <button onclick="document.getElementById('buttonmaxfiche').style.display='none';document.getElementById('contentpopupfiche').innerHTML = '';
+		  if (document.getElementById('contentkanban')) {localStorage.setItem('alfyftscrollkbn', document.getElementById('contentkanban').scrollTop);};
+		  document.getElementById('popupfiche').style.display = 'none';
+		  window.location.href = '#';if (document.getElementById('kanbanscreen')) {document.getElementById('idreload').value='1';document.getElementById('filter_form').submit();}"  class="closePopup">X</button>
+		  <button id="buttonmaxfiche" onclick="document.getElementById('innerfiche').style.width='100%';
+		  document.getElementById('innerfiche').style.height='100%';
+		  document.getElementById('contentpopupfiche').style.height='100%';
+		  document.getElementById('objpopup').style.height='100%';
+		  document.getElementById('innerfiche').style.margin='0px 0px 0px 0px';
+		  this.style.display='none'"  class="maximizePopup" style="display:none;">_</button>
+	  <div id="contentpopupfiche"></div>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+<script type="application/javascript"> 
+function searchenv() {
+    document.getElementById('environnement_environnement_name').required=false;
+    document.getElementById('searchname').value=document.getElementById('environnement_environnement_name').value;
+    document.getElementById('searchdesc').value=document.getElementById('environnement_environnement_description').value;
+    document.getElementById('formsearch').submit();
+}
+</script>
+
+<div id="scrollablecontent">
+	<div >
+		<div class="popupadd">
+			<%= render :partial => 'environnements/head' %>          
+		</div> 
+		<div id="environnements" >	
+		<% if @environnements != nil %>    
+			<%= render  @environnements %>
+		<% end %>
+		</div>
+	</div>
+</div>

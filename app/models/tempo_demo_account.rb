@@ -1,0 +1,3 @@
+class TempoDemoAccount < ApplicationRecord
+
+end

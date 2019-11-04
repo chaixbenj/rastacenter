@@ -1,0 +1,14 @@
+<thead>
+	<tr level='header'>
+		<th name="thresizable" class="tablethreport">
+			<div class="divgrip" onmousedown="startresize(event, this.parentNode)">&nbsp;</div>
+			<span><%= t('nom') %></span>
+			<span id="btndeplier" style="float:right" onclick="showallresults();" title="<%= t('deplier_tout') %>">++</span>
+			<span id="btnreplier" style="float:right;display:none" onclick="hideallresults();" title="<%= t('replier_tout') %>">--</span>
+		</th>
+		<th name="thresizable" class="tablethreport"><div class="divgrip" onmousedown="startresize(event, this.parentNode)">&nbsp;</div><%= t('detail') %></th>
+		<th name="thresizable" class="tablethreport"><div class="divgrip" onmousedown="startresize(event, this.parentNode)">&nbsp;</div><%= t('attendu') %></th>
+		<th name="thresizable" class="tablethreport"><div class="divgrip" onmousedown="startresize(event, this.parentNode)">&nbsp;</div><%= t('status') %></th>
+		<th name="thresizable" class="tablethreport"><%= t('actions') %></th>
+		</tr>
+</thead>

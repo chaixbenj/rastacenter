@@ -1,0 +1,54 @@
+<div id="hiddendivmaj">    
+	<button class="btnvalid" id="btnval2" name="filter" value="updt" style="float:right;margin-top:4px;" onclick="updidstomaj();"></button>
+	<input type='hidden' id="massids" name="massids" value=""/>
+	<table  class="leftTable">
+
+	  <tr><td>
+			  <span class="textStyle"><%= t('ecr_type_fiche.status') %></span></td><td>
+			  <select name="majstatus" class="inputbox"><option selected value=''>-</option>
+				  <% if @kanban_statuses != nil
+					@kanban_statuses.each do |status| %>
+					  <option value="<%= status.status_id %>|$|<%= status.status_name %>"><%= status.status_name %></option>
+					<% end 
+					end %>
+			  </select>
+		  </td></tr>
+
+	  <tr><td>
+			  <span class="textStyle"><%= t('ecr_type_fiche.cycle_assigne') %></span></td><td>
+			  <select name="majcycle" class="inputbox"><option selected value=''>-</option>
+				  <option <% if @fiche != nil and @fiche.cycle_id == nil%>selected<% end %> value="-">-</option>
+				  <% if @all_cycles != nil
+					@all_cycles.each do |cycle| %>
+					  <option value="<%= cycle.id %>"><%= cycle.value %></option>
+					<% end 
+					end %>
+			  </select>
+		  </td></tr>	
+
+	  <tr><td>
+			  <span class="textStyle"><%= t('ecr_type_fiche.priorite') %></span></td><td>
+			  <select name="majpriority" class="inputbox"><option selected value=''>-</option>
+				  <% if @all_priorities != nil
+					@all_priorities.each do |priority| %>
+					  <option value="<%= priority.id %>|$|<%= priority.value %>"><%= priority.value %></option>
+					<% end 
+					end %>
+			  </select> 
+		  </td></tr>		
+
+	  <tr><td>
+			  <span class="textStyle"><%= t('ecr_type_fiche.assigne_a') %></span></td><td>
+			  <select name="majassigne_a" class="inputbox"><option selected value=''>-</option>
+				  <% if @all_users != nil
+					@all_users.each do |user| %>
+					  <option value="<%= user.id %>|$|<%= user.value %>"><%= user.value %></option>
+					<% end 
+					end %>
+			  </select>
+		  </td></tr>
+
+	  <% if @bloc_custo_updt.to_s != "" %><%= @bloc_custo_updt %><% end %>               
+
+	</table>
+</div>  

@@ -1,0 +1,25 @@
+<script type="application/javascript"> 
+function searchenv() {
+    document.getElementById('appium_cap_appium_cap_name').required=false;
+    document.getElementById('searchname').value=document.getElementById('appium_cap_appium_cap_name').value;
+    document.getElementById('searchdesc').value=document.getElementById('appium_cap_appium_cap_description').value;
+    document.getElementById('formsearch').submit();
+}
+
+
+</script>
+
+<div id="scrollablecontent">
+	<div >
+
+		<div class="popupadd">
+			<%= render :partial => 'appium_caps/head' %>
+		</div> 
+	
+		<div id="appium_caps" >	
+			<% if @appium_caps != nil %>    
+				<%= render  @appium_caps %>
+			<% end %>
+		</div>
+	</div>
+</div>

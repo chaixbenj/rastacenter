@@ -1,0 +1,81 @@
+
+
+
+
+<div id="content"  <% if @popup != nil and @popup.to_s == 'true' %> style="height: 100%;" <%end%>>
+	<%= render :partial => 'campains/tree'%>
+
+    <div id="right">
+        <% if @campainsteps != nil %>
+			<%= render :partial => 'campains/execute'%>
+        <% else  
+          @element = nil
+		  @disabled = 'disabled'
+          if @release != nil
+            @element = @release
+			%>
+			<%= render :partial => 'releases/edit'%>
+          <%end
+          if @cycle != nil
+            @element = @cycle%>
+            <%= render :partial => 'releases/edit'%>
+          <%end
+          if @campain != nil
+            @element = @campain
+			if @can_do_something == 1 and  @can_manage_public_campain == 1 and @element.private == 0 or @element.owner_user_id == @my_user_id
+				@disabled = ''
+			end%>
+            <%= render :partial => 'campains/edit'%>
+          <%end
+		 end %>
+    </div>
+
+</div>
+
+<%  if @campain != nil %>
+<form id="formeditcp" onsubmit="startloader();" action="../campains/edit" method="post">
+	<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+	<input type="hidden" name="write" value="1"/>
+	<input type="hidden" name="campain_id" value="<%= @campain.id %>" />
+	<input type="hidden" name="back_to_id" value="campain_id=<%= @campain.id %>" />	
+</form>
+
+<form id="formseecp" onsubmit="startloader();" action="../campains/edit" method="post">
+	<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+	<input type="hidden" name="write" value="0"/>
+	<input type="hidden" name="campain_id" value="<%= @campain.id %>" />
+	<input type="hidden" name="back_to_id" value="campain_id=<%= @campain.id %>" />
+</form>	
+<% end %>
+
+
+<form id="formpaste" action="../campains/paste" method="post">
+    <input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+    <input type="hidden"  id="cycle_id_destination" name="cycle_id" value=""/>
+    <input type="hidden"  id="campain_to_paste" name="campain_id" value=""/>
+	
+</form>
+
+
+<iframe id="hiddenFrame3" name="hiddenFrame3" width="0" height="0" border="0" style="display: none;"></iframe>
+
+
+
+
+<div id="popup" class="modalPopup">
+    <div>
+        <form id="deletelock" name="deletelock" action="../lockobjects/delete" method="post" target="hiddenFrame3">
+            <input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>	
+            <input type='hidden' id='ojecttypepopuped' name='obj_type' value=''/>
+            <input type='hidden' id='ojectidpopuped' name='obj_id' value=''/>
+        </form>
+        <!--a href="#close" title="Close" class="closePopup">X</a-->
+        <button onclick="document.getElementById('contentpopup').innerHTML = '';
+              document.getElementById('popup').style.display = 'none';
+              document.getElementById('deletelock').submit();
+              window.location.href = '#';"  class="closePopup">X</button>
+        <div id="contentpopup"></div>
+    </div>
+</div>
+
+

@@ -1,0 +1,34 @@
+<tr>
+	<td>
+		<span class="textStyle">
+			<% if @configurationvariable.no_value == 0 %><%= t('valeurs_possibles') %><% end %>
+		</span>
+	</td>
+</tr>
+
+<% if @configurationvariablevalues == nil or @configurationvariablevalues.length == 0 %> 
+	<% if  @configurationvariable.no_value == 0 %>
+		<tr>
+			<td colspan="2">
+				<input <% if @can_manage_configuration_variable == 0 %>disabled<%end%> onKeyDown="showvalidbtn();"  onKeyUp="formatslash(this);"  maxlength='150' name="varvalue1" type="text" spellcheck='false' class="inputbox" placeholder="valeur" size="50"/>
+				<% if @can_manage_configuration_variable == 1 %>
+					<img id="addactionbtn" src="/assets/icones/btnadd1.png" class="btnadd" title="<%= t('ajouter') %>" onclick="addConfigurationVariableValue(this);showvalidbtn();" ></img>
+				<%end%>
+			</td>
+		</tr>
+	<% end %>
+<% else 
+	i = 1
+	@configurationvariablevalues.each do |varvalue| %>
+		<tr>
+			<td colspan="2">
+				<input <%  if varvalue.is_modifiable==0 or @can_manage_configuration_variable == 0 %>disabled<% end %>  onchange="showvalidbtn();"  name="varvalue<%= i %>" type="text" spellcheck='false' class="inputbox" placeholder="valeur" size="50"  maxlength='150' value="<%= varvalue.value %>"/>
+				<input name="varvalueid<%= i %>" type="hidden" value="<%= varvalue.id %>" onKeyUp="formatslash(this);" />
+				<%  if i == 1 and @configurationvariable.no_value == 0 and @can_manage_configuration_variable == 1 %> 
+					<img id="addactionbtn" src="/assets/icones/btnadd1.png" class="btnadd" title="<%= t('ajouter') %>" onclick="addConfigurationVariableValue(this);showvalidbtn();" ></img>
+				<% end %>
+			</td>
+		</tr>
+<% i += 1  
+end 
+end %>

@@ -1,0 +1,9 @@
+<tr>
+	<td><span class="textStyle"><%= t('nom') %></span></td>
+	<td colspan="2"><input <% if @can_manage_role == 1  and @role.name != "admin" %>onKeyDown="showvalidbtn();"<%else%>disabled<%end%> class="inputbox" size=50 maxlength='50' type="text" spellcheck='false' name="rname" id="rname" value="<%= @role.name  %>"/>
+	<% if @can_manage_role == 1  and @role.domaine_id != nil and @role.name != "admin" %>
+		<input value="" name="valid" id="btnval" style="display: none;" type="submit" class="btnvalid" title="<%= t('valider') %>" onclick="buildRightsString();document.getElementById('rname').required=true;document.getElementById('rnamec').required=false;"/>&nbsp;&nbsp;&nbsp;
+		<input value="" name="delete" type="submit" id="btndel" class="btndel" title="<%= t('supprimer') %>" onclick="document.getElementById('rname').required=false;document.getElementById('rnamec').required=false;" data-confirm="<%= t('ecr_role.confirme_supp') %>"/>
+	<% end %>
+	</td>
+</tr>

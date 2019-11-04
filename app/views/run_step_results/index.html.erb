@@ -1,0 +1,47 @@
+
+<div id="<%if @popup.to_s == 'true' %>scrollablecontent100<% else %>scrollablecontent<%end%>" style="margin-left: 7px;" onmousemove="redimcol(event);" onmouseup="stopredimcol();" onmouseover="setthpositionrelative();" onmouseout="setthpositionnone();" <% if @popup != nil and @popup.to_s == 'true' %>style="height: 100%;"<%end%>>
+	<%= render :partial => 'run_step_results/head' %>
+
+	<table id="resizabletab" class="tablereport">
+		<%= render :partial => 'run_step_results/report_head' %>
+		<% if @results != nil %>
+			<tbody id="results" >	
+				<%= render  @results %>
+			</tbody>
+		<% end %>
+	</table>        
+    
+</div>
+
+
+<form id="formstepaction" action="../run_step_results/force" method="post" target="hiddenFrame" onsubmit="startloader()">
+    <input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+    <input type="hidden"  id="passorfail" name="passorfail" value=""/>
+    <input type="hidden"  id="step_id" name="step_id" value=""/>
+</form>
+
+
+<iframe id="hiddenFrame" name="hiddenFrame" width="0" height="0" border="0" style="display: none;" onload="onloadiframechangestep();"></iframe>  
+<iframe id="hiddenFrameNoLoad" name="hiddenFrameNoLoad" width="0" height="0" border="0" style="display: none;"></iframe>  
+
+
+<div id="popup" class="modalPopup" >
+    <div style="width: 50%;height: 50%;">
+        <button onclick="document.getElementById('contentpopup').innerHTML = '';
+            document.getElementById('popup').style.display = 'none';window.location.href = '#';"  class="closePopup">X</button>
+        <div id="contentpopup" ></div>
+    </div>
+</div>
+
+<%= render :partial => 'run_step_results/bugs' %>
+
+<% if @popup.to_s == "true" %>
+  <div id="popupfiche" class="modalPopup">
+	  <div>
+		  <button onclick="document.getElementById('contentpopupfiche').innerHTML = '';
+			  document.getElementById('popupfiche').style.display = 'none';
+			  window.location.href = '#';"  class="closePopup">X</button>
+		  <div id="contentpopupfiche"></div>
+	  </div>
+  </div>   
+<% end %>

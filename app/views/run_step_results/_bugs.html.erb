@@ -1,0 +1,38 @@
+<% if @bugs != nil
+	prec_step_id = 0
+	@bugs.each do |bug|%>
+
+		<% if prec_step_id != bug.step_id and prec_step_id != 0 %>
+				</div>
+			</div>
+			</div>
+		<%end%>
+    
+		<% if prec_step_id != bug.step_id %>
+			<div id="popupbug<%= bug.step_id%>" class="modalPopup">
+				<div style="width:50%;height:500px;">
+					<button onclick="document.getElementById('popup').style.display = 'none';window.location.href = '#';"  class="closePopup">X</button>
+					<div style="width:100%;overflow-y:scroll; height:500px;">
+        <%end%>      
+        
+		<div class="treerep" onclick="show_fiche('<%= bug.bug_id %>');">
+        <span><b>#<%= bug.bug_id %></b> <%= bug.bug_name %></span>
+        </div>
+        
+		<%  prec_step_id = bug.step_id
+    end%>
+    </div>  
+    </div>
+    </div>
+<%end%>
+
+<script type="application/javascript"> 
+  function showbugs() {
+  <% if @bugs != nil
+  @bugs.each do |bug|%>
+    document.getElementById("btnshowbugs<%= bug.step_id %>").style.display='block';
+      <%end
+    end%>
+      }
+      showbugs();
+</script>

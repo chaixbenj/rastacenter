@@ -1,0 +1,10 @@
+<form id='massiveinsert' action="../domelements/massiveinsert" method="post" onsubmit="startloader();" <% if @message == nil %>style='display: none'<%end%>>
+	<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+	<input type="hidden" name="funcandscreen_id" value="<%= @funcscreen_id %>"/>  
+	<input type="hidden" name="version_id" value="<%= @version_id %>"/>  
+	<input type="hidden" name="popup" value="<%= @popup %>"/>
+	<input type="hidden" name="sheet_id" value="<%= @sheet_id %>"/>
+	<input type="hidden" name="ext_node_id" value="<%= @ext_node_id %>"/>
+	<textarea spellcheck='false' class='inputbox' name="elementslist" rows='10' cols='150' placeholder="<%= t('ecr_dom_element.format_csv_import') %>"><%= @elementslist %></textarea>
+	<input type='submit' value='' class='btnvalid'></input>
+</form>      

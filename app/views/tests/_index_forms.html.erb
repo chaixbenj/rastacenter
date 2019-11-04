@@ -1,0 +1,147 @@
+<form id="formadsubfolder" action="../tests/add_folder" method="post">
+	<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>	
+    <input type="hidden" name="showtestid" value="<% if @test != nil %><%= @test.id %><% end %>"/>
+    <input type="hidden" name="folder" id="sffolder" value=""/>
+    <input type="hidden" name="mode"  value="<%= @mode %>"/>    
+    <input type="hidden" name="testname"  value="<%= @filtrename %>"/>    
+    <input type="hidden" name="testtype"  value="<%= @filtretype %>"/>    
+    <input type="hidden" name="testlevel"  value="<%= @filtrelevel %>"/>    
+    <input type="hidden" name="teststate"  value="<%= @filtrestate %>"/>  
+	<input type="hidden" name="atddsteps" value="<%=@atddsteps%>"/> 
+	<input type="hidden" name="fiche_id" value="<%= @fiche_id %>"/>	
+</form>
+<form id="formadtest" action="../tests/addtest" method="post">
+	<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>	
+    <input type="hidden" name="showtestid" value="<% if @test != nil %><%= @test.id %><% end %>"/>
+    <input type="hidden" name="folder" id="atfolder" value=""/>
+    <input type="hidden" name="mode"  value="<%= @mode %>"/>    
+    <input type="hidden" name="testname"  value="<%= @filtrename %>"/>    
+    <input type="hidden" name="testtype"  value="<%= @filtretype %>"/>    
+    <input type="hidden" name="testlevel"  value="<%= @filtrelevel %>"/>    
+    <input type="hidden" name="teststate"  value="<%= @filtrestate %>"/>
+	<input type="hidden" name="atddsteps" value="<%=@atddsteps%>"/> 	
+	<input type="hidden" name="atdd_fiche_id" value="<%= @fiche_id %>"/>
+	<input type="hidden" name="atdd_fiche_name" value="<%= @fiche_name %>"/>
+</form>
+<form id="formtestindex" action="../tests/index" method="post">
+	<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>	
+    <input type="hidden" name="showtestid" id="showtestid" value="<% if @test != nil %><%= @test.id %><% end %>"/>
+    <input type="hidden" name="do" id="do" value=""/>
+    <input type="hidden" name="folder" id="folder" value=""/>
+    <input type="hidden" name="mode"  value="<%= @mode %>"/>    
+    <input type="hidden" name="testname"  value="<%= @filtrename %>"/>    
+    <input type="hidden" name="testtype"  value="<%= @filtretype %>"/>    
+    <input type="hidden" name="testlevel"  value="<%= @filtrelevel %>"/>    
+    <input type="hidden" name="teststate"  value="<%= @filtrestate %>"/>  
+	<input type="hidden" name="atddsteps" value="<%=@atddsteps%>"/>
+	<input type="hidden" name="proc_id" value="<%= @filtreproc %>"/>
+	<input type="hidden" name="procs" value="<%= @procs %>"/>
+	<input type="hidden" name="fatdd_id" value="<%= @filtreatdd %>"/>
+	<input type="hidden" name="latdds" value="<%= @latdds %>"/>
+</form>    
+    
+    
+
+<form id="formdelete" action="../tests/delete" method="post" target="hiddenFrameMsg">
+	<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>	
+	<input type="hidden" name="idtodel" id="idtodel" value=""/>
+	<input type="hidden" name="delwhat" id="delwhat" value="test"/>
+	<input type="hidden" name="atddsteps" value="<%=@atddsteps%>"/>
+</form>  
+ 
+<% if @atddsteps =="1" %>
+		<form id="formaddatddsubfolder" action="../tests/addsubatddfolder" method="post">
+			<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+			<input type="hidden" name="showtestid" id="showtestid" value="<% if @test != nil %><%= @test.id %><% end %>"/>
+			<input type="hidden" name="folder" id="ffolder" value=""/>
+			<input type='hidden' name="popup" value="<%=@popup%>"/>
+			<input type="hidden" name="test_id" id="test_id" value="<%= @test_id %>"/> 
+            <input type="hidden" name="write" id="write" value="<%= @modmodif  %>"/>
+            <input type="hidden" name="lock" id="lock" value="<%= @testLocked  %>"/>
+            <input type="hidden" name="load" value="1"/>
+			<input type="hidden" name="atddsteps" value="<%=@atddsteps%>"/>
+			<input type="hidden" name="screen" value="index"/>
+		</form>
+		
+		<form id="formaddatddsteptest" action="../tests/addatddsteptest" method="post">
+			<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+			<input type="hidden" name="showtestid" id="showtestid" value="<% if @test != nil %><%= @test.id %><% end %>"/>
+			<input type="hidden" name="folder" id="tfolder" value=""/>
+			<input type='hidden' name="popup" value="<%=@popup%>"/>
+			<input type='hidden' name="testtype" value="<%=@testtype%>"/>
+			<input type="hidden" name="test_id" id="test_id" value="<%= @test_id %>"/> 
+            <input type="hidden" name="write" id="write" value="<%= @modmodif  %>"/>
+            <input type="hidden" name="lock" id="lock" value="<%= @testLocked  %>"/>
+            <input type="hidden" name="load" value="1"/>
+			<input type="hidden" name="atddsteps" value="<%=@atddsteps%>"/>
+			<input type="hidden" name="screen" value="index"/>
+		</form>
+		
+		<form id="formpaste" action="../tests/pasteatddelement" method="post">
+			<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+			<input type="hidden"  id="folder_id_destination" name="folder_id" value=""/>
+			<input type="hidden"  id="test_or_folder_to_paste" name="test_or_folder_to_paste" value=""/>
+			<input type='hidden' name="popup" value="<%=@popup%>"/>
+			<input type='hidden' name="testtype" value="<%=@testtype%>"/>
+			<input type="hidden" name="test_id" id="test_id" value="<%= @test_id %>"/> 
+            <input type="hidden" name="write" id="write" value="<%= @modmodif  %>"/>
+            <input type="hidden" name="lock" id="lock" value="<%= @testLocked  %>"/>
+            <input type="hidden" name="load" value="1"/>
+			<input type="hidden" name="atddsteps" value="<%=@atddsteps%>"/>
+			<input type="hidden" name="screen" value="index"/>
+		</form>
+
+		<form id="formvaloatddparam" action="../teststeps/changeparamatddvalue" method="post" target="hiddenFrameNoLoad">
+			<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>	
+			<input type="hidden" name="stepid" id="idatddstepmod" value=""/>
+			<input type="hidden" name="pname" id="atddstepparam" value=""/>
+			<input type="hidden" name="pvalue" id="atddstepparamvalue" value=""/>
+			<input type="hidden" name="atddsteps" value="<%=@atddsteps%>"/>
+		</form> 
+		
+		<form id="formrenamefolder" action="../tests/rename" method="post" target="hiddenFrameNoLoad">
+			<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>	
+			<input type="hidden" name="rfolder" id="rfolder" value=""/>
+			<input type="hidden" name="rfoldername" id="rfoldername" value=""/>
+			<input type="hidden" name="what" id="what" value="folder"/>
+			<input type="hidden" name="atddsteps" value="<%=@atddsteps%>"/>
+		</form>    
+
+		<form id="formrenametest" action="../tests/rename" method="post" target="hiddenFrameNoLoad">
+			<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>	
+			<input type="hidden" name="rtest" id="rtest" value=""/>
+			<input type="hidden" name="rtestname" id="rtestname" value=""/>
+			<input type="hidden" name="what" id="what" value="test"/>
+			<input type="hidden" name="atddsteps" value="<%=@atddsteps%>"/>
+		</form> 
+
+
+		
+<%else%>
+	<form id="formrenamefolder" action="../tests/rename" method="post" target="hiddenFrame">
+		<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>	
+		<input type="hidden" name="rfolder" id="rfolder" value=""/>
+		<input type="hidden" name="rfoldername" id="rfoldername" value=""/>
+		<input type="hidden" name="what" id="what" value="folder"/>
+		<input type="hidden" name="atddsteps" value="<%=@atddsteps%>"/> 
+	</form>    
+
+	<form id="formrenametest" action="../tests/rename" method="post" target="hiddenFrame">
+		  <input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>	
+		<input type="hidden" name="rtest" id="rtest" value=""/>
+		<input type="hidden" name="rtestname" id="rtestname" value=""/>
+		<input type="hidden" name="what" id="what" value="test"/>
+		<input type="hidden" name="atddsteps" value="<%=@atddsteps%>"/> 
+	</form>   
+<%end%>
+
+<form id="formpaste" action="../tests/paste" method="post">
+    <input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+    <input type="hidden"  id="folder_id_destination" name="folder_id" value=""/>
+    <input type="hidden"  id="test_or_folder_to_paste" name="test_or_folder_to_paste" value=""/>
+	<input type="hidden" name="atddsteps" value="<%=@atddsteps%>"/> 
+</form>
+
+<iframe id="hiddenFrame" name="hiddenFrame" width="0" height="0" border="0" style="display: none;"></iframe>   
+<iframe id="hiddenFrameNoLoad" name="hiddenFrameNoLoad" width="0" height="0" border="0" style="display: none;"></iframe>    
+<iframe id="hiddenFrameMsg" name="hiddenFrameMsg" width="0" height="0" border="0" style="display: none;" onload="onloadiframemsg();"></iframe>        

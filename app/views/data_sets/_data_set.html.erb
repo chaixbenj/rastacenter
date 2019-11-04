@@ -1,0 +1,40 @@
+<% if @message != nil and data_set.id.to_s == @majid.to_s %>
+   <span id='idspanmessage' class='<% if @OK %>succesMessage<% else %>errorMessage<% end %>' onclick='this.parentNode.removeChild(this)' style='vertical-align: top;'><%= @message %>&nbsp;<b>x</b></span>
+  <% end %> 
+
+<div class="ligthline">
+<div class="inline">
+
+
+ <input <% if @can_manage_jdd == 0 or data_set.is_default == 1 %>disabled<% end %> pattern="[A-Za-z0-9_]{2,50}" maxlength='50' onKeyUp="formatascode(this)" required size=40  class='inputboxlist' type="text" spellcheck='false' name="name" id="iname<%= data_set.id %>" value="<%= data_set.name %>" title="<%= t('ecr_data_set.format_titre') %>" onKeyDown='showupdateform("<%= data_set.id %>");' onchange='checknamevalidity("<%= data_set.id %>", "<%= data_set.name %>");'/>
+
+  <input <% if @can_manage_jdd == 0 %>disabled<% end %> type="text" spellcheck='false' class='inputboxlist' name="description" id="idescription<%= data_set.id %>" size='100' value="<%= data_set.description %>" onKeyDown='showupdateform("<%= data_set.id %>");'/>
+
+  <% if @can_manage_jdd == 1 %>
+	<form onsubmit="startloader();" action="/data_sets/update" data-remote="true" rel="nofollow" data-method="put" style="display: none;" id="formupdt<%= data_set.id %>">
+            <input type="hidden" name="idelement" value="<%= data_set.id %>"/>
+            <input type="hidden" name="name" id="name<%= data_set.id %>" value=""/>
+            <input type="hidden" name="description" id="description<%= data_set.id %>" value=""/>
+            <input class="btnvalid" title="<%= t('valider') %>" type="submit" value=""  onclick="document.getElementById('name<%= data_set.id %>').value=document.getElementById('iname<%= data_set.id %>').value;document.getElementById('description<%= data_set.id %>').value=document.getElementById('idescription<%= data_set.id %>').value;" style='vertical-align: top;' onmouseover='checknamevalidity("<%= data_set.id %>", "<%= data_set.name %>");'/>
+	</form>
+<% end %>
+  
+<%=  link_to image_tag("/assets/icones/btnvariable1.png"), { :controller => :data_set_variables, :action => :getone, :envone => data_set.id}, class: "btn", onclick: "startloader();", title: t('variables')  %>
+  
+<% if @can_manage_jdd == 1  and data_set.is_default == 0  %>
+    <%= button_to "",  data_set_path(data_set), remote: true, method: :delete, form: {onsubmit: "startloader();"}, data: { confirm: "#{t('ecr_data_set.confirme_supp')} #{data_set.name}?"  }, class: "btndel", title: t('supprimer') %>
+<% end %>
+
+
+	
+
+</div>
+</div>
+<script>
+          setTimeout(function () {
+            elem = document.getElementById('idspanmessage');
+            if (elem!=null) {
+              elem.parentNode.removeChild(elem);
+            }
+        }, 2000);
+</script>  

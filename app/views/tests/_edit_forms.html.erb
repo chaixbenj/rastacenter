@@ -1,0 +1,65 @@
+<form id="formaddstep" action="../teststeps/addnew" method="post" target="hiddenFrame">
+	<input id='idprocadded' name='proc_id' value="" type='hidden'/>
+	<input id='idparamstring' name='proc_param' value="" type='hidden'/>
+	<input type="hidden" name="test_id" value="<%= @test_id %>"/>
+	<input type="hidden" name="sheetinit" value="<%= @sheet_id %>"/>
+	<input id='idnodeprocadded' name='node_id' value="" type='hidden'/>
+	<input type="hidden" name="callingscreen" value="testdesign"/>
+	<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+	<input type='hidden' name="popup" value="<%=@popup%>"/>
+	<input type='hidden' name="afterstep" id="afterstepnew" value=""/>
+	<input type="hidden" name="atddsteps" value="<%=@atddsteps%>"/>
+</form>
+<input id='nameprocadded' value="" type='hidden'/>
+<input id='namefuncprocadded' value="" type='hidden'/>
+
+<form id="forminsertscodeinstr" action="../teststeps/addcode" method="post" target="hiddenFrame">
+	<input type="hidden" id="code_id_condition_boucle" name="code" value=""/>
+	<input type="hidden" id="idatddstep" name="idatddstep" value=""/>
+	<input type="hidden" name="test_id" value="<%= @test_id %>"/>
+	<input type="hidden" name="callingscreen" value="testdesign"/>
+	<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+	<input type='hidden' name="popup" value="<%=@popup%>"/>
+	<input type='hidden' name="afterstep" id="aftercodenew" value=""/>
+	<input type="hidden" name="atddsteps" value="<%=@atddsteps%>"/>
+</form>
+
+<form id="formpastestep" action="../teststeps/paste" method="post">
+	<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+	<input type="hidden" name="test_id" value="<%= @test_id %>"/>
+	<input type="hidden" name="back_to_id" value="showtestid=<%= @test_id %>"/>
+	<input type="hidden"  id="paste_after_before" name="paste_after_before" value=""/>
+	<input type="hidden"  id="paste_element_dest" name="paste_element_dest" value=""/>
+	<input type="hidden"  id="step_to_paste" name="step_to_paste" value=""/>
+	<input type="hidden" name="sheet_id" value="<%= @sheet_id %>"/>
+	<input type="hidden" name="write" id="writep" value="<%= @modmodif  %>"/>
+	<input type="hidden" name="lock" id="lockp" value="<%= @testLocked  %>"/>
+	<input type="hidden" name="load" value="1"/>
+	<input type='hidden' name="popup" value="<%=@popup%>"/>
+	<input type="hidden" name="atddsteps" value="<%=@atddsteps%>"/>
+</form>
+
+<form id="formvalidstruct" action="../teststeps/validatestructure" method="post" target="hiddenFrameValStr">
+	<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+	<input type="hidden" name="test_id" value="<%= @test_id %>"/>
+	<input type="hidden" name="atddsteps" value="<%=@atddsteps%>"/>
+</form>
+
+
+<form id="formreload" action="../tests/edit" method="post">
+	<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+	<input type="hidden" name="test_id" value="<%= @test_id %>"/>
+	<input type="hidden" name="sheet_id" value="<%= @sheet_id %>"/>
+	<input type="hidden" name="back_to_id" value="showtestid=<%= @test_id %>"/>
+	<input type="hidden" name="write" id="writep" value="<%= @modmodif  %>"/>
+	<input type="hidden" name="lock" id="lockp" value="<%= @testLocked  %>"/>
+	<input type="hidden" name="load" value="1"/>
+	<input type='hidden' name="popup" value="<%=@popup%>"/>
+	<input type="hidden" name="atddsteps" value="<%=@atddsteps%>"/>
+</form>
+
+<iframe id="hiddenFrame" name="hiddenFrame" width="0" height="0" border="0" style="display: none;" onload="onloadiframeaddstep();"></iframe>
+<iframe id="hiddenFrame2" name="hiddenFrame2" width="0" height="0" border="0" style="display: none;" onload="onloadiframedeletereorderchangeparamstep();"></iframe>
+<iframe id="hiddenFrameValStr" name="hiddenFrameValStr" width="0" height="0" border="0" style="display: none;" onload="onloadiframevalidstruct();"></iframe>
+<iframe id="hiddenFrameNoLoad" name="hiddenFrameNoLoad" width="0" height="0" border="0" style="display: none;"></iframe>
+<iframe id="hiddenFrameMsg" name="hiddenFrameMsg" width="0" height="0" border="0" style="display: none;" onload="onloadiframemsg();"></iframe>

@@ -1,0 +1,192 @@
+<div id="hiddendivfiltre">    
+	<button class="btnvalid" id="btnval" name="filter" style="float:right;display:none;margin-top:4px;" onclick="displaykanbansaveas();"></button>
+	<%if (@can_manage_worflows_and_card == 1 or @kanban.owner_user_id == @my_user_id) and @kanban.father_id != nil%>
+		<button name="delete" class="btndel" value="delete" style="float:right;margin-top:4px;"></button>                       
+	<% end %> 
+	<input type="hidden" name="kanban_id" value="<%= @kanban.id %>"/>
+	<table  class="leftTable" onclick="showvalidbtn();">
+		<tr>
+			<td><span class="textStyle"><%= t('ecr_type_fiche.description') %></span></td>
+			<td>
+				<input type='text' maxlength='250' class='inputbox' id='name_-1' name='fiche_desc' value=''/>
+			</td>
+			<td>
+				<div  class="btnenregistrer" id="imagesave" style="float:right;<% if @can_manage_cards == 0 %>display:none;<%end%>" onclick="displaykanbansaveas();"></div>
+				<div id="hiddensaveasdiv">                      
+					<% if (@can_manage_worflows_and_card == 1 or @kanban.owner_user_id == @my_user_id) and @kanban.father_id != nil %>
+						<div style="display:block;">
+							<input checked type="radio" id="ecraser" name="filtreid" value="<%= @kanban.id %>"/>
+							<label for="ecraser" class="textStyle"><%= @kanban.name %></label>
+						</div>
+						<div style="display:block;">
+							<input type="radio" id="new" name="filtreid" value="-1" />
+							<input type="text" maxlength='250' class="inputbox" id="newkanbanname" name="newkanbanname" placeholder="<%= t('nouveau')%>"></input>
+						</div>
+						<div style="display:block;">
+							<input type="checkbox" name="private" id="private" <%if @kanban.private.to_s == "1"%>checked<%end%>/><span class="textStyle"><%= t('privee') %></span>
+					<%else%>
+						<div style="display:block;">
+							<input type="text" maxlength='250' class="inputbox" id="newkanbanname" name="newkanbanname" placeholder="<%= t('nouveau')%>"></input>
+						</div>
+						<div style="display:block;">
+							<input type="checkbox" name="private" id="private" <%if @kanban.private.to_s == "1"%>checked<%end%>/><span class="textStyle"><%= t('privee') %></span>
+					<%end%>    
+					<input type="hidden" name="kanbaninitfilter" value="<%if @kanban.father_id != nil %><%= @kanban.father_id%><%else%><%= @kanban.id%><%end%> "/>
+					<button name="saveas" class="btnenregistrer" value="save" style="float:right;" onclick="verifkanbanname();"></button></div>
+				</div>
+			</td>
+		</tr>
+		
+		<tr>
+			<td>
+				<span class="textStyle"><%= t('ecr_type_fiche.type') %></span>
+			</td>
+			<td>
+				<div class="multiliste" name="multiliste">
+					<% if @type_fiches != nil
+						@type_fiches.each do |type_fiche| %>
+							<div style="display:block;">
+								<input style="display:inline;" type="checkbox" id="type_fiche_id_<%= type_fiche.id %>" name="type_fiche_id_<%= type_fiche.id %>" value="<%= type_fiche.id %>" label="<%= type_fiche.name %>" onclick="displayfilter(this, 'type_fiche_id');"><%= type_fiche.name %></input>
+							</div>        
+						<% end 
+					end %>
+				</div>
+			</td>
+			<td>
+				<div id="type_fiche_id"></div>
+			</td>
+		</tr>
+
+		<tr>
+			<td>
+				<span class="textStyle"><%= t('ecr_type_fiche.status') %></span>
+			</td>
+			<td>
+				<div class="multiliste" name="multiliste">
+					<% if @kanban_statuses != nil
+						@kanban_statuses.each do |status| %>
+							<div style="display:block;">
+								<input style="display:inline;" type="checkbox" id="status_id_<%= status.status_id %>" name="status_id_<%= status.status_id %>" value="<%= status.status_id %>" label="<%= status.status_name %>" onclick="displayfilter(this, 'status_id');"><%= status.status_name %></input>
+							</div>        
+						<% end 
+					end %>
+				</div>
+			</td>
+			<td>
+				<div id="status_id"></div>
+			</td>
+		</tr>
+
+		<tr>
+			<td>  
+				<span class="textStyle"><%= t('ecr_type_fiche.cycle_assigne') %></span>
+			</td>
+			<td>
+				<div class="multiliste" name="multiliste">
+					<% if @all_cycles != nil
+						@all_cycles.each do |cycle| %>
+							<div style="display:block;">
+								<input style="display:inline;" type="checkbox" id="cycle_id_<%= cycle.id %>" name="cycle_id_<%= cycle.id %>"  value="<%= cycle.id %>" label="<%= cycle.value %>" onclick="displayfilter(this, 'cycle_id');"><%= cycle.value %></input>
+							</div>      
+						<% end 
+					end %>
+				</div>	
+			</td>
+			<td>
+				<div id="cycle_id"></div>
+			</td>
+		</tr>
+		
+		<tr>
+			<td>
+				<span class="textStyle"><%= t('ecr_type_fiche.priorite') %></span>
+			</td>
+			<td>
+				<div class="multiliste" name="multiliste">
+					<% if @all_priorities != nil
+						@all_priorities.each do |priority| %>
+							<div style="display:block;">
+								<input style="display:inline;" type="checkbox" id="priority_id_<%= priority.id %>" name="priority_id_<%= priority.id %>"  value="<%= priority.id %>" label="<%= priority.value %>" onclick="displayfilter(this, 'priority_id');"><%= priority.value %></input>
+							</div>     
+						<% end 
+					end %>
+				</div>	
+			</td>
+			<td>
+				<div id="priority_id"></div>
+			</td>
+		</tr>	
+
+		<tr>
+			<td>
+				<span class="textStyle"><%= t('ecr_type_fiche.assigne_a') %></span>
+			</td>
+			<td>
+				<div class="multiliste" name="multiliste">
+					<% if @all_users != nil
+						@all_users.each do |user| %>
+							<div style="display:block;">
+								<input style="display:inline;" type="checkbox" id="user_assign_id_<%= user.id %>" name="user_assign_id_<%= user.id %>" value="<%= user.id %>" label="<%= user.value %>" onclick="displayfilter(this, 'user_assign_id');"><%= user.value %></input>
+							</div>      
+						<% end 
+					end %>
+				</div>	
+			</td>
+			<td>
+				<div id="user_assign_id"></div>
+			</td>
+		</tr>
+		
+		<tr>
+			<td>
+				<span class="textStyle"><%= t('ecr_type_fiche.creer_par') %></span>
+			</td>
+			<td>
+				<div class="multiliste" name="multiliste">
+					<% if @all_users != nil
+						@all_users.each do |user| %>
+							<div style="display:block;">
+								<input style="display:inline;" type="checkbox" id="user_cre_id_<%= user.id %>" name="user_cre_id_<%= user.id %>" value="<%= user.id %>" label="<%= user.value %>" onclick="displayfilter(this, 'user_cre_id');"><%= user.value %></input>
+							</div>      
+						<% end 
+					end %>
+				</div>	
+			</td>
+			<td>
+				<div id="user_cre_id"></div>
+			</td>
+		</tr>
+		
+		<tr>
+			<td>
+				<% if @bloc_custo != nil %>      
+					<%= @bloc_custo %>
+				<%end%>
+			</td>
+		</tr>     
+		
+		<tr>
+			<td>
+				<span class="textStyle"><%= t('ecr_kanban.lie_a') %></span>
+			</td>
+			<td>
+				<input type="hidden" name="linked_id" id="laddf" value="<%= @linked_id %>"/>
+				<input  onkeyup="lookafterchange();" <% if @can_manage_cards == 0 %>disabled<%end%> class="inputbox" list="laddfs" id="inputladdfs" placeholder="<%= t('ecr_fiche.id_parent')%>" onchange="setselectedlinkto();" value="<%= @linked_id %>"> </input>
+				<datalist id="laddfs"><option value="-"/></datalist>	 
+				<script>
+					function lookafterchange() {
+					if (xhrgl) { xhrgl.abort() } 
+					clearTimeout(timer); 
+					timer = setTimeout(function() { 
+					if (document.getElementById("inputladdfs")) {get_filtered_linked_fiche(document.getElementById("inputladdfs").value);}
+					}, 1000); 
+					}
+					var timer;
+					var xhrgl;
+				</script>	
+			</td>
+		</tr>
+
+	</table>
+
+</div> 

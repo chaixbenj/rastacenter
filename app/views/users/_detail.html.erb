@@ -1,0 +1,59 @@
+<br>
+<% if @user != nil %>
+    <form onsubmit='startloader();'  action="../users/update" method="post">
+		<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+		<input type="hidden" name="usid" id="usid" value="<%= @user.id %>"/>
+		<table class="leftTable" >
+		  <tr>
+			  <td><span class="textStyle"><%= t('nom') %></span></td>
+			<td colspan="2"><input <% if @can_manage_user == 0 %>disabled<%end%> onKeyDown="showvalidbtn();" class="inputbox" size=50 maxlength='50' type="text" spellcheck='false' name="uname" id="uname" value="<%= @user.username  %>"/>
+			<% if @can_manage_user == 1 or @user.id == @my_user_id %>
+				<input name="valid" value="" id="btnval" style="display: none;" type="submit" class="btnvalid" title="<%= t('valider') %>" onclick="document.getElementById('uname').required=true;document.getElementById('unamec').required=false;" title="<%= t('valider') %>"/>&nbsp;&nbsp;&nbsp;
+			<% end %>    
+			<% if  @user.is_admin == 0 and @user.id != @my_user_id and @can_manage_user == 1 %>
+				  <input name="delete" value="" type="submit" class="btndel" title="<%= t('supprimer') %>" onclick="if (document.getElementById('unamec')){document.getElementById('unamec').required=false};document.getElementById('uname').required=false;document.getElementById('ulogin').required=false;document.getElementById('upwd').required=false;document.getElementById('upwdc').required=false;" data-confirm="<%= t('ecr_user.confirme_supp') %>" title="<%= t('supprimer') %>"/>
+			<% end %>
+			</td>
+		  </tr>
+		  <tr>
+			<td><span class="textStyle"><%= t('ecr_connexion.identifiant') %></span></td>
+			<td colspan="2"><input <% if @can_manage_user == 0 %>disabled<%end%> onKeyDown="showvalidbtn();" required class="inputbox" size=50 maxlength='50' type="text" spellcheck='false' name="ulogin" id="ulogin" value="<%= @user.login  %>"   pattern="[A-Za-z0-9_]{2,50}" title="<%= t('ecr_user.format_login')%>"/></td>
+		  </tr>
+		  <tr>
+			<td><span class="textStyle"><%= t('ecr_user.email') %></span></td>
+			<td colspan="2"><input <% if @can_manage_user == 0 %>disabled<%end%> onKeyDown="showvalidbtn();" class="inputbox" size=50 maxlength='254' type="text" spellcheck='false' name="email" id="email" value="<%= @user.email  %>" /></td>
+		  </tr>
+		  <tr>
+			  <td><span class="textStyle"><%= t('ecr_user.locked') %></span></td>
+			  <td><input <% if @can_manage_user == 0 %>disabled<%end%>  onchange="showvalidbtn();" size=50 type="checkbox" name="locked" <%if @user.locked.to_s == "1" %>checked<%end%>/>
+			<td>
+		  </tr> 
+		  <tr>
+			<td><span class="textStyle"><%= t('ecr_connexion.mot_de_passe') %></span></td>
+			<td colspan="2"><input  <% if @can_manage_user == 0 %>disabled<%end%> onKeyDown="showvalidbtn();" required class="inputbox" size=50 type="password" name="upwd" id="upwd" value="no change!"/></td>
+		  </tr>
+		  <tr>
+			<td><span class="textStyle"><%= t('ecr_user.confirm_mot_de_passe') %></span></td>
+			<td colspan="2"><input <% if @can_manage_user == 0 %>disabled<%end%>  onKeyDown="showvalidbtn();" required class="inputbox" size=50 type="password" name="upwdc" id="upwdc" value="no change!"/></td>
+		  </tr>
+		  <tr><td colspan="3"><span class="textStyle">&nbsp;</span></td></tr>
+		  <tr><td></td><td><span class="textStyle"><b> <%= t('projet') %> </b></span></td><td><span class="textStyle"><b> <%= t('role') %> </b></span></td></tr>
+		   <% @projects.each do |project| %>
+			<tr>
+			  <td><input <% if @can_manage_user == 0 %>disabled<%end%>  onClick="showvalidbtn();" <%if @user.id == @my_user_id %> disabled <% end %> <% if project.rolename != nil  %>checked='true'<% end %>   class="textStyle" size=50 type="checkbox" name="uproj<%=  project.id %>" id="uproj<%=  project.id %>" value=""></input></td>
+			  <td><span class="textStyle"><b>#<%= project.id  %></b>&nbsp<%= project.name %> </span></td>
+			  <td>
+			  
+			  <SELECT  <% if @can_manage_user == 0 %>disabled<%end%> onchange="showvalidbtn();" <%if @user.id == @my_user_id %> disabled <% else %> class="inputbox" <% end %> name="uprole<%=  project.id %>" id="uprole<%=  project.id %>" >
+				<OPTION <% if project.rolename.to_s=="" %>selected<% end %> value="" selected>-
+				<% @roles.each do |role| %> 
+				  <OPTION <% if project.rolename.to_s==role.name %>selected<% end %> value="<%= role.id %>" ><%= role.name %>
+				<% end %>
+			  </SELECT>
+			  
+			  </td>
+			</tr>
+		  <% end %>
+		</table>
+	</form>
+<% end %>

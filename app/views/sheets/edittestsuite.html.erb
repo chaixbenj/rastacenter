@@ -1,0 +1,224 @@
+<script type="application/javascript"> 
+        var supprimer_noeud = "<%= t('ecr_sheet.supprimer_element_confirmation') %>";
+    var titre_del_button = "<%= t('supprimer') %>";
+    var titre_lien_a_partir = "<%= t('ecr_sheet.lien_a_partir') %>";
+    var titre_lien_vers = "<%= t('ecr_sheet.lien_vers') %>";
+    var titre_ajout_fils = "<%= t('ecr_sheet.ajouter_fils') %>";
+    var titre_force_config = "<%= t('ecr_sheet.forcer_config') %>";
+    var titre_go_test = "<%= t('ecr_sheet.afficher_le_test') %>";
+        var titre_nouveau_thread = "<%= t('ecr_sheet.nouvelle_session') %>";
+        var titre_meme_thread = "<%= t('ecr_sheet.meme_session') %>";
+        var titre_desactiver = "<%= t('desactiver') %>";
+        var titre_reactiver = "<%= t('reactiver') %>";
+    var message_un_seul_pere = "<%= t('ecr_test_suite.un_seul_pere') %>";
+        var impossible_fils_de_start = "<%= t('ecr_test_suite.impossible_fils_de_start') %>";
+        var impossible_frere_deja_same_thread = "<%= t('ecr_test_suite.impossible_frere_deja_same_thread') %>";
+        var impossible_circuit_ferme = "<%= t('ecr_test_suite.impossible_circuit_ferme') %>";
+        var impossible_pere_type_different = "<%= t('ecr_test_suite.impossible_pere_type_different') %>";
+        var impossible_noeud_force = "<%= t('ecr_test_suite.impossible_noeud_force') %>";
+    
+    $(function(){
+    $("#wrapper1").scroll(function(){
+    $("#wrapper2").scrollLeft($("#wrapper1").scrollLeft());
+    });
+    $(".wrapper2").scroll(function(){
+    $("#wrapper1").scrollLeft($("#wrapper2").scrollLeft());
+    });
+    });
+
+ 
+    function loadDiagramme() { 
+    svg = document.getElementById('svg');
+    svg.parentNode.replaceChild(svg.cloneNode(false), svg);
+
+<% if @nodes!=nil
+  @nodes.each do |node| %>
+                    mx=<%= node.x %>;
+                    my=<%= node.y %>;
+                    name='<%= node.name.gsub("\r\n","\\n") %>';
+                    matrix = 'matrix(1 0 0 1 ' + mx.toString() + ' ' + my.toString() + ')';
+    <% @show = true %>
+
+                    newSuiteTestElement(<%= node.id_externe %>, matrix, name, '<%= node.obj_type %>', '<%= node.obj_id %>', <%=  @sheetLocked %>, <%=  @show %>, 'sheetedit', '<%= node.forced.to_s %>', '<%= node.hold.to_s %>', '<%= node.new_thread.to_s %>', '<%= node.test_type.to_s %>');
+
+                    if (numelem < <%= node.id_externe %>) {
+                    numelem = <%= node.id_externe %>;
+                    }
+  <% end 
+  end %>
+<% if @links!=nil
+  @links.each do |link| %>
+                    mostShortLine(<%= link.node_father_id_fk %>, <%= link.node_son_id_fk %>, true, <%=  @sheetLocked %>, <% if link.curved == nil or link.curved == 0 %> null, null, null <%  else %><%= link.inflexion_x %>, <%= link.inflexion_y %>, <%= link.curved %> <% end %>, <%= link.wait_link %> );
+  <% end 
+  end %>
+    loaded = true;
+<% if @sheetLocked == false %>
+            majdatabase=true; 
+<% else %> 
+            majdatabase=false; 
+<% end  %>
+    }
+
+ if (document.getElementById('popup')) {document.getElementById('popup').style.display='none';}
+ 
+</script>
+
+<div id="content"  <% if @popup != nil and @popup.to_s == 'true' %> style="height: 100%;" <%end%>>
+    <input type="hidden" name="sheet_type" id="sheet_type" value="test_suite"/>
+    <input type="hidden" name="objtypetoadd" id="objtypetoadd" value=""/>
+    <input type="hidden" name="objToLink" id="objToLink" value="test_suite"/>
+	
+	<%= render :partial => 'sheets/test_for_suite' %>
+	
+    <div id="right" style='overflow: hidden;'>  
+		<% if @sheetLocked %>
+			<%= render :partial => 'sheets/locked' %>
+		<% end %>
+
+        <div id="wrapper1">
+            <div id="div1"></div>
+        </div>
+        <div id="wrapper2" style="height: 100%;" onmousedown="startmoveallsvg(event);">
+            <div id="div2">
+
+                <input type='hidden' id='scale' value='1'/>
+                <button class='btnzplus' onclick='zoomsvg(1.25);'></button>
+                <button class='btnzmoins' onclick='zoomsvg(0.8);'></button>
+                <svg id="svg" name="svg" width="3000" height="3000" background-color='white' >
+
+                </svg>
+
+                <svg id="svg2" name="svg2" width="0" height="0" background-color='white' >
+					<defs>
+					<marker id="circlehead" markerWidth="6" markerHeight="6" refX="1" refY="3" orient="auto" stroke="black">
+						<circle cx="3" cy="3" r="2" stroke="black" stroke-width="1" fill="green" />
+					</marker>
+					<marker id="arrowhead" markerWidth="10" markerHeight="10" refX="7" refY="2" orient="auto" stroke="black">
+						<polygon points="0 0, 6 2, 0 4" fill="black"/>
+					</marker>
+
+
+					<linearGradient
+						id="blueDegrade">
+					<stop
+						style="stop-color:#A2D7F6;stop-opacity:1;"
+						offset="0"
+						id="stop6011" />
+					<stop
+						style="stop-color:#A2D7F6;stop-opacity:0;"
+						offset="1"
+						id="stop6013" />
+					</linearGradient>
+
+					<linearGradient
+						id="blackDegrade">
+					<stop
+						style="stop-color:#737B7F;stop-opacity:1;"
+						offset="0"
+						id="stop6011" />
+					<stop
+						style="stop-color:#737B7F;stop-opacity:0;"
+						offset="1"
+						id="stop6013" />
+					</linearGradient>
+					<linearGradient id="OrangeDegrade">
+					<stop offset="5%" stop-color="#F60" />
+					<stop offset="95%" stop-color="#FF6" />
+					</linearGradient>               
+					</defs>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<iframe id="hiddenFrame" name="hiddenFrame" width="0" height="0" border="0" style="display: none;" ></iframe>       
+
+
+<form id="lastupdate" name="lastupdate" action="../sheets/updatediag" method="post" target="hiddenFrame">
+    <input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>	
+    <input type="hidden" name="sheet_id" id="sheet_id" value="<%= @sheet.id %>"/>
+    <input type="hidden" name="project_id" id="project_id" value="<%= @sheet.project_id %>"/>
+    <input type="hidden" name="dodiag" id="do3" value="what"/>
+    <input type="hidden" name="obj" id="obj" value=""/>
+    <input type="hidden" name="idext" id="idext" value=""/>
+    <input type="hidden" name="nodetype" id="nodetype" value=""/>
+    <input type="hidden" name="objtype" id="objtype" value=""/>
+    <input type="hidden" name="linkedobj" id="linkedobj" value=""/>
+    <input type="hidden" name="x" id="x" value=""/>
+    <input type="hidden" name="y" id="y" value=""/>
+    <input type="hidden" name="inflexion_x" id="inflexion_x" value=""/>
+    <input type="hidden" name="inflexion_y" id="inflexion_y" value=""/>
+    <input type="hidden" name="curved" id="curved" value=""/>
+    <input type="hidden" name="father" id="father" value=""/>
+    <input type="hidden" name="son" id="son" value=""/>
+    <input type="hidden" name="title" id="title" value=""/>
+    <input type="hidden" name="loadup" id="loadup" value="0" />
+    <input type="hidden" name="newthread" id="newthread" value="0" />
+    <input type="hidden" name="waitlink" id="waitlink" value="0" />
+    <input type='hidden' name='sheettype' value='<%= @sheettype %>'/>
+</form>
+
+<form id="holdunholdform" name="holdunholdform" action="../sheets/holdunhold" method="post" target="hiddenFrame">
+    <input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>	
+    <input type="hidden" name="sheet_id" id="sheet_id" value="<%= @sheet.id %>"/>
+    <input type="hidden" id="hold_node_id" name="idext" value=""/>
+    <input type="hidden" id="hold_value" name="hold" value=""/>
+</form>
+
+<form id="sheetcontent" name="sheetcontent">
+    <input type="hidden" name="sheet_id" id="sheet_id" value="<%= @sheet.id %>"/>
+    <input type="hidden" name="project_id" id="project_id" value="<%= @sheet.project_id %>"/>
+    <input type="hidden" name="representation" id="representation" />
+    <input type='hidden' name='sheettype' value='<%= @sheettype %>'/>
+
+</form>
+
+<div id="popup" class="modalPopup">
+    <div>
+        <form id="deletelock" name="deletelock" action="../lockobjects/delete" method="post" target="hiddenFrame">
+            <input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>	
+            <input type='hidden' id='ojecttypepopuped' name='obj_type' value=''/>
+            <input type='hidden' id='ojectidpopuped' name='obj_id' value=''/>
+        </form>
+        <!--a href="#close" title="Close" class="closePopup">X</a-->
+        <button onclick="document.getElementById('contentpopup').innerHTML = '';
+              document.getElementById('popup').style.display = 'none';
+              document.getElementById('deletelock').submit();
+              window.location.href = '#';"  class="closePopup">X</button>
+        <div id="contentpopup"></div>
+    </div>
+</div>
+
+<form id="formreload" action="../sheets/edit" method="post">
+    <input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+    <input type="hidden" name="sheet_id" id="sheet_id" value="<%= @sheet.id  %>"/>
+	<input type="hidden" name="back_to_id" value="shid=<%= @sheet.id  %>"/>
+    <input type="hidden" name="write" value="<%= @modmodif  %>"/>
+    <input type='hidden' name='sheettype' value='<%= @sheettype %>'/>
+    <input type='hidden' name='popup' value='<%= @popup %>'/>
+</form>
+
+<script type="application/javascript"> 
+  openfolder = localStorage.getItem("alfyfttestinsuiterepertoiredisplayed"); 
+        if (openfolder == null) {localStorage.setItem("alfyfttestinsuiterepertoiredisplayed","");openfolder = localStorage.getItem("alfyfttestinsuiterepertoiredisplayed");}
+<% if @test != nil %>
+                  sheetname = document.getElementById('spant<%= @test.id %>').parentNode.parentNode.getAttribute("name");
+                  openfolder = openfolder.replace("$" + sheetname + "$",""); 
+                  openfolder += "$" + sheetname + "$";
+<% end %>
+  topenfolder = openfolder.split("$$");
+  for (i=0;i<topenfolder.length;i++) {
+    element = topenfolder[i].replace("$","").replace("$","");
+    elements = document.getElementsByName(element);
+    for (j=0;j<elements.length;j++) {
+      elements[j].style.display='block';
+    }
+    if (document.getElementById("signe"+element)!=null) {
+      document.getElementById("signe"+element).innerHTML="<b>-&nbsp;&nbsp;</b>";
+    } 
+   }
+  loadDiagramme();
+</script>

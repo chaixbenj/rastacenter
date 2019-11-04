@@ -1,0 +1,19 @@
+<% if @listevalues == nil or @listevalues.length == 0 %> 
+	<tr>
+		<td colspan="2">
+			<input onKeyDown="showvalidbtn();"  name="varvalue1" type="text" spellcheck='false' class="inputbox" placeholder="valeur" size="50" maxlength='50'/>
+			<img id="addactionbtn" src="/assets/icones/btnadd1.png" class="btnadd" title="<%= t('ajouter') %>" onclick="addListeValue(this);showvalidbtn();" ></img>
+		</td>
+	</tr>
+<% else 
+	i = 1
+	@listevalues.each do |varvalue| %>
+
+		<tr>
+		  <td colspan="2"><input <%  if varvalue.is_modifiable==0 or @can_manage_liste == 0 %>disabled<% end %>  onchange="showvalidbtn();"  name="varvalue<%= i %>" type="text" spellcheck='false' class="inputbox" placeholder="valeur" size="50" maxlength='50' value="<%= varvalue.value %>"/>
+			  <input name="varvalueid<%= i %>" type="hidden" value="<%= varvalue.id %>"/>
+		  <%  if i == 1 and @can_manage_liste == 1 %> <img id="addactionbtn" src="/assets/icones/btnadd1.png" class="btnadd" title="<%= t('ajouter') %>" onclick="addListeValue(this);showvalidbtn();" ></img><% end %></td>
+		</tr>
+	<% i += 1  
+	end 
+end %>

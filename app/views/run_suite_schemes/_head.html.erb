@@ -1,0 +1,22 @@
+<table>
+	<tr>
+		<% if @popup == nil or @popup != 'true' %>
+			<td>
+				<input type="hidden" name="sheet_type" id="sheet_type" value="conception_sheet"/>
+				<span class="titleStyle" >&nbsp;<%= t('ecr_suite.suite_de_test') %>  : <b><%= @sheet.name  %></b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+			</td>
+			<td>
+				<a  onclick="startloader();"  href="../sheets/edit?write=<% if (@can_manage_public_test_suite == 1 and @sheet.private == 0) or @sheet.owner_user_id == @my_user_id %>1<%else%>0<%end%>&sheet_id=<%= @sheet.id %>&load=1&sheettype=test_suite">
+				<div class="btndiagsmall" title="<%= t('ecr_sheet.modifier_la_suite') %>"></div></a>
+			</td>  
+			<td>
+				&nbsp;&nbsp;
+			</td>
+		<%end%>
+		<td valign='middle'>
+			<button class="btnrefresh" title="<%= t('recharger') %>" onclick="startloader();window.location.href='#';location.reload();"></button>
+			<a onclick="startloader();"  href="../run_step_results/index?popup=<%= @popup  %>&run_id=<%= @run_id %>"> <div class="btnreport" title="<%= t('rapport') %>" style="display:inline-block;"></div></a>
+
+		</td>
+	</tr>
+</table>

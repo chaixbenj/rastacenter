@@ -1,0 +1,44 @@
+<script type="application/javascript">
+    var titre_detail = "<%= t('detail') %>";
+    $(function(){
+    $("#wrapper1").scroll(function(){
+      $("#wrapper2").scrollLeft($("#wrapper1").scrollLeft());
+    });
+
+    $(".wrapper2").scroll(function(){
+      $("#wrapper1").scrollLeft($("#wrapper2").scrollLeft());
+     });
+    });
+
+    function loadDiagramme() {
+    document.getElementById('popup').style.display='none';
+    svg = document.getElementById('svg');
+    svg.parentNode.replaceChild(svg.cloneNode(false), svg);
+    <% if @nodes!=nil
+      JSON.parse(@nodes).each do |node| %>
+        mx=<%= node["x"] %>;
+        my=<%= node["y"] %>;
+        name='<%= node["name"].gsub("\r\n","\\n") %>';
+        matrix = 'matrix(1 0 0 1 ' + mx.toString() + ' ' + my.toString() + ')';
+		newResultSuiteTestElement(<%= node["id_externe"] %>, matrix, name, '<%= node["obj_type"] %>', '<%= node["obj_id"] %>', '<%= node["nbprocpass"] %>', '<%= node["nbprocfail"] %>', '<%= node["nbproctot"] %>', <%=@run_id%>);
+        if (numelem < <%= node["id_externe"] %>) {
+        numelem = <%= node["id_externe"] %>;
+        }
+      <% end
+      end %>
+	  <% if @startedtests != nil
+	  @startedtests.each do |startedtest|%>
+		animatestartednode(<%=startedtest.id%>);
+      <% end
+      end %>
+    <% if @links!=nil
+      JSON.parse(@links).each do |link| %>
+        mostShortLine(<%= link["node_father_id_fk"] %>, <%= link["node_son_id_fk"] %>, true, true, <% if link["curved"] == "0" or link["curved"] == ""  %> null, null, null <%  else %><%= link["inflexion_x"] %>, <%= link["inflexion_y"] %>, <%= link["curved"] %> <% end %> , null);
+      <% end
+      end %>
+    loaded = true;
+      majdatabase=false;
+    }
+	if (document.getElementById('popup')) {
+    document.getElementById('popup').style.display='none';    }
+</script>

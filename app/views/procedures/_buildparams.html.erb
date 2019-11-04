@@ -1,0 +1,78 @@
+<script type="application/javascript" charset="UTF-8">
+var arrayactionid = [];
+var arrayactionname = [];
+var arrayactionparam = [];
+var arrayprocparamname = [];
+var arrayprocparamdesc = [];
+var arraydomelemparam = [];
+var nbprocparam = 0;
+var nbprocparamout = 0;
+var stringparamout = "";
+var actionname="";
+var action_return="";
+var actionid="";
+var proc_param_html_options_bloc = "";
+var titre_param_name = "<%= t('ecr_procedure.nom_du_parametre') %>";
+var titre_description = "<%= t('description') %>";
+var titre_format_param = "<%= t('ecr_procedure.format_param') %>";
+var titre_taper_la_valeur = "<%= t('ecr_procedure.taper_la_valeur') %>";
+var htmdomelement = "<select class='inputbox' style='margin-top:10px;' id='domelementliste' name='proc_param_html_options_bloc' onchange='displayDOMelementParam(this, this.options[this.selectedIndex].getAttribute(\"idx\"));'><option selected>-</option>";
+<% i=0
+    @domelements.each do |domelement| 
+    path=domelement.path
+    domParam = ""
+    begin
+      isp = path.index("{{")
+      if isp != nil
+        path = path[isp+2..path.length]
+        domParam += path[0..path.index("}}")-1] + "|$|"
+        path = path[path.index("}}")+2..path.length]
+      end
+    end while path.index("{{") != nil and  path.index("}}") != nil
+  %>
+    arraydomelemparam.push("<%= domParam %>");
+    htmdomelement += "<option idx='<%= i %>' value='[<%= domelement.name %>]'><%= domelement.name %> </option>";
+ <% i+=1
+ end %>
+htmdomelement += "</select>";
+
+function loadProc() {
+<% @actions.each do |action| %>
+    arrayactionid.push("<%= action.id %>");
+    arrayactionname.push("<%= action.name %>");
+    arrayactionparam.push("<%= action.parameters %>");
+ <% end %>
+
+<% parameters = @procedure.parameters.to_s.split("|$|")
+   nbparam = ((parameters.length)/2).to_i
+   if parameters.length - nbparam*2 > 0
+      nbparam+=1
+   end
+   for i in 0..nbparam-1
+  %>   
+    arrayprocparamname.push("<%= parameters[2*i].to_s %>");
+    proc_param_html_options_bloc += "<option value='<%= parameters[2*i].to_s %>'>param : <%= parameters[2*i].to_s %></option>";
+    arrayprocparamdesc.push("<%= parameters[2*i+1].to_s %>");
+    addProcedureParam('<%= parameters[2*i].to_s %>', '<%= parameters[2*i+1].to_s %>', <%= @iscalled %>);
+    
+  <% end  %>  
+proc_param_html_options_bloc+= "<option selected value='\"" + titre_taper_la_valeur + "\"'>\"" + titre_taper_la_valeur + "\"</option>";
+
+<% parameterouts = @procedure.return_values.to_s.split("|$|")
+   nbparamout = ((parameterouts.length)/2).to_i
+   if parameterouts.length - nbparamout*2 > 0
+      nbparamout+=1
+   end
+   for i in 0..nbparamout-1
+  %>   
+    <% if i > 0 %>
+    stringparamout += ", <%= parameterouts[2*i].to_s %>";
+    <% else %>
+      stringparamout += "<%= parameterouts[2*i].to_s %>";
+      <% end %>
+    addProcedureParamOut('<%= parameterouts[2*i].to_s %>', '<%= parameterouts[2*i+1].to_s %>');
+  <% end  %>  
+
+}
+
+</script> 

@@ -1,0 +1,23 @@
+<tr>
+	<td>
+		<span class="textStyle"><%= t('nom') %></span>
+	</td>
+	<td>
+		<input <%if @configurationvariable.is_deletable == 0 %>disabled<% end %>  onKeyDown="showvalidbtn();" class="inputbox" size=50  maxlength='50' type="text" spellcheck='false' name="name" id="name" value="<%= @configurationvariable.name  %>" pattern="\$[A-Za-z0-9_]{2,50}" title="<%= t('ecr_variable_conf.format_titre') %>" onKeyUp="formatasvariable(this)"/>
+
+		<% if @can_manage_configuration_variable == 1 %>
+			<input name="valid" value="" id="btnval" style="display: none;" type="submit" class="btnvalid" title="<%= t('valider') %>" onclick="document.getElementById('name').required=true;document.getElementById('namec').required=false;"/>&nbsp;&nbsp;&nbsp;
+		<% end %>    
+		<% if  @can_manage_configuration_variable == 1 and @configurationvariable.is_deletable == 1 %>
+			<input name="delete" value="" type="submit" class="btndel" title="<%= t('supprimer') %>" onclick="document.getElementById('name').required=false;document.getElementById('namec').required=false;" data-confirm="<%= t('ecr_variable_conf.confirme_supp') %>"/>
+		<% end %>
+	</td>
+</tr>
+<tr>
+	<td>
+		<span class="textStyle"><%= t('description') %></span>
+	</td>
+	<td >
+		<textarea <% if @can_manage_configuration_variable == 0 %>disabled<%end%> spellcheck='false' onKeyDown="showvalidbtn();" class="inputbox" rows=6 cols=60  name="desc" id="desc"><%= @configurationvariable.description  %></textarea>
+	</td>
+</tr>

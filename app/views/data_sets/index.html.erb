@@ -1,0 +1,22 @@
+<script type="application/javascript"> 
+function searchenv() {
+    document.getElementById('data_set_data_set_name').required=false;
+    document.getElementById('searchname').value=document.getElementById('data_set_data_set_name').value;
+    document.getElementById('searchdesc').value=document.getElementById('data_set_data_set_description').value;
+    document.getElementById('formsearch').submit();
+}
+</script>
+
+<div id="scrollablecontent">
+	<div >
+		<div class="popupadd">
+			 <%= render :partial => 'data_sets/head' %>    
+		</div> 
+		
+		<div id="data_sets" >	
+			<% if @data_sets != nil %>    
+				<%= render  @data_sets %>
+			<% end %>
+		</div>
+	</div>
+</div>

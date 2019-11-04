@@ -1,0 +1,14 @@
+<div id='popup1'>
+	<%= render :partial => 'procedures/headindex' %>
+
+	<div style='display: block;margin-top:20px;'>  
+		<div id="procedures">	
+			<% if @procedures != nil %>    
+				<%= render  @procedures %>
+			<% end %>
+		</div>
+	</div>
+
+	<iframe name="hiddenFrame" width="0" height="0" border="0" style="display: none;" onload="stoploader();"></iframe>
+
+</div> 

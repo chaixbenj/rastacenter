@@ -1,0 +1,9 @@
+<script type="application/javascript"> 
+	var supprimer_dossier_msg = "<%= t('ecr_test.supprimer_repertoire_confirmation') %>";
+	var supprimer_test_msg = "<%= t('ecr_test.supprimer_test_confirmation') %>";
+</script>  
+
+<div id="content"  <% if @popup != nil and @popup.to_s == 'true' %> style="height: 100%;" <%end%>>
+	<%= render :partial => 'tests/list' %>
+    <%= render :partial => 'tests/detail' %>
+</div>

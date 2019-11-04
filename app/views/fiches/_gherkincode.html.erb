@@ -1,0 +1,22 @@
+<pre id="editor1" onfocusout="document.getElementById('divtextarea').value=editor1.getValue();">
+	<% if @fiche != nil %><%= @fiche.description %><% else %><%= @model %><% end %>
+</pre>
+<input type="hidden" name="resume" id="divtextarea" value="<% if @fiche != nil %><%= @fiche.description %><% else %><%= @model %><% end %>"/>
+
+<script>
+	var maxline = parseInt((document.body.clientHeight - 100) / 13);
+	 var editor1 = ace.edit("editor1", {
+		theme: "ace/theme/tomorrow_night",
+		mode: "ace/mode/gherkin",
+		maxLines: maxline,
+		minLines: 10,
+		wrap: true,
+		fontSize: 13,
+		autoScrollEditorIntoView: true
+	});
+	editor1.setOptions({
+		enableBasicAutocompletion: true,
+		enableSnippets: true,
+		enableLiveAutocompletion: false
+	});
+</script>

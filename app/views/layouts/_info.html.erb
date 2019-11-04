@@ -1,0 +1,16 @@
+<div id="popupinfo" class="popupinfo" style="display: none;">
+	<button onclick="document.getElementById('popupinfo').style.display = 'none';
+	  window.location.href = '#';"  class="closePopup">X</button>
+	<div id="popupinfocontent">
+		  <table>
+			<tr><td><span class="textStyle"><%= t('utilisateur_connecte') %> : </span></td><td> <span class="textStyle"><%= @connecteduser %></span><br>
+			</td></tr><tr><td><span class="textStyle"><%= t('menu.domaine_id') %> : </span></td><td><input type="text" size="38" spellcheck='false' class="inputbox" value="<%= @domaine_guid %>"/>
+			</td></tr><tr><td>&nbsp; <br>
+			</td></tr><tr><td><span class="textStyle"><%= t('menu.telechargement') %> </span>
+			</td></tr><tr><td><a class="elemfiltreselected" href="../download/addinAlfyft.zip" download="addinAlfyft.zip" target="_blank"><%= t('menu.plugin') %></a>
+			</td></tr><tr><td><a class="elemfiltreselected" href="../download/clientAlfyft.zip" download="clientAlfyft.zip" target="_blank"><%= t('menu.client_alfyft') %></a>
+			</td></tr>
+			<tr><td><span class="textStyle">© 2018 Alfyftesting&nbsp;&nbsp;&nbsp;</span></td><td></td><tr>
+		</table>
+	</div>
+</div>

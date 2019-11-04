@@ -1,0 +1,16 @@
+<form onsubmit="startloader();" style="display: inline;" action="../projects/new" method="post">
+    <input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+		
+    <table class="leftTable">
+		<tr>
+			<td>
+             <% if @can_manage_project == 1 or @is_admin == 1 %>
+              <input size=30 maxlength='250' type="text" spellcheck='false' name="pnamec" id="pnamec" value="" class="recherche" placeholder="<%= t('ecr_projet.ajouter') %>"/></td>
+              <td>
+              <input value="" name="add" type="submit" class="btnadd" title="<%= t('ajouter') %>" vertical-align="middle" onclick="document.getElementById('pnamec').required=true;"/></td>
+			<% end %>
+			<td>
+			</td>
+		</tr>
+    </table>    
+</form> 

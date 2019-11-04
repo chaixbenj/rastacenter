@@ -1,0 +1,7 @@
+<div id="content"  <% if @popup != nil and @popup.to_s == 'true' %> style="height: 100%;" <%end%>>
+
+	<%= render :partial => 'configuration_variables/list' %>
+	<%= render :partial => 'configuration_variables/edit' %>
+
+</div>
+

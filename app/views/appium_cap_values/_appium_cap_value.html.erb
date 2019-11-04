@@ -1,0 +1,63 @@
+<% if @message != nil  %>
+   <span id='idspanmessage' class='<% if @OK %>succesMessage<% else %>errorMessage<% end %>' onclick='this.parentNode.removeChild(this)' style='vertical-align: top;'><%= @message %>&nbsp;<b>x</b></span>
+  <% end %>
+
+<div class="ligthline">
+<div class="inline">
+
+	<form style="display:inline" onsubmit="startloader();" action="/appium_cap_values/update" data-remote="true" rel="nofollow" data-method="put" id="formupdt<%= appium_cap_value.id %>">
+            <input type="hidden" name="filtername" value="<%= @name %>"/>
+            <input type="hidden" name="filterdesc" value="<%= @description %>"/>
+ 
+            <input type="hidden" name="idelement" value="<%= appium_cap_value.id %>"/>
+			<% if @appiumcapone != nil %>
+                <input type="hidden" name="appiumcapone" value="<%= @appiumcapone.id %>"/>
+			<% end %>
+			<% if @appiumcaptwo != nil %>
+                <input type="hidden" name="appiumcaptwo"  value="<%= @appiumcaptwo.id %>"/>
+			<% end %>
+			
+
+			<input <% if @can_manage_appium_caps == 0 %>disabled<% end %> name="name" pattern="[A-Za-z0-9_]{2,50}"  maxlength='50' onKeyUp="formatascode(this)"  required <% if @appiumcaptwo != nil %>size='20'<% else %>size='25'<% end %>  class='inputboxlist' type="text" spellcheck='false' name="name" id="iname<%= appium_cap_value.id %>" value="<%= appium_cap_value.name %>" title="<%= appium_cap_value.name %>" onKeyDown='showvalidbtnid("<%= appium_cap_value.id %>");' onchange='checknamevalidity("<%= appium_cap_value.id %>", "<%= appium_cap_value.name %>");'  />
+
+
+			
+			
+			  <% if @appiumcapone != nil %>
+				<input <% if @can_manage_appium_caps == 0 %>disabled<% end %> type="text" onKeyUp="formatslash(this);" spellcheck='false' class='inputboxlist' placeholder="<%= t('valeur_pour') %> <%= @appiumcapone.name %>" name="valueone" id="idvalueone<%= appium_cap_value.id %>" <% if @appiumcaptwo != nil %>size='50'<% else %>size='70'<% end %>  maxlength='255' value="<%= appium_cap_value.valueone.to_s %>" title="<%= appium_cap_value.valueone.to_s %>"  onKeyDown='showvalidbtnid("<%= appium_cap_value.id %>");'/>
+			  <% end %>
+
+			  <% if @appiumcaptwo != nil and @appiumcapone != nil %><% if @can_manage_appium_caps == 1 %>
+					<button class="btndroite" onclick="document.getElementById('idvaluetwo<%= appium_cap_value.id %>').value=document.getElementById('idvalueone<%= appium_cap_value.id %>').value;" title="<%= t('ecr_variable_env.copier_la_valeur_vers') %>"></button>
+					<% end %><input <% if @can_manage_appium_caps == 0 %>disabled<% end %> type="text" onKeyUp="formatslash(this);" spellcheck='false' class='inputboxlist' placeholder="<%= t('valeur_pour') %> <%= @appiumcaptwo.name %>" name="valuetwo" id="idvaluetwo<%= appium_cap_value.id %>" size='50' maxlength='255' value="<%= appium_cap_value.valuetwo.to_s %>" title="<%= appium_cap_value.valuetwo.to_s %>" onKeyDown='showvalidbtnid("<%= appium_cap_value.id %>");'/>
+			  <% end %>
+
+			<input <% if @can_manage_appium_caps == 0 %>disabled<%end%> type='checkbox' name='isn' id='isn<%= appium_cap_value.id %>' <%if appium_cap_value.is_numeric.to_s == "1"%>checked<%end%> onclick="showvalidbtnid(<%= appium_cap_value.id %>);if (this.checked==true) {document.getElementById('isb<%= appium_cap_value.id %>').checked=false;}"></input><span class="textStyle"><%= t('numeric')%></span>
+			<input <% if @can_manage_appium_caps == 0 %>disabled<%end%> type='checkbox' name='isb' id='isb<%= appium_cap_value.id %>' <%if appium_cap_value.is_boolean.to_s == "1"%>checked<%end%> onclick="showvalidbtnid(<%= appium_cap_value.id %>);if (this.checked==true) {document.getElementById('isn<%= appium_cap_value.id %>').checked=false;}"><span class="textStyle"><%= t('boolean')%></span></input>
+			<input <% if @can_manage_appium_caps == 0 %>disabled<% end %> type="text" spellcheck='false' class='inputboxlist' placeholder="<%= t('description') %>" name="description" id="idescription<%= appium_cap_value.id %>" <% if @appiumcaptwo != nil %>size='10'<% else %>size='50'<% end %> value="<%= appium_cap_value.description %>" title="<%= appium_cap_value.description %>" onKeyDown='showvalidbtnid("<%= appium_cap_value.id %>");'/>
+			  
+			  
+    <input style="display: none;"  class="btnvalid" title="<%= t('valider') %>" id="btnval<%= appium_cap_value.id %>" type="submit" value="" onmouseover='checknamevalidity("<%= appium_cap_value.id %>", "<%= appium_cap_value.name %>");' style='vertical-align: top;'/>
+  
+	</form> 
+        
+<% if @can_manage_appium_caps == 1 %>
+    <%= button_to "", appium_cap_value_path(appium_cap_value), params: {filtername: @name, filterdesc: @description, appiumcapone: @appiumcapone, appiumcaptwo: @appiumcaptwo}, remote: true, method: :delete, form: {onsubmit: "startloader();"}, data: { confirm: "#{t('ecr_appium_cap_value.confirme_supp').gsub('{1}', appium_cap_value.name)}?" }, class: "btndel", title: t('supprimer') %>
+<% end %>
+
+
+<% if @can_manage_appium_caps == 1  %>
+			
+
+<% end %>	
+
+</div>
+</div>
+<script>
+          setTimeout(function () {
+            elem = document.getElementById('idspanmessage');
+            if (elem!=null) {
+              elem.parentNode.removeChild(elem);
+            }
+        }, 2000);
+</script>  

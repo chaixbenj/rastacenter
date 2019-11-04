@@ -1,0 +1,57 @@
+<% if @message != nil and data_set_variable.id.to_s == @majid.to_s %>
+   <span id='idspanmessage' class='<% if @OK %>succesMessage<% else %>errorMessage<% end %>' onclick='this.parentNode.removeChild(this)' style='vertical-align: top;'><%= @message %>&nbsp;<b>x</b></span>
+  <% end %> 
+
+<div class="ligthline">
+<div class="inline">
+
+<form style="display:inline" onsubmit="startloader();" action="/data_set_variables/update" data-remote="true" rel="nofollow" data-method="put" id="formupdt<%= data_set_variable.id %>">
+    <input type="hidden" name="filtername" value="<%= @name %>"/>
+    <input type="hidden" name="filterdesc" value="<%= @description %>"/>
+    <input type="hidden" name="idelement" value="<%= data_set_variable.id %>"/>
+	<% if @envone != nil %>
+		<input type="hidden" name="envone" value="<%= @envone.id %>"/>
+	<% end %>
+	<% if @envtwo != nil %>
+		<input type="hidden" name="envtwo" value="<%= @envtwo.id %>"/>
+	<% end %>
+
+	
+	
+	<input <% if @can_manage_jdd == 0 %>disabled<% end %> pattern="\$[A-Za-z0-9_]{2,50}" maxlength='50' onKeyUp="formatasvariable(this)"  required <% if @envtwo != nil %>size='20'<% else %>size='25'<% end %>  class='inputboxlist' type="text" spellcheck='false' name="name" id="iname<%= data_set_variable.id %>" value="<%= data_set_variable.name %>" title="<%= data_set_variable.name %>" onKeyDown='showvalidbtnid("<%= data_set_variable.id %>");' onchange='checknamevalidity("<%= data_set_variable.id %>", "<%= data_set_variable.name %>");'  />
+
+			
+  <% if @envone != nil %>
+	<input <% if @can_manage_jdd == 0 %>disabled<% end %> type="text" spellcheck='false' onKeyUp="formatslash(this);" class='inputboxlist' placeholder="<%= t('valeur_pour') %> <%= @envone.name %>" name="valueone" id="idvalueone<%= data_set_variable.id %>" <% if @envtwo != nil %>size='50'<% else %>size='70'<% end %> maxlength='255' value="<%= data_set_variable.valueone.to_s %>" title="<%= data_set_variable.valueone.to_s %>" onKeyDown='showvalidbtnid("<%= data_set_variable.id %>");'/>
+  <% end %>
+
+  <% if @envtwo != nil and @envone != nil  %><% if @can_manage_jdd == 1 %>
+        <button class="btndroite" onclick="document.getElementById('idvaluetwo<%= data_set_variable.id %>').value=document.getElementById('idvalueone<%= data_set_variable.id %>').value;" title="<%= t('ecr_variable_env.copier_la_valeur_vers') %>"></button>
+       <% end %> <input <% if @can_manage_jdd == 0 %>disabled<% end %> type="text" spellcheck='false' onKeyUp="formatslash(this);"  class='inputboxlist' placeholder="<%= t('valeur_pour') %> <%= @envtwo.name %>" name="valuetwo" id="idvaluetwo<%= data_set_variable.id %>" size='50' maxlength='255' value="<%= data_set_variable.valuetwo.to_s %>" title="<%= data_set_variable.valuetwo.to_s %>" onKeyDown='showvalidbtnid("<%= data_set_variable.id %>");'/>
+  <% end %>
+
+ 	<input <% if @can_manage_jdd == 0 %>disabled<%end%> type='checkbox' name='isn' id='isn<%= data_set_variable.id %>' <%if data_set_variable.is_numeric.to_s == "1"%>checked<%end%> onclick="showvalidbtnid(<%= data_set_variable.id %>);if (this.checked==true) {document.getElementById('isb<%= data_set_variable.id %>').checked=false;}"></input><span class="textStyle"><%= t('numeric')%></span>
+	<input <% if @can_manage_jdd == 0 %>disabled<%end%> type='checkbox' name='isb' id='isb<%= data_set_variable.id %>' <%if data_set_variable.is_boolean.to_s == "1"%>checked<%end%> onclick="showvalidbtnid(<%= data_set_variable.id %>);if (this.checked==true) {document.getElementById('isn<%= data_set_variable.id %>').checked=false;}"><span class="textStyle"><%= t('boolean')%></span></input>
+	<input <% if @can_manage_jdd == 0 %>disabled<% end %> type="text" spellcheck='false' class='inputboxlist' placeholder="<%= t('description') %>" name="description" id="idescription<%= data_set_variable.id %>" <% if @envtwo != nil %>size='10'<% else %>size='50'<% end %> value="<%= data_set_variable.description %>" title="<%= data_set_variable.description %>"  onKeyDown='showvalidbtnid("<%= data_set_variable.id %>");'/>
+ 
+  
+    <input style="display:none" class="btnvalid" title="<%= t('valider') %>" id="btnval<%= data_set_variable.id %>" type="submit" value="" onmouseover='checknamevalidity("<%= data_set_variable.id %>", "<%= data_set_variable.name %>");' style='vertical-align: top;'/>
+</form>  
+        
+<% if @can_manage_jdd == 1 and (data_set_variable.is_used == nil or data_set_variable.is_used == 0) %>
+    <%= button_to "", data_set_variable_path(data_set_variable), params: {filtername: @name, filterdesc: @description, envone: @envone, envtwo: @envtwo}, remote: true, method: :delete, form: {onsubmit: "startloader();"}, data: { confirm: "#{t('ecr_variable_env.confirme_supp')} #{data_set_variable.name}?" }, class: "btndel", title: t('supprimer') %>
+<% end %>
+
+
+
+
+</div>
+</div>
+<script>
+          setTimeout(function () {
+            elem = document.getElementById('idspanmessage');
+            if (elem!=null) {
+              elem.parentNode.removeChild(elem);
+            }
+        }, 2000);
+</script>  

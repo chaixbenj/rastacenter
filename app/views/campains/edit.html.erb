@@ -1,0 +1,192 @@
+<script type="application/javascript"> 
+    var supprimer_suite_msg = "<%= t('ecr_campain.supprimer_la_suite_de_la_campagne') %>";
+
+    if (document.getElementById('popup')) { document.getElementById('popup').style.display='none';    }
+</script>  
+
+
+
+
+<div id="content"  <% if @popup != nil and @popup.to_s == 'true' %> style="height: 100%;" <%end%>>
+
+    <div id="left">
+<div id="btnresize" class="btnresize" onmousedown="startresizediv(event, this);"></div>
+
+        <span  style='float: left;' class="titleStyle" style="color:#000000">&nbsp;<%= t('campagne') %> : <b><%= @campain.name  %></b>  </span>
+        <br><br><input type="checkbox" id="checkall" name="checkall" onclick="checkuncheckall();"/><span class="textStyle"> <%= t('tous_aucun') %></span>
+        <div style='display: inline; float: right;'>
+            <% if @campainLocked == false %>
+            <button class='btnpaste' name='btnpaste' title="<%=  t('coller') %>" style='display: none;' onclick='pastecampainstep("after", "");'></button>    
+            <button class='btncut' id='btncutt<%= @campain.id %>' title='<%=  t('couper') %>' onclick='cutcampainstep();'></button>
+            <% end %>
+			<% if @can_do_something == 1 %>
+            <button class='btncopy' id='btncopyt<%= @campain.id %>' title='<%= t('copier')%>' onclick='copycampainstep();' style='margin-bottom:3px;'></button>
+            <%end%>
+        </div>
+        <div id="steps">    
+            <% if @campainsteps != nil
+              @campainsteps.each do |step|%>
+                <div name="divstep" id='divstepseq<%= step.sequence %>' <% if @campainLocked == false %> draggable="true" ondragstart="dragStarted(event, this.id);" ondragover="draggingOver(event, this.id);" ondrop="droppedsuite(event, this.id);" <% end %> >
+
+                    <div id="divstepid<%= step.id  %>" class="ligthline" style="padding:5px 5px 5px 5px;">
+
+                        <div >
+                            <input style='display: inline' type='checkbox' name='chbxinput' value='<%=  step.id %>' onmousedown='checkShift(event, <%=  step.sequence %>);' id='<%= step.sequence %>'/><span>&nbsp;<%= step.name %></span>
+                            <% if @campainLocked == false %>
+                              <button class='btndel' title="<%=  t('supprimer') %>" style='float: right;' onclick='deletecampainstep(<%= step.id %>)'></button>
+                            <% end %>
+                           
+                               <button id='btnconf<%= step.id  %>' class='<% if step.forced_config.to_s == "1" %>btnvariableforce<% else %>btnvariable<% end %>' title="<%=  t('ecr_campain.forcer_conf_sur_suite') %>" style='float: right;' onclick="document.getElementById('contentpopup').innerHTML='<object id=\'objpopup\' width=\'99%\' data=\'../campain_test_suite_forced_configs/index?popup=true&locked=<%= @campainLocked %>&step_id=<%=  step.id %>\'></object>';window.location.href='#popup';document.getElementById('popup').style.display='block';document.getElementById('objpopup').setAttribute('height', 0.89 * document.body.offsetHeight);"></button>
+    
+ 
+  <button class='btndiagsmall' style='float: right;' title="<%=  t('ecr_sheet.modifier_la_suite') %>" onclick="document.getElementById('ojecttypepopuped').value='test_suite';document.getElementById('ojectidpopuped').value=<%= step.versionned_sheet_id %>;document.getElementById('contentpopup').innerHTML='<object id=\'objpopup\' width=\'99%\' data=\'../sheets/edit?popup=true&write=<% if (@can_manage_public_test_suite == 1 and step.sheet_private == 0) or step.sheet_owner_user_id == @my_user_id %>1<%else%>0<%end%>&sheet_id=<%= step.versionned_sheet_id %>&load=1&sheettype=test_suite\'></object>';window.location.href='#popup';document.getElementById('popup').style.display='block';document.getElementById('objpopup').setAttribute('height', 0.89 * document.body.offsetHeight);"></button>                                        
+                                          
+    
+    <% if @campainLocked == false %>
+                              <button class='btnpasteafter' name='btnpasteafter' title="<%=  t('coller_apres') %>" style='float: right;display: none;' onclick='pastecampainstep("after", <%= step.id %>)'></button>
+                              <button class='btnpastebefore' name='btnpastebefore' title="<%=  t('coller_avant') %>" style='float: right;display: none;' onclick='pastecampainstep("before", <%= step.id %>)'></button>
+                            <% end %>
+                        </div>   
+
+                    </div>    </div>
+              <% end
+              end %>
+
+
+        </div>
+
+    </div>
+
+
+
+
+    <div id="right"><div style="margin-left:40px;">
+        <% if @campainLocked%>
+            <% if @lockBy == nil %>
+      <% if @modmodif == "0" %>
+        <span class="errorMessage" onclick='this.parentNode.removeChild(this)'><%= t('ecr_campain.msg_mode_lecture') %></span>
+      <% else %>
+        <span class="errorMessage" onclick='this.parentNode.removeChild(this)'><%= t('ecr_campain.msg_droit_insuffisant') %></span>
+      <% end %>
+    <% else %>
+      <span class="errorMessage" onclick='this.parentNode.removeChild(this)'><%= t('ecr_campain.msg_campagne_verrouillee').gsub("{1}", @lockBy) %></span>
+    <% end %>
+        <% else  %>
+        <div style="display: inline-block">
+<span  style='float: left;' class="titleStyle" style="color:#000000">&nbsp;<%= t('ecr_campain.suite_de_test_dispo') %>
+        <% if @mode == nil or @mode == "" or @mode == "folder" %>
+          <form onsubmit="startloader();" id="formtestgoliste" action="../campains/edit" method="post" style="display: inline">
+				<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+              <input type="hidden" name="mode" id="mode" value="liste"/>   
+              <input type="hidden" name="campain_id" value="<%= @campain.id %>"/>
+			  <input type="hidden" name="back_to_id" value="campain_id=<%= @campain.id %>"/>
+              <input type="submit" class="btnmodeliste" title="<%= t('ecr_test.mode_liste') %>" value="" ></input>
+			  
+          </form>     </div><br>
+          <%= @htmlrepertoire %> 
+
+        <% else %>
+
+          <form onsubmit="startloader();" id="formtestgorep" action="../campains/edit" method="post" style="display: inline">
+				<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+              <input type="hidden" name="mode" id="mode" value="folder"/>  
+              <input type="hidden" name="campain_id" value="<%= @campain.id %>"/>
+			  <input type="hidden" name="back_to_id" value="campain_id=<%= @campain.id %>"/>
+              <input type="submit" class="btnmodefolder" title="<%= t('ecr_test.mode_folder') %>" value="" ></input>
+			  
+          </form>    </div>
+
+          <form onsubmit="startloader();">
+              <table >
+                  <tr>
+                      <td><input size=20 type="text" spellcheck='false' name="snames" id="snames" value="<%= @sname %>" class="recherche" placeholder="<%= t('input.placeholder.recherche') %>"/></td>
+                      <td><input value="" name="search" type="submit" class="btnsearch" vertical-align="middle"/></td>
+                  </tr>
+              </table>
+              <input type="hidden" name="campain_id" value="<%= @campain.id %>"/>
+              <input type="hidden" name="mode" id="mode" value="liste"/>   
+			  
+          </form>
+        <% end %> 
+        <%= @htmlliste %>
+
+
+    <% end %>
+
+    </div>
+
+</div>
+
+</div>
+
+<form id="formreordercampainsteps" action="../campain_test_suites/reorder" method="post" target="hiddenFrame2">
+    <input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>	
+    <input type="hidden" name="campain_id" value="<%= @campain.id %>"/> 
+    <input type="hidden" name="istart" id="istart" value=""/>
+    <input type="hidden" name="idest" id="idest" value=""/>
+</form>
+
+<form id="formdeletecampainstep" action="../campain_test_suites/delete" method="post" target="hiddenFrame2">
+    <input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>	
+    <input type="hidden" name="campain_id" value="<%= @campain.id %>"/>
+    <input type="hidden" name="step_id" id="step_id" value=""/> 
+</form> 
+
+<form id="formaddcampainstep" action="../campain_test_suites/addnew" method="post" target="hiddenFrame">
+    <input type='hidden' id='idsheetadded' name='sheet_id' value=""/>
+    <input type="hidden" name="campain_id" value="<%= @campain.id %>"/> 
+    <input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+</form>
+
+<form id="formcampainpaste" action="../campain_test_suites/paste" method="post">
+    <input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+    <input type="hidden" name="campain_id" value="<%= @campain.id %>"/> 
+    <input type="hidden"  id="paste_after_before" name="paste_after_before" value=""/>
+    <input type="hidden"  id="paste_element_dest" name="paste_element_dest" value=""/>
+    <input type="hidden"  id="testsuite_to_paste" name="testsuite_to_paste" value=""/>
+    <input type="hidden" name="write" value="<%= @modmodif  %>"/>
+    <input type="hidden" name="back_to_id" value="campain_id=<%= @campain.id  %>"/>
+</form>
+
+
+<iframe id="hiddenFrame" name="hiddenFrame" width="0" height="0" border="0" style="display: none;" onload="onloadiframeaddcampainstep();"></iframe>   
+<iframe id="hiddenFrame2" name="hiddenFrame2" width="0" height="0" border="0" style="display: none;" onload="onloadiframedeletereordercampain()"></iframe> 
+<iframe id="hiddenFrame3" name="hiddenFrame3" width="0" height="0" border="0" style="display: none;"></iframe>
+
+
+
+
+<div id="popup" class="modalPopup">
+    <div>
+        <form id="deletelock" name="deletelock" action="../lockobjects/delete" method="post" target="hiddenFrame3">
+         <input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>	
+        <input type='hidden' id='ojecttypepopuped' name='obj_type' value=''/>
+        <input type='hidden' id='ojectidpopuped' name='obj_id' value=''/>
+        </form>
+        <!--a href="#close" title="Close" class="closePopup">X</a-->
+        <button onclick="document.getElementById('contentpopup').innerHTML = '';
+            document.getElementById('popup').style.display = 'none';
+            document.getElementById('deletelock').submit();
+            window.location.href = '#';"  class="closePopup">X</button>
+        <div id="contentpopup"></div>
+    </div>
+</div>
+
+
+
+<script type="application/javascript"> 
+    if (getCookie("testsuite_to_paste") != "") {
+    elements = document.getElementsByName('btnpaste');
+    for (i=0;i<elements.length;i++) {
+    elements[i].style.display = 'inline';
+    }
+    elements = document.getElementsByName('btnpasteafter');
+    for (i=0;i<elements.length;i++) {
+    elements[i].style.display = 'inline';
+    }
+        elements = document.getElementsByName('btnpastebefore');
+    for (i=0;i<elements.length;i++) {
+    elements[i].style.display = 'inline';
+    }
+    }
+</script>  

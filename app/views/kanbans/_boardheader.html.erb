@@ -1,0 +1,21 @@
+ <% if @mode.to_s != 'liste' %>
+	<td colspan="<% if @kanban_statuses != nil %><%= @kanban_statuses.length %><% end %>">
+		<table style="width:100%;table-layout:fixed;">
+			<tr>
+			<%  @nbstatus = 0
+			  @status = []
+			  if @kanban != nil 
+				if @kanban_statuses != nil 
+				  @nbstatus = @kanban_statuses.length;
+				  @kanban_statuses.each do |kanban_status|
+					@status << kanban_status.status_id
+				  %>
+				<th class="tablethreport"  name="td-<%=  kanban_status.status_id%>" style="border:none;"><%=  kanban_status.status_name %></th>
+				<input type="hidden" id="value-<%=  kanban_status.status_id%>" value="<%=  kanban_status.status_name%>"></input>
+			  <% end
+			end
+		  end %>
+		  </tr>
+	  </table>
+  </td>
+ <% end %>

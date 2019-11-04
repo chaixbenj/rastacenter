@@ -1,0 +1,26 @@
+<script type="application/javascript" charset="UTF-8">
+    var titre_param_name = "<%= t('ecr_action.nom_du_parametre') %>";
+    var titre_format_param = "<%= t('ecr_action.format_param') %>";
+    var titre_description = "<%= t('description') %>";
+    var titre_param_none = "<%= t('none') %>";
+    var titre_param_DOM = "<%= t('DOM_element') %>";
+    var titre_param_valeur = "<%= t('valeur') %>";
+
+</script>
+
+<div id="content"  <% if @popup != nil and @popup.to_s == 'true' %> style="height: 100%;" <%end%>>
+    <%= render :partial => 'actions/list' %>
+	<%= render :partial => 'actions/edit' %>
+</div>
+
+
+<div id="popup" class="modalPopup">
+    <div>
+        <button onclick="document.getElementById('contentpopup').innerHTML = '';
+              document.getElementById('popup').style.display = 'none';
+            window.location.href = '#';"  class="closePopup">X</button>
+        <div id="contentpopup" ></div>
+    </div>
+</div>
+
+

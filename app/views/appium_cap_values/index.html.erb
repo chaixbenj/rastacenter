@@ -1,0 +1,24 @@
+<script type="application/javascript"> 
+function searchvar() {
+    document.getElementById('appium_cap_value_appium_cap_value_name').required=false;
+    document.getElementById('searchname').value=document.getElementById('appium_cap_value_appium_cap_value_name').value;
+    document.getElementById('searchdesc').value=document.getElementById('appium_cap_value_appium_cap_value_description').value;
+    document.getElementById('formsearch').submit();
+}
+
+
+</script>
+
+<div id="scrollablecontent">
+<div>
+
+<div class="popupadd">
+  <%= render :partial => 'appium_cap_values/head' %>
+</div> 
+	
+<div id="appium_cap_values">	
+	<% if @appium_cap_values != nil %>    
+		<%= render  @appium_cap_values %>
+	<% end %>
+</div>
+

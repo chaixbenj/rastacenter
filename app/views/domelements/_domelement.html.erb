@@ -1,0 +1,61 @@
+<% if @message != nil and domelement.id.to_s == @majid.to_s %>
+	<span id='idspanmessage' class='<% if @OK %>succesMessage<% else %>errorMessage<% end %>' onclick='this.parentNode.removeChild(this)' style='vertical-align: top;'><%= @message %>&nbsp;<b>x</b></span>
+<% end %> 
+
+<div class="ligthline">
+	<div class="inline">
+
+		<input <% if @can_manage_element == 0 %>disabled<% end %> required size=15 maxlength='50' class='inputbox' type="text" spellcheck='false' name="name" id="iname<%= domelement.id %>" value="<%= domelement.name %>" onchange='checkelementshowvalidbtn("<%= domelement.id %>");' onKeyDown='showupdateform("<%= domelement.id %>");'/>
+
+		<SELECT <% if @can_manage_element == 0 %>disabled<% end %> class='inputbox'  name="strategie" id="istrategie<%= domelement.id %>" onChange='showupdateform("<%= domelement.id %>");'>
+		<% @findstrategies.each do |strategie| %> 
+		<OPTION <% if domelement.strategie.to_s == strategie.name %>selected<% end %>  value="<%= strategie.name %>" ><%= strategie.name %>
+		<% end %>
+		</SELECT>
+
+		<textarea <% if @can_manage_element == 0 %>disabled<% end %>  required rows=1 cols=90 maxlength='500' class='inputbox' type="text" spellcheck='false' name="path" id="ipath<%= domelement.id %>"  onchange='checkelementshowvalidbtn("<%= domelement.id %>");' onKeyDown='showupdateform("<%= domelement.id %>");' maxlength="500"><%= domelement.path %></textarea>
+
+		<textarea <% if @can_manage_element == 0 %>disabled<% end %> spellcheck='false' class='inputbox' name="description" id="idescription<%= domelement.id %>" rows='1' cols='30' onKeyDown='showupdateform("<%= domelement.id %>");'  onKeyDown='showupdateform("<%= domelement.id %>");'><%= domelement.description %> </textarea>
+
+		<% if @can_manage_element == 1  %>
+			<% if (domelement.is_used == nil or domelement.is_used == 0) %>
+				<div style="float:right;margin-right: 7px;">
+					<%= button_to "", domelement_path(domelement), params: {funcandscreen_id: @funcandscreen_id, version_id: @version_id, popup: @popup}, remote: true, method: :delete, form: {onsubmit: "startloader();"}, data: { confirm: "#{t('ecr_dom_element.confirme_supp')}  #{domelement.name}?" }, class: "btndel" %>
+				</div>
+			<% end %>
+
+		  
+			<div style="float:right;margin-right: 7px;">
+				<button onclick="startloader();document.getElementById('btnpaste').style.display='inline';document.getElementById('formdup<%= domelement.id %>').submit();" class="btncopy" title="<%= t('copier') %>" style='display: inline;float: right;'></button>
+				<form id="formdup<%= domelement.id %>" action="../domelements/copy" method="post" style='display: inline;' target="hiddenFrame">
+					<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+					<input type="hidden"  name="domelement_id" value="<%= domelement.id %>"/>
+					<input type="hidden" name="popup" value="<%= @popup %>"/>
+				</form>
+			</div>
+
+			<div style="float:right;margin-right: 7px;">
+				<form onsubmit="startloader();" action="/domelements/update" data-remote="true" rel="nofollow" data-method="put" style="display: none;" id="formupdt<%= domelement.id %>">
+					<input type="hidden" name="funcandscreen_id" id="funcandscreen_id" value="<%= domelement.funcandscreen_id %>"/>  
+					<input type="hidden" name="version_id" id="version_id" value=""/>
+					<input type="hidden" name="idelement" value="<%= domelement.id %>"/>
+					<input type="hidden" name="name" id="name<%= domelement.id %>" value=""/>
+					<input type="hidden" name="strategie" id="strategie<%= domelement.id %>" id="labelmodif<%= domelement.name %>" value=""/>
+					<input type="hidden" name="path" id="path<%= domelement.id %>" value=""/>
+					<input type="hidden" name="description" id="description<%= domelement.id %>" value=""/>
+					<input type="hidden" name="popup" value="<%= @popup %>"/>
+					<input class="btnvalid" title="<%= t('valider') %>" type="submit" value="" onmouseover='checkelementshowvalidbtn("<%= domelement.id %>");' onclick="document.getElementById('name<%= domelement.id %>').value=document.getElementById('iname<%= domelement.id %>').value;document.getElementById('strategie<%= domelement.id %>').value=document.getElementById('istrategie<%= domelement.id %>').value;document.getElementById('path<%= domelement.id %>').value=document.getElementById('ipath<%= domelement.id %>').value;document.getElementById('description<%= domelement.id %>').value=document.getElementById('idescription<%= domelement.id %>').value;" style='vertical-align: top;'/>
+				</form>
+			</div>
+		<% end %>	
+
+	</div>
+</div>
+<script>
+          setTimeout(function () {
+            elem = document.getElementById('idspanmessage');
+            if (elem!=null) {
+              elem.parentNode.removeChild(elem);
+            }
+        }, 2000);
+</script>  

@@ -1,0 +1,21 @@
+<div id="content"  <% if @popup != nil and @popup.to_s == 'true' %> style="height: 100%;" <%end%>>
+	<%= render :partial => 'roles/list' %>
+    
+	<div id="right">
+		<%= render :partial => 'roles/add' %>
+		 
+		<% if @role != nil %>
+			<form onsubmit="startloader();" action="../roles/update" method="post">
+				<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+				<table class="leftTable" >
+					<%= render :partial => 'roles/name' %>
+					<%= render :partial => 'roles/rights' %>
+				</table>
+				<input type="hidden" name="roleid" id="roleid" value="<%= @role.id %>"/>
+				<input type="hidden" name="droits" id="droits" value=""/>
+			  </form>
+		<% end %>
+	</div>
+
+</div>
+

@@ -1,0 +1,19 @@
+<%= render :partial => 'procedures/buildparams' %>
+<div id='popup1'>
+
+	<!-- entete -->
+	<form onsubmit="startloader();" method="post">
+		<%= render :partial => 'procedures/headedit' %>
+		<%= render :partial => 'procedures/parameters' %>
+	</form>         
+	<% if @can_manage_procedure == 1 %>
+		<%= render :partial => 'procedures/actions' %>
+		<%= render :partial => 'procedures/inserts' %>
+	<% end %>
+	<%= render :partial => 'procedures/code' %>
+
+</div>
+
+<script>
+	loadProc();
+</script>

@@ -1,0 +1,14 @@
+
+<div id='popup1'>
+<div id="message">    
+</div>    
+
+	<%=  link_to "#{t('ecr_procedure.actions_appelantes')}", { :controller => :actions, :action => :whocallaction, :popup =>true, :action_id => @action.id}, class: "buttonblue", onclick: "startloader();"  , style: "float: right;" %>
+	<% if @action != nil and @procedures != nil and  @procedures.length > 0 %>
+		<%= render :partial => 'procedures/wcareplace' %>
+		<%= render :partial => 'procedures/wcalist' %>
+	<% else %>
+		<span class="textStyle"><%=t('ecr_procedure.aucune_procedure_n_appelle_action') %> <b><%= @action.name %></b>. <%=t('ecr_procedure.mais_peut_etre_appele_par_autre_action') %></span>
+	<% end %>
+
+</div>

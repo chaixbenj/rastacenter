@@ -1,0 +1,339 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+ 
+ 
+ /* ------------------------------------------------------------------------------------------------------------------------------------------ */
+body {
+    background-color:white;
+    background-position: center top;
+    background-size: 100% auto;
+}
+#logo {
+    background-image: url('fonds/logo.svg');	
+	background-repeat: no-repeat;
+    float:left;
+    width:220px;
+    height:32px;
+}
+#starlogo {
+    color:#e4e9ed;
+    font-family:Arial;
+    font-size:14px;
+    margin-left:0px;
+    margin-top:40px;
+}
+#logo2 {
+    background-image: url('fonds/logo.svg');	
+    position:absolute;
+    top:0;
+    left:0;
+    width:200px;
+    height:32px;
+}
+.bandeau {
+    background-image: url('fonds/bandeau.svg');
+    background-position: center top;
+    background-size: 100% auto;
+    height: 70px;
+    width: 100%;
+}
+.bandeau2 {
+    background-color:black;
+    height: 70px;
+    width: 100%;
+}
+
+.popupadd {
+    background-image: url('fonds/fond1.png');
+    background-position: center top;
+    background-size: 100% auto;
+    height: auto;
+    width: 100%;
+	margin-bottom:10px;
+}
+
+
+html, body {
+    height: 100%;
+    overflow: hidden;
+    margin: 0;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+#footer {
+    position:absolute;
+    bottom:0;
+    width:100%;
+    height:20px;
+}
+/*
+h1 {
+    color: #010128;
+    font: 26px/normal  Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    text-align: center;
+} 
+
+h2 {
+    color: #2b0507;
+    font: 22px/normal  Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    text-align: center;
+} 
+
+h3 {
+    color: #2b0507;
+    font: 12px/normal  Arial, Helvetica, sans-serif;
+    font-weight: normal;
+    text-align: left;
+} */
+
+.titleaccueil {
+    font: 26px/normal  Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    position: absolute;
+    text-align: center;
+    top: 30px;
+    width: 1200px;
+    background-color: rgba(255, 255, 255, 0.6);
+    color: black;
+    left: calc(50% - 600px);
+}
+
+.titleaccueilrel {
+    color: #ad2628;
+    font: 30px/normal  Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    opacity:0.6;
+    color: black;
+}
+.mainprice {
+    font: 20px/normal  Arial, Helvetica, sans-serif;
+    color: #073801;
+    background-color: #49f235;
+    padding: 20px 20px 20px 20px;
+    margin-left:30px;
+    border:solid;
+    margin-bottom: 20px;
+}
+
+
+.demandedevis {
+    font: 20px/normal  Arial, Helvetica, sans-serif;
+    color: #37383a;
+    text-align: center;
+    width: 100%;
+    opacity:1;
+    color: black;
+}
+
+
+.doclink {
+    font-family:Arial;
+    font-size:14px;
+    color:#37383a;
+    padding-top:5px;
+    padding-left:7px;
+    display: inline-block;
+    text-decoration:none;
+}
+.docgrouplink {
+    font-family:Arial;
+    font-size:14px;
+    color:black;
+    padding-top:5px;
+    padding-left:7px;
+    display: inline-block;
+    text-decoration:none;
+}
+.doclinksmall {
+    font-family:Arial;
+    font-size:12px;
+    color:#37383a;
+    padding-top:5px;
+    padding-left:17px;
+    display: inline-block;
+    text-decoration:none;
+}
+
+.mainfunctitle {
+    font: 20px/normal  Arial, Helvetica, sans-serif;
+    color: #37383a;
+    margin-left:30px;
+}
+.secondfunctitle {
+    font: 14px/normal  Arial, Helvetica, sans-serif;
+    color: #37383a;
+    margin-left:40px;
+    padding-top:10px;
+    display:block;
+}
+
+.thirdfunctitle {
+    font: 12px/normal  Arial, Helvetica, sans-serif;
+    color: #505151;
+    margin-left:40px;
+    padding-top:10px;
+    display:block; 
+}
+
+.titlefreetrial {
+    position: absolute;
+    top: 30px;
+    width: 1200px;
+}
+
+* {box-sizing: border-box}
+body {font-family: Verdana, sans-serif; margin:0}
+.mySlides {display: none}
+img {vertical-align: middle;}
+
+/* Slideshow container */
+.slideshow-container {
+    max-width: 1000px;
+    position: relative;
+    margin: auto;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    color:#660c12;
+}
+
+/* Position the "next button" to the right */
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+    background-color: #a9abcc;
+}
+
+/* Caption text */
+.text {
+    color: black;
+    font-size: 15px;
+    padding: 8px 12px;
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    text-align: center;
+    background-color: white;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    background-color: black;
+    top: 0;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+    background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 1.5s;
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+    from {opacity: .4} 
+    to {opacity: 1}
+}
+
+@keyframes fade {
+    from {opacity: .4} 
+    to {opacity: 1}
+}
+
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {
+    .prev, .next,.text {font-size: 11px}
+}
+
+
+#notification {
+    position: fixed;
+    top:0;
+    left:0;
+    z-index:9999;
+    background-color: transparent;
+    height: 100%;
+    width: 66%;
+}
+
+#tutorial {
+    position: fixed;
+    top:0;
+    left:5%;
+    z-index:9999;
+    background-color: transparent;
+    height: 100%;
+    width: 90%;
+}
+#tutorial2 {
+    position: fixed;
+    top:0;
+    left:5%;
+    z-index:9999;
+    background-color: transparent;
+    height: 100%;
+    width: 90%;
+}
+.ace_editor {
+    border: 1px solid lightgray;
+    margin: auto;
+    height: 200px;
+    width: 100%;
+}
+
+
+

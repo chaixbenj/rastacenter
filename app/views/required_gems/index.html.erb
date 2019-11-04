@@ -1,0 +1,19 @@
+
+
+<div id='popup1'>
+    <br>
+    
+        <form action="../required_gems/update" method="post">
+		<div class="popupadd">
+            <input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+            <input type="hidden" name="popup" value="<%= @popup %>"/>
+            <span class="titleStyle" style="color:#161616"><b>&nbsp;&nbsp;<%= t('ecr_action.paquet_requis_exec') %>&nbsp;&nbsp;</b></span> 
+            <% if @can_manage_action == 1 %>
+              <input value="" style="display: inline" id="btnval" type="submit" class="btnvalid" title="<%= t('valider') %>" onclick="startloader();"/>
+            <% end %>
+			</div> 
+            <textarea style="display: block;" spellcheck='false' <% if @can_manage_action != 1 %>  disabled<% end %>  class="inputbox" rows=20 cols=100  name="gems" id="txtareaCode" onkeydown="textareatab(event, this);"><%= @gems  %></textarea>
+        </form>
+    
+</div>
+

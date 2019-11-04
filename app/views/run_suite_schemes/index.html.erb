@@ -1,0 +1,29 @@
+<%= render :partial => 'run_suite_schemes/load' %>
+<%= render :partial => 'run_suite_schemes/head' %>
+<%= render :partial => 'run_suite_schemes/scheme' %>
+
+<input type="hidden" name="sheet_id" id="sheet_id" value="<%= @sheet.id  %>"/>
+<form id="formredirsheet">
+    <input type="hidden" name="redirect" id="redirsheet" value=""/>
+    <input type="hidden" name="sheetinit" id="sheetinit" value="<%= @sheet.id  %>"/>
+    <input type="hidden" name="write" value="<%= @modmodif  %>"/>
+    <input type='hidden' name='sheettype' value='<%= @sheettype %>'/>
+</form>
+<div id="popup" class="modalPopup">
+    <div>
+        <!--a href="#close" title="Close" class="closePopup">X</a-->
+        <button onclick="document.getElementById('contentpopup').innerHTML='';document.getElementById('popup').style.display='none';window.location.href='#';"  class="closePopup">X</button>
+        <div id="contentpopup"></div>
+    </div>
+</div>
+<iframe id="hiddenFrame" name="hiddenFrame" width="0" height="0" border="0" style="display: none;"></iframe>
+
+
+<script>
+    loadDiagramme();
+    <% if @run != nil and @run.status != "ended" %>
+    setTimeout(function(){
+      window.location.reload(1);
+    }, 5000);
+    <% end %>
+</script>

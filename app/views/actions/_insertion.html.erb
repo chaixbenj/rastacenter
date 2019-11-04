@@ -1,0 +1,56 @@
+	 <% if @action.is_modifiable == 1 or @is_admin == 1 or true == true %>
+		<tr>
+			<td><span class="textStyle"><%= t('inserer') %></span></td>
+			<td><select id="typeinsert" class='inputbox' onchange="document.getElementById('conf').style.display = 'none';
+				  document.getElementById('env').style.display = 'none';
+				  document.getElementById('const').style.display = 'none';
+				  document.getElementById('jdd').style.display = 'none';
+				  document.getElementById(this.value).style.display = 'inline';">
+					<option selected value="conf"><%= t('variables_de_conf') %></option>
+					<option value="env"><%= t('variables_de_env') %></option>
+					<option value="const"><%= t('constante_test') %></option>
+					<option value="jdd"><%= t('variables_jeu_donnees') %></option>
+				</select>
+
+				<select id="conf" class='inputbox' style="display: inline;" >
+					<% if @configurationvariables != nil 
+@configurationvariables.each do |configurationvariable| %>
+						<option value="<%=  configurationvariable.name %>"><%=  configurationvariable.name %></option>
+					  <% end
+end%>
+				</select>
+
+				<select id="env" class='inputbox' style="display: none;">
+					<% if @environnementvariables != nil 
+@environnementvariables.each do |environnementvariable| %>
+						<option value="<%=  environnementvariable.name %>"><%=  environnementvariable.name %></option>
+					  <% end
+end%>
+				</select>
+
+				<select id="const" class='inputbox' style="display: none;">
+					<% if @testconstantes != nil 
+@testconstantes.each do |testconstante| %>
+						<option value="<%=  testconstante.name %>"><%=  testconstante.name %></option>
+					  <% end
+end%>
+				</select>
+				
+				<select id="jdd" class='inputbox' style="display: none;">
+					<% if @data_set_variables != nil 
+@data_set_variables.each do |data_set_variable| %>
+						<option value="<%=  data_set_variable.name %>"><%=  data_set_variable.name %></option>
+					  <% end
+end%>
+				</select>
+
+<% if (@action.is_modifiable == 1 or @is_admin == 1 or true == true) and @can_manage_action == 1  %> <img src="/assets/icones/btndroitevert1.png" no-repeat onclick="editor1.insert(document.getElementById(document.getElementById('typeinsert').value).value);editor1.focus();" style="padding-top: 5px;" title="<%= t('inserer') %>"></img><% end %> 
+			
+<div class="circlegrey" style="float:right" title="insert LOG report" onclick="addLogToCode();">L</div>
+<div class="circlered" style="float:right" title="insert FAIL report" onclick="addFailToCode();">F</div>
+<div class="circlegreen" style="float:right" title="insert PASS report" onclick="addPassToCode();">P</div>
+
+			
+			</td>    
+		</tr>
+  <% end %>

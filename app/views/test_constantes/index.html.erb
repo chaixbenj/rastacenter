@@ -1,0 +1,19 @@
+<script type="application/javascript"> 
+	function searchenv() {
+		document.getElementById('test_constante_test_constante_name').required=false;
+		document.getElementById('searchname').value=document.getElementById('test_constante_test_constante_name').value;
+		document.getElementById('searchdesc').value=document.getElementById('test_constante_test_constante_description').value;
+		document.getElementById('formsearch').submit();
+	}
+</script>
+
+<div id="scrollablecontent">
+	<div >
+		<%= render :partial => 'test_constantes/head' %>
+		<div id="testconstantes" >	
+			<% if @testconstantes != nil %>    
+				<%= render  @testconstantes %>
+			<% end %>
+		</div>
+	</div>
+</div>

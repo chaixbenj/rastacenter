@@ -1,0 +1,103 @@
+<div id="right">
+    <% if @test != nil %>
+    
+		<table class="leftTable">
+		<form onsubmit="startloader();" id="formupdatetest" action="../tests/update" method="post">
+		<input type="hidden" name="atddsteps" value="<%=@atddsteps%>"/> 
+		  <tr>
+			  <td><% if @atddsteps != "1" %><span class="textStyle"><%= t('nom') %></span><%end%></td>
+			<td><% if @atddsteps != "1" %><input <% if (@can_manage_public_test != 1 and @test.owner_user_id != @my_user_id) or @locked_project_version == 1 %>disabled<% end %>  class="inputbox" size=30 maxlength='250' type="text" spellcheck='false' name="testnamem" id="testnamem" value="<%= @test.name  %>" required onKeyDown="showvalidbtn();" />
+				<input <% if (@can_manage_public_test != 1 and @test.owner_user_id != @my_user_id) or @locked_project_version == 1 %>disabled<% end %>  type="checkbox" name="testprivate" id="testprivate" <% if @test.private == 1 %>checked<% end %>  onClick="showvalidbtn();" /><span class="textStyle"><%= t('privee') %> </span>&nbsp;
+				<input <% if (@can_manage_public_test != 1 and @test.owner_user_id != @my_user_id) or @locked_project_version == 1 or @canmodif_atdd == false %>disabled<% end %>  type="checkbox" name="atdd" id="atdd" <% if @test.is_atdd.to_s == "1" %>checked<% end %>  onClick="showvalidbtn();" /><span class="textStyle">ATDD </span>&nbsp;
+				<input type='hidden' name='atddupdatable' value='<%= @canmodif_atdd %>'/><%end%>
+		  <% if @can_manage_public_test == 1 or @test.owner_user_id == @my_user_id %>
+							<input value="" id="btnval" type="submit" style="display: none;" class="btnvalid" title="<%= t('valider') %>" />&nbsp;&nbsp;&nbsp;
+				
+						<span class="textStyle">(<%= t('cree_par') %> <b><%= @ownername  %></b> <%= @test.created_at.localtime.to_s[0..-7] %><% if  @test.user_maj != nil %>, <%= t('modifie_par') %> <b><%= @test.user_maj  %></b> <%= @test.updated_at.localtime.to_s[0..-7] %> <% end %>) </span> 
+						  
+		  <% end %>
+		  
+	  
+			<td>
+		  </tr>
+		  <tr>
+			  <td ><span  class="textStyle"><%= t('description') %></span></td>
+			<td><textarea <% if (@can_manage_public_test != 1 and @test.owner_user_id != @my_user_id) or @locked_project_version == 1 %>disabled<% end %> spellcheck='false' class="inputbox" rows=6 cols=100  name="testdesc" id="testdesc" onKeyDown="showvalidbtn();" ><%= @test.description  %></textarea></td>
+		  </tr>
+		  
+		<% if @atddsteps != "1" %>  
+		<tr><td><span class="textStyle"><%= t('type') %></span></td><td>
+			  <SELECT required <% if (@can_manage_public_test != 1 and @test.owner_user_id != @my_user_id) or @locked_project_version == 1 %> disabled <% end %> class="inputbox" name="testtype" id="testtype" onChange="showvalidbtn();" >
+				  <OPTION value="" >-</OPTION>          
+				<% @test_types.each do |testtype| %> 
+				  <OPTION <% if @test.test_type_id==testtype.id %>selected<% end %> value="<%= testtype.id %>" ><%= testtype.value %></OPTION>
+				<% end %>
+			  </SELECT></td><td></td>
+		</tr>
+		  
+		<tr><td><span class="textStyle"><%= t('niveau') %></span></td><td>
+			  <SELECT <% if (@can_manage_public_test != 1 and @test.owner_user_id != @my_user_id) or @locked_project_version == 1 %> disabled <% end %> class="inputbox" name="testlevel" id="testlevel" onChange="showvalidbtn();" >
+				  <OPTION value="-" >-</OPTION>
+				<% @test_levels.each do |testlevel| %> 
+				  <OPTION <% if @test.test_level_id==testlevel.id %>selected<% end %> value="<%= testlevel.id %>" ><%= testlevel.value %></OPTION>
+				<% end %>
+			  </SELECT></td><td></td>
+		</tr>
+
+		<tr><td><span class="textStyle"><%= t('status') %></span></td><td>
+			  <SELECT <% if (@can_manage_public_test != 1 and @test.owner_user_id != @my_user_id) or @locked_project_version == 1 %> disabled <% end %> class="inputbox" name="teststate" id="teststate" onChange="showvalidbtn();" >
+				  <OPTION value="-" >-</OPTION>
+				<% @test_states.each do |teststate| %> 
+				  <OPTION <% if @test.test_state_id==teststate.id %>selected<% end %> value="<%= teststate.id %>" ><%= teststate.value %></OPTION>
+				<% end %>
+			  </SELECT></td><td></td>
+		</tr>    
+		<%end%>
+		<tr></tr>
+		<input type="hidden" name="openfolder" id="openfolder" value="<%= @openfolder %>"/>
+		<input type="hidden" name="testid" id="testid" value="<%= @test.id %>"/>
+		<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+		</form>
+		
+		  <tr><td colspan='2' align="middle">
+		   <table>
+					  <tr>
+						  <td>
+						  <form onsubmit="startloader();" action="../tests/edit" method="post">
+								<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+								<input type="hidden" name="write" value="1"/>
+								<input type="hidden" name="atddsteps" value="<%= @atddsteps %>"/>
+								<input type="hidden" name="test_id" value="<%= @test.id %>" />
+								<input type="hidden" name="load" value="1" />
+								<input type="hidden" name="back_to_id" value="showtestid=<%= @test.id %>" />
+								<div <% if @test.test_type_id == nil and @atddsteps != "1" %>onclick="alert('<%= t('ecr_test.enregistrer_type_de_test') %>');"<%else%>onclick="this.parentNode.submit();"<%end%> class="btndiag" title="<%= t('editer') %>"/>
+							</form>
+						  
+						  </td><td>
+						  <form onsubmit="startloader();" action="../tests/edit" method="post">
+								<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+								<input type="hidden" name="write" value="0"/>
+								<input type="hidden" name="atddsteps" value="<%= @atddsteps %>"/>
+								<input type="hidden" name="test_id" value="<%= @test.id %>" />
+								<input type="hidden" name="load" value="1" />
+								<input type="hidden" name="back_to_id" value="showtestid=<%= @test.id %>" />
+								<input type="submit" value="" name="" class="btnseediag" title="<%= t('voir') %>"/>
+						  </form>
+
+
+
+		  </table></td></tr>
+
+		</table>   
+
+	<% if @linked_fiche_id != nil %>
+		<div  class='elemkanban' style='margin-left:10%;width:200px;display:block;border-top-width:2px;border-top-color:<%= @linked_fiche_color %>;border-left-width:2px;border-left-color:<%= @linked_fiche_color %>' onclick='show_fiche(<%= @linked_fiche_id %>);'>
+		<div style='width:100%;'>
+		<span class='textStyle' style='color:grey;'><b>#<%= @linked_fiche_id %></b></span></div>
+		<span class='textStyle'><%= @linked_fiche_name %></span><br>
+		<span class='textStyle'><%= @linked_fiche_user %></span><br>
+		</div>
+	 <% end %>
+    
+<% end %>    
+</div>    

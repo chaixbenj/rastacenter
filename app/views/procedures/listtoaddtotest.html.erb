@@ -1,0 +1,150 @@
+
+<div id='popup1'>
+<div id="message">    
+    
+</div>    
+<div style="display:inline-block;width:100%">
+<%=  link_to "", { :controller => :procedures, :action => :index, :popup =>true, :sheet_id =>  @sheet_id, :ext_node_id => @ext_node_id, :fromtest => 1, :writea => @modemodif, :locka => @testLocked, :atdd_param => @atdd_param}, class: "btnadd", onclick: "startloader();"  , style: "float: left;margin-top:5px;" , title: t('ecr_procedure.nouvelle_procedure') %>
+
+  <% if @nodes_before != nil or @nodes_after != nil %>
+
+  <% if @nodes_after != nil and @nodes_after.length >0 %>
+	<form style="display:inline-block;float:right;">
+	<input type="hidden" name="sheet_id" value="<%= @sheet_id %>"/>
+	<input type="hidden" name="write" value="<%= @modemodif %>"/>
+	<input type="hidden" name="lock" value="<%= @testLocked %>"/>
+	<input type="hidden" name="popup" value="<%= @popup %>"/>
+	<input type="hidden" name="atdd_param" value="<%= @atdd_param %>"/>
+	<select class='inputbox' name='ext_node_id'>
+	<% @nodes_after.each do |node| %>
+		<option value="<%=node.id_externe%>"><%=node.name%></option>
+	<% end %>
+	</select>
+	<button class="btndroite" style="margin-top:5px;""></button>
+	</form>
+  <% end %>  
+
+  <% if @nodes_before != nil and @nodes_before.length >0 %>
+	<form style="display:inline-block;float:right;">
+	<input type="hidden" name="sheet_id" value="<%= @sheet_id %>"/>
+	<input type="hidden" name="write" value="<%= @modemodif %>"/>
+	<input type="hidden" name="lock" value="<%= @testLocked %>"/>
+	<input type="hidden" name="popup" value="<%= @popup %>"/>
+	<input type="hidden" name="atdd_param" value="<%= @atdd_param %>"/>
+	<button class="btngauche" style="margin-top:5px;""></button>
+	<select class='inputbox' name='ext_node_id'>
+	<% @nodes_before.each do |node| %>
+		<option value="<%=node.id_externe%>"><%=node.name%></option>
+	<% end %>
+	</select>
+	</form>
+  <% end %>
+
+  <% end %>
+ </div> 
+ <div style="display:inline-block;width:100%"> 
+  
+  <% if @procedures != nil
+      @procedures.each do |procedure| %>
+
+    <div class="ligthline" style="padding:5px 5px 5px 5px;">
+        <div class="inline">
+            <div style="float: left;">
+            <span class="textStyle"><b>&nbsp;<%= procedure.name %></b></span>
+            <% if procedure.return_values.to_s != "" 
+            returnvals = procedure.return_values.split("|$|") 
+            returnstring = ""
+            for i in 0..returnvals.length-1 
+            if i%2 == 0
+              if i > 0 then returnstring += ", " + returnvals[i] else returnstring += returnvals[i] end
+            end
+            end%>
+            <span class="textStyle" style="color:white"><%= t('retour') %> : <%= returnstring %></span>
+            
+            <% end %>
+            
+            <button class="btncode" title="<%= t('code') %>"  style='float: left;'  onclick='window.open("../procedures/edit?nw=1&popup=true&procedure_id=<%= procedure.id %>", "code <%= procedure.name %>", "directories=0,titlebar=0,toolbar=0,menubar=0,width=1000,height=800");'/>
+            </div>
+           
+
+<div style="float: right;">
+<% if @modemodif == "1" and @testLocked == "false" and @locked_project_version == 0 %>
+<button class='btnadd' title="<%= t('ajouter') %>" style='float: right;' onclick="addtotest('<%=  procedure.id %>', '<%= procedure.name.gsub("\n", " ").gsub("'","\'") %>', '<%= @func_name.gsub("\r", " ").gsub("\n", " ").gsub("'","\'") %>', <%= @node_id %>);"></button>
+<% end %>
+    <% parameters = procedure.parameters.to_s.split("|$|")
+   nbparam = ((parameters.length)/2).to_i
+   if parameters.length - nbparam*2 > 0
+      nbparam+=1
+   end
+   for i in 0..nbparam-1
+     if parameters[2*i].to_s.gsub(" ","") != ""
+  %>   
+    <div style="display: inline-block;" ><span class="textStyle"  style="display: table;" color="black"><%= parameters[2*i].to_s.gsub("\n", " ").gsub("'","\'") %></span>
+    <select class='inputbox' onchange="displayparambox(this, '<%= i %>-<%= procedure.id %>', 'param-<%= procedure.id %>');">
+        <option value="valeur" selected><%= t('ecr_procedure.valeur_du_parametre') %>
+        <option value="env" ><%= t('ecr_procedure.variable_d_env') %>
+        <option value="conf" ><%= t('ecr_procedure.variable_de_conf') %>
+		<option value="const" ><%= t('ecr_procedure.constante_test') %>
+		<option value="jdd"><%= t('ecr_procedure.variable_jdd') %></option>
+		<% if @atdd_param != "" %>
+		<option value="atdd">ATDD params</option>
+		<% end %>
+    </select>
+    
+        
+                  <select id="paramconf-<%= i %>-<%= procedure.id %>"  name="" class='inputbox' style="display: none;" >
+                      <% if @configurationvariables != nil 
+                          @configurationvariables.each do |configurationvariable| %>
+                          <option value="<%=  configurationvariable.name %>"><%=  configurationvariable.name %></option>
+                      <% end
+                         end%>
+                  </select>
+              
+                  <select id="paramenv-<%= i %>-<%= procedure.id %>" name="" class='inputbox' style="display: none;">
+                      <% if @environnementvariables != nil 
+                          @environnementvariables.each do |environnementvariable| %>
+                          <option value="<%=  environnementvariable.name %>"><%=  environnementvariable.name %></option>
+                      <% end
+                         end%>
+                  </select>      
+
+				  <select id="paramconst-<%= i %>-<%= procedure.id %>" name="" class='inputbox' style="display: none;">
+                      <% if @testconstantes != nil 
+                          @testconstantes.each do |testconstante| %>
+                          <option value="<%=  testconstante.name %>"><%=  testconstante.name %></option>
+                      <% end
+                         end%>
+                  </select>  
+
+					<select id="paramjdd-<%= i %>-<%= procedure.id %>" class='inputbox' style="display: none;">
+                            <% if @data_set_variables != nil 
+								@data_set_variables.each do |data_set_variable| %>
+                                <option value="<%=  data_set_variable.name %>"><%=  data_set_variable.name %></option>
+                              <% end
+								end%>
+                        </select>
+        
+					<select id="paramatdd-<%= i %>-<%= procedure.id %>" class='inputbox' style="display: none;">
+                            <% if @atdd_param != nil 
+								@atdd_param.split("|$|").each do |atdd_param| %>
+                                <option value="<%=  atdd_param %>"><%=  atdd_param %></option>
+                              <% end
+								end%>
+                        </select>
+						
+                  <input class="inputbox" id="paramval-<%= i %>-<%= procedure.id %>" name="param-<%= procedure.id %>" type="text" maxlength='5000' spellcheck='false' placeholder='<%= parameters[2*i].to_s.gsub("\n", " ").gsub("'","\'") %> / <%= parameters[2*i+1].to_s.gsub("\n", " ").gsub("'","\'") %>' value=""/>
+    </div>
+    
+
+    
+  <% end  
+    end  %>              
+</div>         
+
+        </div></div>
+    
+    
+  <% end 
+end %>
+</div>
+</div>

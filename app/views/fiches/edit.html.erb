@@ -1,0 +1,62 @@
+
+<div id='popup1' style="display:block;height:100%;width:100%;border-left-style: solid;border-top-style: solid;border-width:10px;border-color: <%=@color%>;">
+    <div style="display:block;width:100%;">
+
+		<span id='okmessage' class='succesMessage' onclick='this.parentNode.removeChild(this)' style="display:none;"></span>
+		<span id='komessage' class='errorMessage' onclick='this.parentNode.removeChild(this)' style="display:none;"></span>
+
+		<% if @noresult == true %>
+			<span class="errorMessage"><%= t('ecr_type_fiche.aucune_fiche') %></span>
+		<%else%>
+			<%= render :partial => 'fiches/topbuttons' %>
+
+			<form id="fiche_form_id" method="post" action="../fiches/update" target="hiddenframemaj" onsubmit="startloader();">
+				<%= render :partial => 'fiches/head' %>
+				
+				<div style="display:block;width:100%;">  
+					<table style="width:100%;">
+						<%= render :partial => 'fiches/commonfields' %>
+				
+					<% if @bloc_custo != nil %>
+							<%= @bloc_custo %>
+						<% end %>
+					
+					</table>
+					<br>
+
+					<%= render :partial => 'fiches/tabs' %>
+
+					<div style="display:inline-block;width:100%;">
+
+						<% if @is_gherkin == 1 %>
+							<%= render :partial => 'fiches/gherkincode' %>
+						<%else%>
+							<%= render :partial => 'fiches/summary' %>
+						<%end%>
+
+						<%= render :partial => 'fiches/comments' %>
+						
+					</div>
+
+					<%= render :partial => 'fiches/testlinks' %>
+					<%= render :partial => 'fiches/histo' %>
+					<%= render :partial => 'fiches/joinfiles' %>
+					<%= render :partial => 'fiches/parents' %>
+
+				</div>
+			</form>
+		<%end%>
+	</div>
+</div>
+
+
+<form id="deleteupload" action="../fiches/deleteupload" method="post" target="hiddenFrame">
+    <input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+	<input type="hidden" id="deletefile" name="filename" value=""/>
+	<input type="hidden" name="fiche" value="<% if @fiche != nil %><%=  @fiche.id %><%else%>0<% end %>"/>
+</form>
+
+<iframe id="hiddenFrame" name="hiddenFrame" width="0" height="0" border="0" style="display: none;"></iframe>
+<iframe id="hiddenframemaj" name="hiddenframemaj" width="0" height="0" border="0" style="display: none;" onload="majfichedisplaymsg();"></iframe>
+
+

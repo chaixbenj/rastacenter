@@ -1,0 +1,26 @@
+<% if @can_manage_test_constante == 1 %>
+	<div class="popupadd">
+		<span class="titleStyle" style="color:#161616"><b>&nbsp;&nbsp;<%= t('ecr_test_constante.nouvel_test_constante') %>&nbsp;&nbsp;</b></span> 
+		<br>
+		<div style="display: inline-block">
+			<div style="display: inline">
+				<form onsubmit="startloader();" class="new_test_constante" id="new_test_constante" action="/test_constantes" accept-charset="UTF-8" data-remote="true" method="post" style="display: inline;margin-left: 7px;">
+				 <input pattern="\$[A-Za-z0-9_]{2,50}" onKeyUp="formatasvariable(this)" required size=30 maxlength='50' class='inputboxlist' type="text" spellcheck='false' name="name" id="test_constante_test_constante_name" placeholder="<%= t('nom') %>" title="<%= t('ecr_test_constante.format_titre') %>"/>
+
+				  <input required size=30 class='inputboxlist' type="text" maxlength='250' onKeyUp="formatslash(this);" spellcheck='false' name="value" id="test_constante_test_constante_value" placeholder="<%= t('valeur') %>" />
+				 
+				 <textarea spellcheck='false' class='inputboxlist' name="description" maxlength='250' id="test_constante_test_constante_description" rows='1' cols='80' placeholder="<%= t('description') %>"></textarea>
+
+				  <input type="submit" class="btnadd" title="<%= t('ajouter') %>" value="" ></input>
+				</form>  
+				<button class="btnsearch" onclick="startloader();searchenv();" title="<%= t('chercher') %>"></button>
+			</div>
+		</div>	  
+	
+		<form id="formsearch" action="../test_constantes/index" method="post">
+			<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+			<input type="hidden" name="description" id="searchdesc" value=""/>
+			<input type="hidden" name="name" id="searchname" value=""/>   
+		</form>            
+	</div> 
+<% end %>

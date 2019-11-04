@@ -1,0 +1,38 @@
+<% if @can_manage_procedure == 1 %>
+	<div class="popupadd">
+		<% if @fromtest == '1' %>
+			<%=  link_to "", { :controller => :procedures, :action => :listtoaddtotest, :popup =>true, :sheet_id =>  @sheet_id, :ext_node_id => @ext_node_id, :write => @writea, :lock => @locka, :atdd_param => @atdd_param}, class: "btngauche", onclick: "startloader();"  , style: "float: right;margin-top:5px;" , title: t('retour') %>
+		<% end %>
+
+		<span class="titleStyle" style="color:#161616"><b>&nbsp;&nbsp;<%= t('ecr_procedure.nouvelle_procedure') %>&nbsp;&nbsp;</b></span> 
+		<br>
+		<div style='display: block'>
+			<form onsubmit="startloader();" class="new_procedure" id="new_procedure" action="/procedures" accept-charset="UTF-8" data-remote="true" method="post" style="display: inline;">
+				<div style="display: inline-block">
+					<div style="display: inline">
+
+						<input  required size=30 class='inputbox' type="text" spellcheck='false' name="name" id="procedure_procedure_name" placeholder="<%= t('nom') %>"  pattern="[A-Za-z0-9_]{2,50}" maxlength='50' title="<%= t('ecr_procedure.format_titre') %>" onKeyUp="formatasprocedure(this)"/>
+						<textarea spellcheck='false' class='inputbox' name="description" id="procedure_procedure_description" rows='1' cols='60' placeholder="<%= t('description') %>"></textarea>
+						<input type="submit" value="" class="btnadd" title="<%= t('ajouter') %>" onclick="document.getElementById('pasteadd').value='add';" ></input>
+						<div class="btnsearch" style="float:right" onclick="$('#proc_search').val($('#procedure_procedure_name').val());$('#formsearch').submit();"></div> 
+						<input type="hidden" name="pasteadd" id="pasteadd" value=""/>
+					</div>
+				</div>	  
+				<div  id='divbtnpaste' style="display: inline;">
+					<button id='btnpaste' class="btnpaste" style="display: <% if cookies[:procedure_copy_name].to_s != "" %>inline<% else %>none<% end %>;" title="<%= t('coller') %>"  onclick="document.getElementById('procedure_procedure_name').value='';document.getElementById('procedure_procedure_name').required=false;document.getElementById('pasteadd').value='paste';document.getElementById('btnpaste').style.display='none';"></button>
+				</div>   
+				<input type="hidden" name="funcandscreen_id" id="funcandscreen_id" value="<%= @funcscreen_id %>"/>  
+				<input type="hidden" name="version_id" id="version_id" value="<%= @version_id %>"/>  
+				<input type="hidden" name="popup" value="<%= @popup %>"/>
+			</form>  
+
+			<form id="formsearch">
+				<input type="hidden" name="proc_search" id="proc_search" value=""/> 
+				<input type="hidden" name="funcscreen_id" value="<%= @funcscreen_id %>"/>  
+				<input type="hidden" name="version_id"  value="<%= @version_id %>"/>  
+				<input type="hidden" name="popup" value="<%= @popup %>"/>
+			</form>
+
+		</div> 
+	</div>
+<% end %>

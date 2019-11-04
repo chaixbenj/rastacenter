@@ -1,0 +1,74 @@
+<form onsubmit="startloader();" style="display: inline;" action="../campains/update" method="post">
+	<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+
+	<table class="leftTable">
+		<tr>
+			<td><span class="textStyle"><%= t('nom') %></span></td>
+			<td><input <%= @disabled %>    required onKeyDown="showvalidbtn();" class="inputbox" size=50 type="text" maxlength='250' spellcheck='false' name="pname" id="pname" value="<%= @element.name  %>"/>
+			<% if controller == "campains" %>
+				<input <%= @disabled %>  type="checkbox" name="private" id="sprivate" <% if @element.private == 1 %>checked<% end %>  onchange="showvalidbtn();"/><span class="textStyle"><%= t('privee')%>     </span>
+			<% end %>
+			<% if  @disabled == '' %>
+				<input name="valid" value="" id="btnval" type="submit" style="display: none;" class="btnvalid" title="<%= t('valider') %>"/>&nbsp;&nbsp;&nbsp;
+				<% if @can_suppress == true %>
+					<input name="delete" value="" type="submit" class="btndel" title="<%= t('supprimer') %>" data-confirm="<%= t('ecr_release.confirme_supp') %>"/>
+				<% end %>
+			<% end %>
+			<td>
+		</tr>
+		<tr>
+			<td><span class="textStyle"><%= t('description') %></span></td>
+			<td><textarea spellcheck='false' <%= @disabled %> onKeyDown="showvalidbtn();" class="inputbox" rows=6 cols=60  name="pdesc" id="pdesc"><%= @element.description  %></textarea></td>
+		</tr>
+		<tr>
+			<td colspan='2' align="middle">
+				<table>
+					<tr>
+						<td>
+							<div onclick="$('#formeditcp').submit();" value="" name="" class="btndiag" title="<%= t('ecr_campain.modifier_le_contenu') %>"/>
+						</td>
+						<td>
+							<div onclick="$('#formseecp').submit();" name="" class="btnseediag" title="<%= t('ecr_campain.voir_le_contenu') %>"/>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+
+<br>
+<br>
+
+<table class="leftTable">
+	<tr>
+		<td colspan="2"><span class="textStyle"><b><%= t('ecr_campain.configuration_par_defaut') %></b></span></td>
+	</tr>
+	<% if @campain_configs != nil 
+			firstline = true
+			prec_variable = 0
+			@campain_configs.each do |variable| 
+				if variable.variable_id != prec_variable 
+					if prec_variable != 0 %>
+							</select></td>
+						</tr>
+					<% end %>
+						<tr>
+							<td><span class="textStyle"><%=  variable.variable_name %></span></td>
+							<td>
+								<select <%= @disabled %> onChange="showvalidbtn();" name="varvalue<%= variable.variable_id %>" class="inputbox" >
+								<option <% if variable.user_variable_value.to_s == "" %>selected<% end %> value="">-</option>	
+					<% prec_variable = variable.variable_id
+				end %>
+								<option <%  if variable.allowed_value.to_s == variable.user_variable_value.to_s %>selected<% end %>  value="<%=  variable.allowed_value %>"><%=  variable.allowed_value %></option>
+			<% end %>
+			</select>
+	<% end %>            
+		
+		</td>
+	</tr>
+</table>
+<input type="hidden" name="elem_id" id="elem_id" value="<%= @element.id %>"/>
+
+
+
+</form>

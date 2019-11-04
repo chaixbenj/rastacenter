@@ -1,0 +1,25 @@
+<div id="left">
+	<div id="btnresize" class="btnresize" onmousedown="startresizediv(event, this);"></div>
+	<form  method="post">
+		<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+		<table >
+		  <tr>
+			  <td><input size=20 type="text" spellcheck='false' name="sname" id="sname" value="<%= @sname %>" class="recherche" placeholder="<%= t('input.placeholder.recherche') %>"/></td>
+			  <td><input value="" name="search" type="submit" class="btnsearch" vertical-align="middle" onclick="startloader();document.getElementById('namec').required=false;"/></td>
+		  </tr>
+		</table>
+		
+		<% if @type_fiches != nil
+		@type_fiches.each do |type_fiche| %>
+		
+		<a class="ligthline" id="type_fiche<%=type_fiche.id%>" href="../type_fiches/getone?type_fiche_id=<%= type_fiche.id %>" onclick='startloader();'><%= type_fiche.name %><img style="float: right;" src="/assets/icones/btnedit1.png" title="<%= t('editer') %>"/></a>
+		<%  end 
+		end%>
+	</form>
+</div>
+
+<script async type="application/javascript"> 
+    <% if @type_fiche != nil %>
+    surligne_selected("type_fiche<%= @type_fiche.id %>", "ligthline");
+    <% end %>
+</script>     

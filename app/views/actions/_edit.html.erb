@@ -1,0 +1,10 @@
+<div id="right">
+	<%= render :partial => 'actions/add' %>
+	<%= render :partial => 'actions/detail' %>	
+</div>
+	
+<script async type="application/javascript"> 
+	<% if @can_manage_action == 0 %> 
+		disabledForm("formactionupdate");
+	<% end %> 
+</script>     	

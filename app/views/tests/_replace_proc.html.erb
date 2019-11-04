@@ -1,0 +1,31 @@
+<br>
+<form onsubmit="setrempprocidsearch();startloader();" method="post">
+	<input type="hidden" name="atddsteps" value="<%=@atddsteps%>"/> 
+	<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+	<span class="textStyle"><%= t('ecr_test.remplacer_procedure_recherchee_par') %></span><br> 
+		  
+	<input type="hidden" id="rempproc_id" name="rempproc_id" value=""/>
+	<input class="inputbox" list="rempprocs" id="inputrempprocs" name="rempprocs" value="<%= @rempprocs %>" onchange="showvalidbtn();" onclick="this.value='';">
+	<datalist id="rempprocs">
+	<% @procedures.each do |procedure| %> 
+		<OPTION id="<%= procedure.id %>" value="<%= procedure.name %> (<%= procedure.funcname.gsub("\r"," ").gsub("\n"," ") %> - #<%= procedure.id %>)">
+	<% end %>
+	</datalist>
+		  
+	<input type="hidden" name="mode"  value="<%= @mode %>"/>
+	<input type="hidden" name="proc_id"  value="<%= @filtreproc %>"/>    
+	<input type="hidden" id="testlist" name="testlist"  value=""/>
+	<input type="hidden" name="procs" value="<%= @procs %>"/> 
+	<input type="hidden" name="testname"  value="<%= @filtrename %>"/>    
+	<input type="hidden" name="testtype"  value="<%= @filtretype %>"/>    
+	<input type="hidden" name="testlevel"  value="<%= @filtrelevel %>"/>    
+	<input type="hidden" name="teststate"  value="<%= @filtrestate %>"/>  
+	<input type="hidden" name="atddsteps" value="<%=@atddsteps%>"/>
+	<input type="hidden" name="fatdd_id" value="<%= @filtreatdd %>"/>
+	<input type="hidden" name="latdds" value="<%= @latdds %>"/>
+	<input value="" id="btnval" type="submit" class="btnvalid" title="<%= t('valider') %>" vertical-align="middle" onclick="buildtestidstring();" <% if @rempprocs.to_s == "" %>style="display: none"<% end %>/>
+</form> 
+<br>    
+<br>   
+<input type="checkbox" id="checkall" name="checkall" onclick="checkuncheckall();"/><span class="textStyle"> <%= t('tous_aucun') %></span>
+<br>   

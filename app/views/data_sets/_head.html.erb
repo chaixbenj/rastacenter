@@ -1,0 +1,21 @@
+<span class="titleStyle" style="color:#161616"><b>&nbsp;&nbsp;<%= t('ecr_data_set.nouvel_data_set') %>&nbsp;&nbsp;</b></span> 
+<br>
+<div style="display: inline-block">
+<div style="display: inline">
+<form onsubmit="startloader();" class="new_data_set" id="new_data_set" action="/data_sets" accept-charset="UTF-8" data-remote="true" method="post" style="display: inline;margin-left: 7px;">
+ <input  pattern="[A-Za-z0-9_]{2,50}" maxlength='50' onKeyUp="formatascode(this)" required size=40 class='inputboxlist' type="text" spellcheck='false' name="name" id="data_set_data_set_name" placeholder="<%= t('nom') %>" title="<%= t('ecr_data_set.format_titre') %>"/>
+
+ <textarea spellcheck='false' class='inputboxlist' name="description" id="data_set_data_set_description" rows='1' cols='100' placeholder="<%= t('description') %>"></textarea>
+<% if @can_manage_jdd == 1 %>
+  <input type="submit" class="btnadd" title="<%= t('ajouter') %>" value="" ></input>
+  <% end %>
+</form>  
+  <button class="btnsearch" onclick="startloader();searchenv();" title="<%= t('chercher') %>"></button>
+</div>
+</div>	  
+    
+<form id="formsearch" action="../data_sets/index" method="post">
+	<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+    <input type="hidden" name="description" id="searchdesc" value=""/>
+    <input type="hidden" name="name" id="searchname" value=""/>   
+</form>   

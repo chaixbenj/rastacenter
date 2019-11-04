@@ -1,0 +1,63 @@
+<script type="application/javascript"> 
+  <%if @forced_config.to_s == "1" %>
+      window.parent.document.getElementById('btnconf<%= @step_id %>').className = 'btnvariableforce';
+  <% else %>
+      window.parent.document.getElementById('btnconf<%= @step_id %>').className = 'btnvariable';
+  <%  end %>
+    
+</script>
+
+
+<div id='popup1'>
+    <div class="">
+        <form action="../campain_test_suite_forced_configs/update" method="post" style="display:inline-block">
+            <input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+            <input type="hidden" name="step_id" value="<%= @step_id %>"/>
+            <input type="hidden" name="popup" value="<%= @popup %>"/>
+            <input type="hidden" name="locked" value="<%= @locked %>"/>
+			<div class="popupadd">
+				<span class="titleStyle" style="color:#161616"><b>&nbsp;&nbsp;<%= t('ecr_suite.forcer_variables_de_conf') %>&nbsp;&nbsp;</b></span>
+				<input value="" style="display: none" id="btnval" type="submit" class="btnvalid" title="<%= t('valider') %>" onclick="startloader();"/>
+			</div>
+
+<% 
+disabled = ""
+if @locked.to_s == "true" 
+  disabled = "disabled"
+end %>
+            <table>
+			<tr>
+				<td><span class="textStyle"><b> <%= t('forcer') %> </b></span></td>      
+                <td></td> 
+				<td></td> 
+			</tr>
+                <% if @step_forced_configs != nil 
+                  prec_variable = 0
+					@step_forced_configs.each do |variable| 
+						if variable.variable_id != prec_variable %>
+							<% if prec_variable != 0 %>
+								</select></td></tr>
+							<% end %>
+			<tr>
+				<td>
+					<input <%= disabled %>  onclick="showvalidbtn();" type="checkbox" id="forced<%= variable.variable_id %>" name="forced<%= variable.variable_id %>" <%if variable.campain_test_suite_forced_configs_id != nil %>checked<% end %> ></input>
+				</td>
+				<td>
+					<span class="textStyle"><%=  variable.variable_name %></span>
+				</td>
+				<td>
+					<select <%= disabled %> onchange="document.getElementById('forced<%= variable.variable_id %>').checked=true;showvalidbtn();" name="varvalue<%= variable.variable_id %>" class="inputbox" >
+						<option value="">-</option>
+										<% prec_variable = variable.variable_id
+						end %>
+						<option <%  if variable.allowed_value == variable.forced_variable_value %>selected<% end %>  value="<%=  variable.allowed_value %>"><%=  variable.allowed_value %></option>
+					<%  end
+				end %>            
+					</select>
+					</td>
+				</tr>
+			</table>
+        </form>
+    </div> 
+</div>
+

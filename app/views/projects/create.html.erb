@@ -1,0 +1,27 @@
+<br>
+<br>
+<br>
+<br>
+<form name="createproject" onsubmit="startloader();" method="post">
+<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+    <table class="centerTable">
+      <tr>
+          <td><span class="textStyle"><%= t('nom') %></span></td>
+        <td><input  class="inputbox" required class="textStyle" size=80 type="text" maxlength='250' spellcheck='false' name="pname" id="pname" value=""/>
+        <input value="" type="submit" class="btnvalid"/><td>
+      </tr>
+      <tr>
+          <td><span class="textStyle"><%= t('description') %></span></td>
+        <td><textarea spellcheck='false' class="inputbox"  rows=6 cols=100  name="pdesc" id="pdesc"></textarea></td>
+      </tr>
+    </table>
+    
+    <br>
+    
+     
+   <br>
+    
+
+</form>
+      
+      

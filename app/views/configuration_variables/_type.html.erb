@@ -1,0 +1,6 @@
+<tr>
+	<td colspan="2">
+		<input <%if @configurationvariable.is_deletable == 0 or @can_manage_configuration_variable == 0 %>disabled<% end %> type='checkbox' name='isn' id='isn' <%if @configurationvariable.is_numeric.to_s == "1"%>checked<%end%> onclick="showvalidbtn();if (this.checked==true) {document.getElementById('isb').checked=false;}"><span class="textStyle"><%= t('numeric')%></span></input>
+		<input <%if @configurationvariable.is_deletable == 0 or @can_manage_configuration_variable == 0 %>disabled<% end %> type='checkbox' name='isb' id='isb' <%if @configurationvariable.is_boolean.to_s == "1"%>checked<%end%> onclick="showvalidbtn();if (this.checked==true) {document.getElementById('isn').checked=false;}"><span class="textStyle"><%= t('boolean')%></span></input>
+	</td>
+</tr>

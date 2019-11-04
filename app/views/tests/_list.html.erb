@@ -1,0 +1,88 @@
+<% if @atddsteps == "1" %>
+	<input type="hidden" id="is_atdd" value="1"/>
+<%end%>   
+<div id="left">
+	<div id="btnresize" class="btnresize" onmousedown="startresizediv(event, this);"></div>
+	
+
+<% if @mode == nil or @mode == "" or @mode == "folder" %>
+	<%= @htmlrepertoire %>    
+<% else %> 
+    <form onsubmit="startloader();" id="formtestgorep" action="../tests/index" method="get">
+		<input type="hidden" name="mode" id="mode" value="folder"/>   
+		<input type="hidden" name="atddsteps" value="<%=@atddsteps%>"/> 
+		<input type="submit" class="btnmodefolder" title="<%= t('ecr_test.mode_folder') %>" value="" ></input>
+    </form>
+	<%= render :partial => 'tests/search_and_replace' %>
+    <%= @htmlliste %> 
+
+<% end %> 
+
+<%= render :partial => 'tests/index_forms' %>
+ 
+</div>
+
+<script>
+<% if @test != nil %>
+    surligne_selected('treetest<%= @test.id %>', 'treetest');
+<%end%>
+</script>
+
+<script type="application/javascript"> 
+  <% if @atddsteps != "1" %>
+  openfolder = localStorage.getItem("alfyfttestrepertoiredisplayed"); 
+	if (openfolder == null) {localStorage.setItem("alfyfttestrepertoiredisplayed","");openfolder = localStorage.getItem("alfyfttestrepertoiredisplayed");}
+   	<% if @test != nil %>
+		sheetname = document.getElementById('spant<%= @test.id %>').parentNode.parentNode.getAttribute("name");
+		openfolder = openfolder.replace("$" + sheetname + "$",""); 
+		openfolder += "$" + sheetname + "$";
+	<% end %>
+  topenfolder = openfolder.split("$$");
+  for (i=0;i<topenfolder.length;i++) {
+    element = topenfolder[i].replace("$","").replace("$","");
+    elements = document.getElementsByName(element);
+    for (j=0;j<elements.length;j++) {
+      elements[j].style.display='block';
+    }
+    if (document.getElementById("signe"+element)!=null) {
+      document.getElementById("signe"+element).innerHTML="<b>-&nbsp;&nbsp;</b>";
+    } 
+   }
+ 
+ 
+  if (getCookie("test_or_folder_to_paste") != "") {
+      elements = document.getElementsByName('btnpaste');
+        for (i=0;i<elements.length;i++) {
+                elements[i].style.display = 'inline';
+        }
+  }
+  <% else %>
+		  openfolder = localStorage.getItem("alfyftatddtestrepertoiredisplayed"); 
+			if (openfolder == null) {localStorage.setItem("alfyftatddtestrepertoiredisplayed","");openfolder = localStorage.getItem("alfyftatddtestrepertoiredisplayed");}
+			<% if @atddstep != nil %>
+				sheetname = document.getElementById('spant<%= @atddstep.id %>').parentNode.parentNode.getAttribute("name");
+				openfolder = openfolder.replace("$" + sheetname + "$",""); 
+				openfolder += "$" + sheetname + "$";
+			<% end %>
+		  topenfolder = openfolder.split("$$");
+		  for (i=0;i<topenfolder.length;i++) {
+			element = topenfolder[i].replace("$","").replace("$","");
+			elements = document.getElementsByName(element);
+			for (j=0;j<elements.length;j++) {
+			  elements[j].style.display='block';
+			}
+			if (document.getElementById("signe"+element)!=null) {
+			  document.getElementById("signe"+element).innerHTML="<b>-&nbsp;&nbsp;</b>";
+			} 
+		   }
+		 
+		  if (getCookie("atdd_test_or_folder_to_paste") != "") {
+			  elements = document.getElementsByName('btnpaste');
+				for (i=0;i<elements.length;i++) {
+						elements[i].style.display = 'inline';
+				}
+		  }  
+  <% end %>
+  
+  superposeprocfilter();
+</script>  

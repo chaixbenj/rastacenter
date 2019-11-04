@@ -1,0 +1,34 @@
+<span class="textStyle">ruby <%= t('code') %><a class="welcomeLinks" href="https://www.rubydoc.info/gems/selenium-webdriver/0.0.28/Selenium/WebDriver" target="_blank" >(selenium webdriver ruby doc)</a></span>
+						
+
+<input type="hidden" name="actcode" id="actcode"/>
+<input type="hidden" name="action_id" id="usid" value="<%= @action.id %>"/>
+<input type="hidden" name="actparams" id="actionparameters" value=""/>
+		
+<div id="divcode" style="position:relative;width:100%;height:500px" <% if @action.is_modifiable == 0 and @is_admin != 1 and true == false  %><%else%>onmousedown="showvalidbtn();"<% end %>>
+<button id="btnmin" class="btnminimize" style="float:right;display:none;" value="" onclick="this.style.display='none';document.getElementById('btnmax').style.display='inline';document.getElementById('divcode').style='position:relative;width:100%;height:500px'"></button>
+<button id="btnmax" class="btnmaximize" style="float:right;display:inline;" value="" onclick="this.style.display='none';document.getElementById('btnmin').style.display='inline';document.getElementById('divcode').style='position:fixed;width:100%;height:100%;top:20px;left:0;'"></button>
+
+<pre id="editor1">
+<% if @badcode != nil %><%= cookies[:badactioncode] %><%else%><%= @action.code  %><%end%>
+</pre>
+</div>
+
+<script>
+	var maxline = parseInt((document.body.clientHeight - 100) / 13);
+     var editor1 = ace.edit("editor1", {
+        theme: "ace/theme/tomorrow_night",
+        mode: "ace/mode/ruby",
+		minLines: 10,
+		maxLines: maxline,
+        wrap: true,
+		fontSize: 13,
+        autoScrollEditorIntoView: true
+    });
+	editor1.setOptions({
+        enableBasicAutocompletion: true,
+        enableSnippets: true,
+        enableLiveAutocompletion: false
+    });
+
+</script>	

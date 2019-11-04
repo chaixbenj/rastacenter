@@ -1,0 +1,57 @@
+<span class="titleStyle" style="color:#161616"><b>&nbsp;&nbsp;<%= t('ecr_variable_env.nouvelle_variable') %>&nbsp;&nbsp;</b></span> 
+<br>
+<div style="display: inline-block">
+	<div style="display: inline">
+		<form onsubmit="startloader();" class="new_environnementvariable" id="new_environnementvariable" action="/environnement_variables" accept-charset="UTF-8" data-remote="true" method="post" style="display: inline;margin-left: 7px;">
+			<input  pattern="\$[A-Za-z0-9_]{2,50}" maxlength='50' onKeyUp="formatasvariable(this)" required size=30 class='inputboxlist' type="text" spellcheck='false' name="name" id="environnementvariable_environnementvariable_name" placeholder="<%= t('nom') %>" title="<%= t('ecr_variable_env.format_titre') %>"/>
+			<textarea spellcheck='false' class='inputboxlist' name="description" id="environnementvariable_environnementvariable_description" rows='1' cols='50' placeholder="<%= t('description') %>"></textarea>
+			<% if @can_manage_env_variable == 1 and @envone != nil %>
+				<input type="submit" class="btnadd" title="<%= t('ajouter') %>" value="" ></input>
+			<% end %>
+			<input type="hidden" name="envone" value="<% if @envone != nil %><%= @envone.id %><% end %>"/>
+			<input type="hidden" name="envtwo" value="<% if @envtwo != nil %><%= @envtwo.id %><% end %>"/>  
+		</form>  
+		<button class="btnsearch" onclick="document.getElementById('environnementvariable_environnementvariable_name').value=document.getElementById('environnementvariable_environnementvariable_name').value.replace('$','');startloader();searchvar();" title="<%= t('chercher') %>"></button>
+		<div style="float: right;display: inline;">
+			<span style="textStyle">Voir &nbsp;</span>
+			<select id="envone" class="lookupbox" >
+				<option <%  if @envone == nil %>selected<% end %>  value="">-</option>
+				<% if @environnements != nil  
+				@environnements.each do |env| %>
+				<option <%  if @envone != nil  and @envone.id == env.id %>selected<% end %> value="<%= env.id %>"><%= env.name  %></option>
+			  <% end 
+			end %>
+			</select>
+			<% if @can_manage_env_variable == 1 %>
+				<button class="btndroite" onclick="document.getElementById('pasteidenvone').value=document.getElementById('envone').value;document.getElementById('pasteidenvtwo').value=document.getElementById('envtwo').value;startloader();document.getElementById('formpasteall').submit();" title="<%= t('ecr_variable_env.copier_les_valeurs_vers') %>"></button>
+			<% end %>
+			<select id="envtwo" class="lookupbox" >
+				<option <%  if @envtwo == nil %>selected<% end %>  value="">-</option>
+				<% if @environnements != nil  
+				@environnements.each do |env| %>
+				<option <%  if @envtwo !=nil and @envtwo.id == env.id %>selected<% end %> value="<%= env.id %>"><%= env.name  %></option>
+			  <% end 
+			end %>
+			</select>  
+			<button class="btnrefresh" title="<%=  t('recharger') %>" onclick="document.getElementById('searchidenvone').value=document.getElementById('envone').value;document.getElementById('searchidenvtwo').value=document.getElementById('envtwo').value;startloader();document.getElementById('formsearch').submit();"></button>
+		</div>  
+	</div>
+</div>	  
+    
+<form onsubmit="startloader();" id="formsearch" action="../environnement_variables/index" method="post">
+	<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+    <input type="hidden" name="description" id="searchdesc" value=""/>
+    <input type="hidden" name="name" id="searchname" value=""/>   
+    <input type="hidden" name="envone" id="searchidenvone" value="<% if @envone != nil %><%= @envone.id %><% end %>"/>
+    <input type="hidden" name="envtwo" id="searchidenvtwo" value="<% if @envtwo != nil %><%= @envtwo.id %><% end %>"/>
+    <input type="hidden" name="do" value="search"/>
+</form>            
+
+<form onsubmit="startloader();" id="formpasteall" action="../environnement_variables/index" method="post">
+<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+    <input type="hidden" name="description" id="pastedesc" value=""/>
+    <input type="hidden" name="name" id="pastename" value=""/>   
+    <input type="hidden" name="envone" id="pasteidenvone" value="<% if @envone != nil %><%= @envone.id %><% end %>"/>
+    <input type="hidden" name="envtwo" id="pasteidenvtwo" value="<% if @envtwo != nil %><%= @envtwo.id %><% end %>"/>
+    <input type="hidden" name="do" value="paste"/>
+</form>    

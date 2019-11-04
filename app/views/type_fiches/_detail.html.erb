@@ -1,0 +1,33 @@
+<br>
+<table class="leftTable" id="vartable">
+  <tr>
+	  <td><span class="textStyle"><%= t('nom') %></span></td>
+	<td><input <% if @is_used == true %>disabled<%end%> onKeyDown="showvalidbtn();" class="inputbox" size=50 maxlength='250' type="text" spellcheck='false' name="name" id="name" value="<%= @type_fiche.name  %>" />
+	<% if @is_used == true %><input type="hidden" name="name" value="<%= @type_fiche.name  %>" /><%end%>      
+	<% if @can_manage_worflows_and_card == 1 %>
+		<input name="valid" value="" id="btnval" style="display: none;" type="submit" class="btnvalid" title="<%= t('valider') %>" onclick="document.getElementById('name').required=true;document.getElementById('namec').required=false;"/>&nbsp;&nbsp;&nbsp;
+	<% end %>    
+	<% if  @can_manage_worflows_and_card == 1 and @is_used == false %>
+		  <input name="delete" value="" type="submit" class="btndel" title="<%= t('supprimer') %>" onclick="document.getElementById('name').required=false;document.getElementById('namec').required=false;document.getElementById('wkf_id').required=false;" data-confirm="<%= t('ecr_liste.confirme_supp') %>"/>
+	<% end %>
+	
+	</td>
+  </tr>
+   <tr>
+		<td><span class="textStyle"><%= t('ecr_type_fiche.soumis_workflow') %></span></td>
+		<td>
+			<select required class="inputbox" <% if @can_manage_worflows_and_card == 0 %>disabled<%end%> name="workflow" id="wfk_id" onchange="showvalidbtn();">
+			<% if @type_fiche.sheet_id == nil %><option selected value="">-</option><%end%>
+			<% if @workflows != nil
+				@workflows.each do |workflow|%>
+			<option <%if workflow.id == @type_fiche.sheet_id%>selected<%end%> value="<%= workflow.id %>"><%= workflow.name %></option>
+			
+				<%end
+			end%>
+			</select>
+			<span class="textStyle" style="margin-left:10px;margin-top:3px;"><%= t('ecr_type_fiche.couleur') %></span>&nbsp;<input name="color" type="color" value="<%= @type_fiche.color  %>" onchange="showvalidbtn();"></input>
+			<span class="textStyle" style="margin-left:10px;margin-top:3px;">Gherkin</span>&nbsp;<input name="gherkin" type="checkbox" <% if @type_fiche.is_gherkin == 1 %>checked<% end %> onchange="showvalidbtn();"></input>
+		</td>
+  </tr>
+</table>
+<br>

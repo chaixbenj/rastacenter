@@ -1,0 +1,41 @@
+<% if @message != nil and appium_cap.id.to_s == @majid.to_s %>
+   <span id='idspanmessage' class='<% if @OK %>succesMessage<% else %>errorMessage<% end %>' onclick='this.parentNode.removeChild(this)' style='vertical-align: top;'><%= @message %>&nbsp;<b>x</b></span>
+  <% end %> 
+
+<div class="ligthline">
+<div class="inline">
+
+
+ <input <% if @can_manage_appium_caps == 0 %>disabled<% end %> pattern="[A-Za-z0-9_]{2,50}"  maxlength='50' onKeyUp="formatascode(this)" required size=40  class='inputboxlist' type="text" spellcheck='false' name="name" id="iname<%= appium_cap.id %>" value="<%= appium_cap.name %>" title="<%= t('ecr_appium_cap.format_titre') %>" onKeyDown='showupdateform("<%= appium_cap.id %>");' onchange='checknamevalidity("<%= appium_cap.id %>", "<%= appium_cap.name %>");'/>
+
+  <input <% if @can_manage_appium_caps == 0 %>disabled<% end %> type="text" spellcheck='false' class='inputboxlist' name="description" id="idescription<%= appium_cap.id %>" size='100' value="<%= appium_cap.description %>" onKeyDown='showupdateform("<%= appium_cap.id %>");'/>
+
+  <% if @can_manage_appium_caps == 1 %>
+	<form onsubmit="startloader();" action="/appium_caps/update" data-remote="true" rel="nofollow" data-method="put" style="display: none;" id="formupdt<%= appium_cap.id %>">
+            <input type="hidden" name="idelement" value="<%= appium_cap.id %>"/>
+            <input type="hidden" name="name" id="name<%= appium_cap.id %>" value=""/>
+            <input type="hidden" name="description" id="description<%= appium_cap.id %>" value=""/>
+            <input class="btnvalid" title="<%= t('valider') %>" type="submit" value=""  onclick="document.getElementById('name<%= appium_cap.id %>').value=document.getElementById('iname<%= appium_cap.id %>').value;document.getElementById('description<%= appium_cap.id %>').value=document.getElementById('idescription<%= appium_cap.id %>').value;" style='vertical-align: top;' onmouseover='checknamevalidity("<%= appium_cap.id %>", "<%= appium_cap.name %>");'/>
+	</form>
+<% end %>
+  
+<%=  link_to image_tag("/assets/icones/btnvariable1.png"), { :controller => :appium_cap_values, :action => :getone, :appiumcapone => appium_cap.id}, class: "btn", onclick: "startloader();", title: t('valeur')  %>
+  
+<% if @can_manage_appium_caps == 1  %>
+    <%= button_to "",  appium_cap_path(appium_cap), remote: true, method: :delete, form: {onsubmit: "startloader();"}, data: { confirm: "#{t('ecr_appium_cap.confirme_supp').gsub('{1}', appium_cap.name)}"  }, class: "btndel", title: t('supprimer') %>
+<% end %>
+
+
+	
+
+
+</div>
+</div>
+<script>
+          setTimeout(function () {
+            elem = document.getElementById('idspanmessage');
+            if (elem!=null) {
+              elem.parentNode.removeChild(elem);
+            }
+        }, 2000);
+</script>  

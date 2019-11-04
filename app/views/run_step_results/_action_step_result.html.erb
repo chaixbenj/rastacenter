@@ -1,0 +1,29 @@
+<% if run_step_result.steplevel != nil and run_step_result.steplevel == 'action'  %>
+  <tr expended="" class="tr_result" <% if run_step_result.result.start_with? 'PASS' %>status="pass"<%end%><% if run_step_result.result.start_with? 'FAIL' %>status="fail"<%end%> style="display:none" bgcolor="#F3F6F1" name="<%= run_step_result.suite_id %>_<%= run_step_result.suite_sequence %>_<%= run_step_result.test_id %>_<%= run_step_result.test_node_id_externe %><% if run_step_result.atdd_test_id != 0 %>_<%= run_step_result.atdd_sequence %><% end %><% if @commentid != nil %>_<%= @commentid %><% end %>_<%= run_step_result.proc_id %>_<%= run_step_result.proc_sequence %>" level='action'>
+      <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<% if moredec %>&nbsp;&nbsp;<% end %>
+          <span class="textStyle"><%= t('action') %> : </span><span  onclick='window.open("../actions/index?nw=1&do=detail&action_id=<%= run_step_result.action_id %>&popup=true", "actions", "directories=0,titlebar=0,toolbar=0,menubar=0,width=1000,height=800");' class="textLink"><%= run_step_result.action_name %></span><!--a  onclick="startloader();" class="textLink"  href="../actions/index?do=detail&action_id=<%= run_step_result.action_id %>" ><%= run_step_result.action_name %></a> </span-->
+      </td>
+      <td>
+          <span class="textStyle"><% if run_step_result.params != "" %><span class="textLink" onclick='window.open("../domelements/index?nw=1&popup=true&funcscreen_id=<%= run_step_result.funcscreen_id %>&search_element=<%= (run_step_result.params.gsub("] [","|"))[1..run_step_result.params.gsub("] [","|").index("]").to_s.to_i-1] %>", "domelement", "directories=0,titlebar=0,toolbar=0,menubar=0,width=1000,height=800");'><%= run_step_result.params %></span> <%end%>&nbsp; <%= run_step_result.detail %> </span>
+      </td>
+      <td>
+          <span class="textStyle"><%= run_step_result.expected %> </span>
+      </td>
+      <td id="result<%=  run_step_result.id %>" <%  if run_step_result.result.start_with? 'PASS' %>bgcolor="#93FA5F"<%end%> 
+                <%  if run_step_result.result.start_with? 'FAIL' %>bgcolor="#F96868"<%end%>>
+          <span class="textStyle"><%= run_step_result.result %> <% if run_step_result.initial_result != nil and run_step_result.result != run_step_result.initial_result %> forced (initial <%= run_step_result.initial_result %>)<% end %> </span>
+      </td>
+      <td>
+	  <% if @can_do_something == 1 %>
+         <button class="btnvalid" title="<%=  t('ecr_run.forcer_status_pass') %>" style="float: left;" onclick="forcesteppass(<%=  run_step_result.id %>)"></button> 
+         <button class="btnfail" title="<%=  t('ecr_run.forcer_status_fail') %>" style="float: left;" onclick="forcestepfail(<%=  run_step_result.id %>)"></button> 
+         <button class="btnnote" title="<%=  t('ecr_run.ajouter_note') %>" style="float: left;" onclick="document.getElementById('contentpopup').innerHTML = '<object id=objpopup width=99% data=../run_step_results/comment?popup=true&step_id=<%= run_step_result.id %>></object>';
+                      window.location.href = '#popup';
+                      document.getElementById('popup').style.display = 'block';
+                      document.getElementById('objpopup').setAttribute('height', 0.50 * document.body.offsetHeight);"></button> 
+         <button class="btnbug" title="<%=  t('ecr_run.ajouter_bug') %>" style="float: left;" onclick="new_fiche('bug', '<%=  run_step_result.id %>', '');"></button> 
+		<%end%>
+         <button class="btnbug2" id="btnshowbugs<%= run_step_result.id %>" title="<%=  t('ecr_run.bug_declares') %>" style="float: left;display:none;" onclick="window.location.href = '#popupbug<%=  run_step_result.id %>';document.getElementById('popupbug<%=  run_step_result.id %>').style.display='block';"></button>  
+      </td>
+  </tr>
+<% end %>
