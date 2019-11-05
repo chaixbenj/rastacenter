@@ -302,7 +302,11 @@ class ApplicationController < ActionController::Base
       end
     else
       params.each do |param|
-        flash["#{param.to_s}"] = params["#{param.to_s}"]
+		if (params["#{param.to_s}"]==nil) then 
+			flash["#{param[0]}"] = "#{param[1]}"
+		else
+			flash["#{param}"] = params["#{param}"]
+		end
       end
       redirect_to controller: params[:controller], action: params[:action]
     end

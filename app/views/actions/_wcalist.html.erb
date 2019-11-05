@@ -36,6 +36,7 @@
 				<div style="float:right">
 					<input type="hidden" name="actcode" id="txtareaCode<%= callingaction.id  %>"/>
 					<script>
+						ace.require("ace/ext/language_tools");
 						 var editor<%= callingaction.id  %> = ace.edit("editor<%= callingaction.id  %>", {
 							theme: "ace/theme/tomorrow_night",
 							mode: "ace/mode/ruby",
@@ -48,7 +49,7 @@
 						editor<%= callingaction.id  %>.setOptions({
 							enableBasicAutocompletion: true,
 							enableSnippets: true,
-							enableLiveAutocompletion: false
+							enableLiveAutocompletion: true
 						});
 
 					</script>	
