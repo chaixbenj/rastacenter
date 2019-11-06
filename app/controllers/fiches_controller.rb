@@ -339,7 +339,8 @@ class FichesController < ApplicationController
 			histochange += "#{t('ecr_type_fiche.assigne_a')} : #{params[:assigne_a].to_s.split("|$|")[1]}\n"
 			histochange += "#{t('ecr_type_fiche.priorite')} : #{params[:priority].to_s.split("|$|")[1]}\n"
 
-			params.each do |param|
+			params.each do |lparam|
+			  if params["#{lparam}"]==nil then param = "#{lparam[0]}" else param = "#{lparam}" end
 			  if param.to_s.start_with? "ucf"
 				if params[param] != ""
 				  fiche_custo_field = FicheCustoField.new
@@ -409,7 +410,8 @@ class FichesController < ApplicationController
 			if fiche.lignee_id == nil then fiche.lignee_id = fiche.id end
 			maj = false
 			histochange = ""
-			params.each do |param|
+			params.each do |lparam|
+			  if params["#{lparam}"]==nil then param = "#{lparam[0]}" else param = "#{lparam}" end
 			  if param.to_s.start_with? "ucf"
 				if params[param] != ""
 				  fiche_custo_field = FicheCustoField.where(:domaine_id => @domaine, :fiche_id => fiche.id, :ucf_id => param).first
@@ -501,7 +503,8 @@ class FichesController < ApplicationController
 			  fiche.priority_name = params[:priority].to_s.split("|$|")[1]
 			  fiche.project_id = params[:project_id]
 			  fiche.save
-			  params.each do |param|
+			  params.each do |lparam|
+			  if params["#{lparam}"]==nil then param = "#{lparam[0]}" else param = "#{lparam}" end
 				if param.to_s.start_with? "ucf"
 				  if params[param] != ""
 					fiche_custo_field = FicheCustoField.where(:domaine_id => @domaine, :fiche_id => fiche.id, :ucf_id => param).first

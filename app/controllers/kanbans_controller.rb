@@ -256,7 +256,8 @@ class KanbansController < ApplicationController
             KanbanTypeFiche.where(:domaine_id => @domaine, :kanban_id => kanban_id).delete_all
             KanbanStatus.where(:domaine_id => @domaine, :kanban_id => kanban_id).delete_all
             order_status = 0
-            params.each do |param|
+            params.each do |lparam|
+			  if params["#{lparam}"]==nil then param = "#{lparam[0]}" else param = "#{lparam}" end
               if param.to_s.start_with? "chbxtf"
                 nomparam = param.to_s
                 if params[nomparam].to_s == "on"
@@ -307,7 +308,8 @@ class KanbansController < ApplicationController
   
   def save_filters(kanban_id, params)
     KanbanFilter.where(:domaine_id => @domaine, :kanban_id => kanban_id).delete_all
-    params.each do |param|
+    params.each do |lparam|
+	  if params["#{lparam}"]==nil then param = "#{lparam[0]}" else param = "#{lparam}" end
       if param.to_s.start_with? "status_id"
         kanban_filter = KanbanFilter.new(domaine_id: @domaine, kanban_id: kanban_id, field_name: 'status_id', value_id: params[param], value_name: 'empty_please_use_id')
         kanban_filter.save
@@ -561,7 +563,8 @@ class KanbansController < ApplicationController
             fiche.user_assign_name = params[:majassigne_a].to_s.split('|$|')[1]
           end
           fiche.save
-          params.each do |param|
+          params.each do |lparam|
+			if params["#{lparam}"]==nil then param = "#{lparam[0]}" else param = "#{lparam}" end
             if params[param].to_s != ""
               if param.start_with? "majcustoliste"
                 FicheCustoField.where("domaine_id = #{@domaine} and fiche_id = #{fiche_id} and ucf_name = '#{param.to_s.split('$$')[1]}'").update_all("field_id = #{params[param]}")

@@ -285,7 +285,8 @@ class CampainsController < ApplicationController
         modelaunch = params[:modelaunch]
         is_first = true
         pre_run_id = nil
-        params.each do |param|
+        params.each do |lparam|
+		  if params["#{lparam}"]==nil then param = "#{lparam[0]}" else param = "#{lparam}" end
           if param.to_s.start_with? "chbxinput"
             campain_test_suite_id = params[param.to_s]
             campain_test_suite = CampainTestSuite.where(:id => campain_test_suite_id).first

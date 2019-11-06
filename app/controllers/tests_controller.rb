@@ -60,8 +60,9 @@ class TestsController < ApplicationController
       newFolder.name = t('ecr_test.nouveau_dossier')
       newFolder.can_be_updated = 1
       newFolder.save
-      params.each do |param|
-        flash["#{param.to_s}"] = params["#{param.to_s}"]
+      params.each do |lparam|
+		if params["#{lparam}"]==nil then param = "#{lparam[0]}" else param = "#{lparam}" end
+        flash["#{param}"] = params["#{param}"]
       end
 	end
     redirect_to controller: 'tests', action: 'index'
@@ -130,8 +131,9 @@ class TestsController < ApplicationController
         new_test.save
         ComputerLastGet.where(:domaine_id => @domaine, :object_type => "Test#{new_test.id}", :version_id => new_test.version_id, :get => 0).update_all(:get => 1)
       end
-      params.each do |param|
-        flash["#{param.to_s}"] = params["#{param.to_s}"]
+      params.each do |lparam|
+		if params["#{lparam}"]==nil then param = "#{lparam[0]}" else param = "#{lparam}" end
+        flash["#{param}"] = params["#{param}"]
       end
 	  flash[:atdd_fiche_id] = nil
 	  flash[:fiche_id] = nil

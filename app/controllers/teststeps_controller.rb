@@ -683,8 +683,9 @@ def validarrayatdd
 			ComputerLastGet.where(:domaine_id => @domaine, :object_type => "Test#{test.id}", :version_id => test.version_id, :get => 0).update_all(:get => 1)
 		end
 	end
-	params.each do |param|
-      flash["#{param.to_s}"] = params["#{param.to_s}"]
+	params.each do |lparam|
+	  if params["#{lparam}"]==nil then param = "#{lparam[0]}" else param = "#{lparam}" end
+      flash["#{param}"] = params["#{param}"]
     end
 	redirect_to controller: 'tests', action: 'edit'
 end

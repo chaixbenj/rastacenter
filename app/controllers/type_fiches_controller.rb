@@ -126,7 +126,8 @@ class TypeFichesController < ApplicationController
           if params[:color].to_s != "" then type_fiche.color = params[:color] end
           jsonfic = ""
           i = 0
-          params.each do |param|
+          params.each do |lparam|
+			if params["#{lparam}"]==nil then param = "#{lparam[0]}" else param = "#{lparam}" end
             if param.to_s.start_with? "ucfh"
               nomparam = param.to_s
               if params[nomparam].to_s != ""
