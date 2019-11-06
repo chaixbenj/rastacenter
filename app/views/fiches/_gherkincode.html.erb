@@ -3,6 +3,8 @@
 </pre>
 <input type="hidden" name="resume" id="divtextarea" value="<% if @fiche != nil %><%= @fiche.description %><% else %><%= @model %><% end %>"/>
 
+
+
 <script>
 	var maxline = parseInt((document.body.clientHeight - 100) / 13);
 	ace.require("ace/ext/language_tools");
@@ -17,7 +19,32 @@
 	});
 	editor1.setOptions({
 		enableBasicAutocompletion: true,
-		enableSnippets: true,
+		enableSnippets: false,
 		enableLiveAutocompletion: true
 	});
+	var staticWordCompleter = {
+    getCompletions: function(editor, session, pos, prefix, callback) {
+        var wordList = ["Feature:", "Scenario:", "Scenario Outline:", "Background:", "Given ", "When ", "Then ", "And ", "But ",
+		<% if @atddsteps != nil 
+			@atddsteps.each do |step| %>
+				"<%= step.description.strip.gsub('"','\"').html_safe %>",
+			<% end 
+		end %>
+		"Examples:"];
+        callback(null, wordList.map(function(word) {
+            return {
+                caption: word,
+                value: word,
+                meta: "static"
+            };
+        }));
+    }
+	}
+	editor1.completers = [staticWordCompleter]
+
 </script>
+
+
+
+
+

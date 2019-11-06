@@ -72,6 +72,9 @@ class FichesController < ApplicationController
 		end
       end
 	  @is_gherkin = type_fiche.is_gherkin
+	  if @is_gherkin==1 then
+		@atddsteps = Test.select("description").where("domaine_id = #{@domaine} and is_atdd = 2").all
+	  end
       @type_fiches  = TypeFiche.select("id, name").where(:domaine_id => @domaine).all
       @color = type_fiche.color
 

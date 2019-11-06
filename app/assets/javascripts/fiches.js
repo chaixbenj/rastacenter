@@ -6,41 +6,6 @@ var valct = "";
 var valccl = "";
 var valcobl = "";
 
-function majfichedisplaymsg() {
-	stoploader();
-	response = document.getElementById("hiddenframemaj").contentDocument.body.innerHTML;
-	res = response.split(";");
-	if (res[0] == "majok") {
-		document.getElementById("okmessage").innerHTML = res[1] + "&nbsp;<b>x</b>";
-		document.getElementById("okmessage").style="display:block;";
-	}
-	if (res[0] == "majko") {
-		document.getElementById("komessage").innerHTML = res[1] + "&nbsp;<b>x</b>";
-		document.getElementById("komessage").style="display:block;";
-	}
-	if (response.indexOf("div") >= 0) {
-		document.body.innerHTML = response;
-		if (document.getElementById("editor1")) {
-			document.getElementById("editor1").innerHTML = document.getElementById("divtextarea").value;
-			var maxline = parseInt((document.body.clientHeight - 100) / 13);
-			var editor1 = ace.edit("editor1", {
-			theme: "ace/theme/tomorrow_night",
-			mode: "ace/mode/gherkin",
-			maxLines: maxline,
-			minLines: 10,
-			wrap: true,
-			fontSize: 13,
-			autoScrollEditorIntoView: true
-			});
-			editor1.setOptions({
-				enableBasicAutocompletion: true,
-				enableSnippets: true,
-				enableLiveAutocompletion: false
-			});
-		}
-	};
-}
-
 function add_row() {
     cust_table = document.getElementById("fic_table_custo_field");
     nbrow += 1;
