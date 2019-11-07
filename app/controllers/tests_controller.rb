@@ -75,7 +75,7 @@ class TestsController < ApplicationController
         fiche = Fiche.where(:id => params[:atdd_fiche_id]).first
         description = fiche.description.to_s
         if (!(description.include? "Scenario:") and !(description.include? "Scenario Outline:")) then
-          description = "Scenario:#{params[:atdd_fiche_name]}\n" + description
+          description = "Scenario:#{params[:atdd_fiche_name]}\r\n" + description
         end
         description = description.gsub('Scenario:','Scenario:SCENARIO').gsub('Scenario Outline:','Scenario:SCENARIO').gsub("Background:","Scenario:Background:")
         test_type = Liste.select("liste_values.id").joins("INNER JOIN liste_values on  liste_values.domaine_id = listes.domaine_id and liste_values.liste_id = listes.id").where("listes.domaine_id = #{@domaine} and listes.code='TEST_TYPE' and liste_values.value='WEB'").first
