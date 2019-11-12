@@ -52,7 +52,7 @@ class VersionsController < ApplicationController
       case params[:dodet].to_s
       when 'delete'
         Test.where(:domaine_id => @domaine, :version_id => version.id).update_all(:sheet_id => nil)
-        TestStep.joins("INNER JOIN tests on tests.id = test_steps.test_id and tests.domaine_id = #{@domaine} and tests.version_id = #{version.id}").update_all(:sheet_id => nil, :atdd_test_id => nil)
+        TestStep.joins("INNER JOIN tests on tests.id = test_steps.atdd_test_id and tests.domaine_id = #{@domaine} and tests.version_id = #{version.id}").update_all(:sheet_id => nil, :atdd_test_id => nil)
         version.destroy
         flash[:ko] = 1
       when 'delock'
