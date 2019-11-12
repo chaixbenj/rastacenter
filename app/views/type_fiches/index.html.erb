@@ -1,3 +1,11 @@
+<script>
+<% if @nextline != nil %>
+	var nbrow = <%= @nextline %>;
+<%else%>
+	var nbrow = 4;
+<%end%>
+</script>
+
 <div id="content"  <% if @popup != nil and @popup.to_s == 'true' %> style="height: 100%;" <%end%>>
 	<%= render :partial => 'type_fiches/list' %>
     
