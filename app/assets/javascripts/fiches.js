@@ -21,7 +21,7 @@ function majfichedisplaymsg() {
 	if (response.indexOf("div") >= 0) {
 		document.body.innerHTML = response;
 		if (document.getElementById("editor1")) {
-			document.getElementById("editor1").innerHTML = document.getElementById("divtextarea").value;
+			document.getElementById("editor1").innerHTML = document.getElementById("divtextarea").value.replace("<","&lt;").replace(">","&gt;");
 			var maxline = parseInt((document.body.clientHeight - 100) / 13);
 			var editor1 = ace.edit("editor1", {
 			theme: "ace/theme/tomorrow_night",

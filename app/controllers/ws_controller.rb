@@ -402,27 +402,27 @@ class WsController < ApplicationController
 						atddparamvalo = step.parameters.to_s.split('|$|')
 						pnames = []
 						pvalues = []
-            alfyft_atdd_step_description = "#{code.gsub("\n", "").gsub("\"", "\\\"")}"
-            arguments = code.scan(/arg(\d+)/)
-            if arguments!=nil && arguments.length>0
-                for i in 0..arguments.length-1
-                    pnames << "arg#{arguments[i][0]}"
-                    if atddparamvalo.length > i then pvalues << atddparamvalo[i] else pvalues << "" end
-                end
-            end
+						alfyft_atdd_step_description = "#{code.gsub("\n", "").gsub("\"", "\\\"")}"
+						arguments = code.scan(/arg(\d+)/)
+						if arguments!=nil && arguments.length>0
+							for i in 0..arguments.length-1
+								pnames << "arg#{arguments[i][0]}"
+								if atddparamvalo.length > i then pvalues << atddparamvalo[i] else pvalues << "" end
+							end
+						end
 
 						tparam = []
-            for i in 0..pvalues.length-1
-              if pvalues[i].to_s[0] != '$' and pvalues[i].to_s[0] != '"'
-                tparam[i] = "\"#{pvalues[i].to_s}\""
-                alfyft_atdd_step_description = alfyft_atdd_step_description.sub("#{pnames[i]}", "#{pvalues[i]}")
-              else
-                tparam[i] = "#{pvalues[i].to_s}"
-                alfyft_atdd_step_description = alfyft_atdd_step_description.sub("#{pnames[i]}", "\#{#{tparam[i]}}")
-              end
-            end
+						for i in 0..pvalues.length-1
+						  if pvalues[i].to_s[0] != '$' and pvalues[i].to_s[0] != '"'
+							tparam[i] = "\"#{pvalues[i].to_s}\""
+							alfyft_atdd_step_description = alfyft_atdd_step_description.sub("#{pnames[i]}", "#{pvalues[i]}")
+						  else
+							tparam[i] = "#{pvalues[i].to_s}"
+							alfyft_atdd_step_description = alfyft_atdd_step_description.sub("#{pnames[i]}", "\#{#{tparam[i]}}")
+						  end
+						end
 						data += "				##{step.code.gsub("\n", "")}\n"
-            alfyft_atdd_step_description = "				$alfyft_atdd_step_description = \"#{step.type_code} #{alfyft_atdd_step_description}\"\n"
+						alfyft_atdd_step_description = "				$alfyft_atdd_step_description = \"#{step.type_code} #{alfyft_atdd_step_description}\"\n"
 						data += alfyft_atdd_step_description
 
 						if inittests.index(step.atdd_test_id) == nil then inittests << step.atdd_test_id end
@@ -451,7 +451,21 @@ class WsController < ApplicationController
 								end
 							end
 						else
-							if step.code.to_s[0] == "#" then data += "				#{step.code.gsub("\n", "")}\n" else data += "				#{step.code}\n" end
+							if step.code.to_s[0] == "#" then 
+								data += "				#{step.code.gsub("\n", "")}\n" 
+							else 
+								code = step.code.to_s
+								arguments = test.parameters.to_s.split("|$|")
+								if arguments!=nil && arguments.length>0
+									for i in 0..arguments.length-1
+										if arguments[arguments.length-1-i].start_with? "arg" then
+											code = code.gsub("#{arguments[arguments.length-1-i]}", "_#{arguments[arguments.length-1-i]}")
+											code = code.gsub("__#{arguments[arguments.length-1-i]}", "_#{arguments[arguments.length-1-i]}")
+										end
+									end
+								end
+								data += "				#{code}\n" 
+							end
 						end
 					end
 				end
