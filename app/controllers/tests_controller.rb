@@ -1051,6 +1051,7 @@ class TestsController < ApplicationController
   def updateTestRealSteps(test_id)
     temporaryStep = TestStep.where(:domaine_id => @domaine, :test_id => test_id, :temporary => 1).first
     if temporaryStep == nil then Test.where(:id => test_id).update_all(:has_real_step => 1) end
+	ComputerLastGet.where(:domaine_id => @domaine, :object_type => "Test#{test_id}", :version_id => @selectedversion, :get => 0).update_all(:get => 1)
   end
 
 end
