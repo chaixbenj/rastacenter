@@ -199,7 +199,6 @@ begin
 rescue Exception => e
 	puts e.message
 	i_retry += 1
-	sleep 1/10
 end while found == false and i_retry < 300 and (Time.now.localtime-datenow) < $max_seconds_wait
 
 if found
@@ -232,7 +231,6 @@ begin
 rescue Exception => e
 	puts e.message
 	i_retry += 1
-	sleep 1/10
 end while found == false and i_retry < 300 and (Time.now.localtime-datenow) < $max_seconds_wait
 
 if found
@@ -332,7 +330,6 @@ begin
 rescue Exception => e
 	puts e.message
 	i_retry += 1
-	sleep 1/10
 end while clicked == false and i_retry < 300 and (Time.now.localtime-datenow) < $max_seconds_wait
 
 if clicked
@@ -378,7 +375,6 @@ begin
 rescue Exception => e
 	puts e.message
 	i_retry += 1
-	sleep 1/10
 end while found == false and i_retry < 300 and (Time.now.localtime-datenow) < $max_seconds_wait
 
 if found
@@ -421,7 +417,6 @@ begin
 rescue Exception => e
 	puts e.message
 	i_retry += 1
-	sleep 1/10
 end while clicked == false and i_retry < 300 and (Time.now.localtime-datenow) < $max_seconds_wait
 
 if clicked
@@ -459,7 +454,6 @@ begin
 rescue Exception => e
 	puts e.message
 	i_retry += 1
-	sleep 1/10
 end while found == false and i_retry < 300 and (Time.now.localtime-datenow) < $max_seconds_wait
 
 if found
@@ -497,7 +491,6 @@ begin
 rescue Exception => e
 	puts e.message
 	i_retry += 1
-	sleep 1/10
 end while found == false and i_retry < 300 and (Time.now.localtime-datenow) < $max_seconds_wait
 
 if found
@@ -527,7 +520,6 @@ begin
 rescue Exception => e
 	puts e.message
 	i_retry += 1
-	sleep 1/10
 end while found == false and i_retry < 300 and (Time.now.localtime-datenow) < $max_seconds_wait
 
 if found
@@ -557,7 +549,6 @@ begin
 rescue Exception => e
 	puts e.message
 	i_retry += 1
-	sleep 1/10
 end while found == false and i_retry < 300 and (Time.now.localtime-datenow) < $max_seconds_wait
 
 if found
@@ -608,7 +599,6 @@ begin
 rescue Exception => e
 	puts e.message
 	i_retry += 1
-	sleep 1/10
 end while found == false and i_retry < 300 and (Time.now.localtime-datenow) < $max_seconds_wait
 
 if found
@@ -733,7 +723,6 @@ begin
 rescue Exception => e
 	puts e.message
 	i_retry += 1
-	sleep 1/10
 end while clicked == false and i_retry < 300 and (Time.now.localtime-datenow) < $max_seconds_wait
 
 if clicked
@@ -759,7 +748,6 @@ begin
 rescue Exception => e
 	puts e.message
 	i_retry += 1
-	sleep 1/10
 end while clicked == false and i_retry < 300 and (Time.now.localtime-datenow) < $max_seconds_wait
 
 if clicked
