@@ -92,7 +92,7 @@ class EnvironnementsController < ApplicationController
           init_env_var.destroy
         end
       end
-      other_env_with_name = Environnement.where("domaine_id = #{@domaine} and name != \"#{name}\"").first 
+      other_env_with_name = Environnement.where("domaine_id = #{@domaine} and name = \"#{name}\"").first 
       if other_env_with_name == nil
         configuration_variable_env = ConfigurationVariable.where(:domaine_id => @domaine, :name => '$environment').first
         if configuration_variable_env != nil
