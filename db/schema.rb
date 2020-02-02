@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2018_05_16_085150) do
 
-  create_table "actions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "actions", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.string "name", limit: 60, null: false
     t.text "description"
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["version_id"], name: "fk_rails_d560053c96"
   end
 
-  create_table "appium_cap_values", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "appium_cap_values", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.bigint "init_value_id"
     t.bigint "appium_cap_id"
@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["init_value_id"], name: "fk_rails_20a1e603b3"
   end
 
-  create_table "appium_caps", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "appium_caps", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.bigint "version_id"
     t.string "name", limit: 60, null: false
@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["version_id"], name: "fk_rails_39e8c0783e"
   end
 
-  create_table "campain_configs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "campain_configs", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.bigint "campain_id", null: false
     t.bigint "variable_id", null: false
@@ -73,7 +73,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["variable_id"], name: "fk_rails_5472a3375b"
   end
 
-  create_table "campain_test_suite_forced_configs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "campain_test_suite_forced_configs", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.bigint "campain_test_suite_id", null: false
     t.bigint "variable_id", null: false
@@ -86,7 +86,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["variable_id"], name: "fk_rails_585c0b2aef"
   end
 
-  create_table "campain_test_suites", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "campain_test_suites", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.bigint "campain_id", null: false
     t.bigint "sheet_id", null: false
@@ -99,7 +99,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["sheet_id"], name: "fk_rails_5d5ba955ed"
   end
 
-  create_table "campains", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "campains", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.string "name", limit: 250, null: false
     t.text "description"
@@ -112,7 +112,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["domaine_id", "cycle_id", "owner_user_id", "private"], name: "idx_campains_1"
   end
 
-  create_table "computer_last_gets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "computer_last_gets", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.string "hostrequest", limit: 50, null: false
     t.string "object_type", limit: 50, null: false
@@ -124,7 +124,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["version_id"], name: "fk_rails_8f44172e26"
   end
 
-  create_table "computers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "computers", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.string "hostrequest", limit: 50, null: false
     t.string "guid", limit: 40, null: false
@@ -136,7 +136,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["guid"], name: "idx_computers_3", unique: true
   end
 
-  create_table "configuration_variable_values", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "configuration_variable_values", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.bigint "configuration_variable_id", null: false
     t.string "value", limit: 150, null: false
@@ -147,7 +147,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["domaine_id", "configuration_variable_id"], name: "idx_configuration_variable_values_1"
   end
 
-  create_table "configuration_variables", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "configuration_variables", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.string "name", limit: 50, null: false
     t.text "description"
@@ -160,7 +160,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["domaine_id", "name"], name: "idx_configuration_variables_1"
   end
 
-  create_table "cycles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "cycles", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.string "name", limit: 250, null: false
     t.text "description"
@@ -191,7 +191,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["release_id"], name: "fk_rails_636fd72433"
   end
 
-  create_table "data_set_variables", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "data_set_variables", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.bigint "init_variable_id"
     t.bigint "project_id", null: false
@@ -211,7 +211,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["project_id"], name: "fk_rails_e2390fb72d"
   end
 
-  create_table "data_sets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "data_sets", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.bigint "version_id"
     t.string "name", limit: 60, null: false
@@ -224,7 +224,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["version_id"], name: "fk_rails_e8afdcc593"
   end
 
-  create_table "default_user_configs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "default_user_configs", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.bigint "user_id", null: false
     t.bigint "variable_id", null: false
@@ -236,13 +236,13 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["variable_id"], name: "fk_rails_574ce9ae23"
   end
 
-  create_table "domaines", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "domaines", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "guid", limit: 40, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "domelements", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "domelements", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.bigint "funcandscreen_id", null: false
     t.bigint "version_id"
@@ -259,7 +259,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["version_id"], name: "fk_rails_1463ba777e"
   end
 
-  create_table "environnement_variables", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "environnement_variables", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.bigint "init_variable_id"
     t.bigint "project_id", null: false
@@ -279,7 +279,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["project_id"], name: "fk_rails_7d15088b4c"
   end
 
-  create_table "environnements", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "environnements", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.bigint "version_id"
     t.string "name", limit: 60, null: false
@@ -291,7 +291,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["version_id"], name: "fk_rails_7a6bc6ed11"
   end
 
-  create_table "fiche_custo_fields", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "fiche_custo_fields", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.bigint "fiche_id", null: false
     t.string "ucf_id", limit: 5, null: false
@@ -304,7 +304,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["fiche_id"], name: "fk_rails_cc72605ee9"
   end
 
-  create_table "fiche_downloads", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "fiche_downloads", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.bigint "fiche_id", null: false
     t.string "name", null: false
@@ -315,7 +315,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["fiche_id"], name: "fk_rails_45ffc96b9d"
   end
 
-  create_table "fiche_histos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "fiche_histos", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.bigint "fiche_id", null: false
     t.string "status", limit: 50, null: false
@@ -328,7 +328,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["fiche_id"], name: "fk_rails_9e2ec3bc11"
   end
 
-  create_table "fiche_links", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "fiche_links", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.bigint "fiche_id", null: false
     t.bigint "fiche_linked_id", null: false
@@ -338,7 +338,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["fiche_id"], name: "fk_rails_783eef3492"
   end
 
-  create_table "fiches", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "fiches", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.bigint "type_fiche_id", null: false
     t.string "name", limit: 250, null: false
@@ -373,7 +373,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["user_assign_id"], name: "fk_rails_62e95c4fbc"
   end
 
-  create_table "findstrategies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "findstrategies", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.string "name", limit: 20, null: false
     t.datetime "created_at", null: false
@@ -381,7 +381,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["domaine_id"], name: "idx_findstrategies_1"
   end
 
-  create_table "funcandscreens", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "funcandscreens", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.bigint "project_id", null: false
     t.string "name", limit: 250
@@ -391,7 +391,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["project_id"], name: "fk_rails_abeb83fa41"
   end
 
-  create_table "kanban_filters", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "kanban_filters", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.bigint "kanban_id", null: false
     t.string "field_name", limit: 250, null: false
@@ -404,7 +404,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["kanban_id"], name: "fk_rails_2765e8431c"
   end
 
-  create_table "kanban_statuses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "kanban_statuses", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.bigint "kanban_id", null: false
     t.bigint "status_id", null: false
@@ -416,7 +416,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["kanban_id"], name: "fk_rails_1bed679d49"
   end
 
-  create_table "kanban_type_fiches", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "kanban_type_fiches", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.bigint "kanban_id", null: false
     t.bigint "type_fiche_id", null: false
@@ -427,7 +427,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["type_fiche_id"], name: "fk_rails_03d41495b2"
   end
 
-  create_table "kanbans", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "kanbans", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.string "name", limit: 250, null: false
     t.text "description"
@@ -440,7 +440,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["domaine_id"], name: "fk_rails_e3d8e4c0e9"
   end
 
-  create_table "link_obj_versions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "link_obj_versions", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.string "obj_type", limit: 20, null: false
     t.bigint "obj_id", null: false
@@ -452,7 +452,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["version_id"], name: "fk_rails_f98c59ed16"
   end
 
-  create_table "links", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "links", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.bigint "sheet_id", null: false
     t.string "id_externe", limit: 50, null: false
@@ -470,7 +470,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["sheet_id"], name: "fk_rails_41c5915ff4"
   end
 
-  create_table "liste_values", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "liste_values", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.bigint "liste_id", null: false
     t.string "value", limit: 100
@@ -481,7 +481,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["liste_id"], name: "fk_rails_cc622e6bfc"
   end
 
-  create_table "listes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "listes", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.string "code", limit: 50
     t.string "name", limit: 250, null: false
@@ -492,7 +492,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["domaine_id", "code"], name: "idx_listes_1"
   end
 
-  create_table "lockobjects", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "lockobjects", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.string "obj_type", limit: 30, null: false
     t.bigint "obj_id", null: false
@@ -504,7 +504,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["user_id"], name: "fk_rails_dba0d6574e"
   end
 
-  create_table "node_forced_computers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "node_forced_computers", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.bigint "node_id", null: false
     t.string "hostrequest", limit: 50, null: false
@@ -514,7 +514,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["node_id"], name: "fk_rails_268da98afa"
   end
 
-  create_table "node_forced_configs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "node_forced_configs", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.bigint "node_id", null: false
     t.bigint "variable_id", null: false
@@ -527,7 +527,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["variable_id"], name: "fk_rails_dbc469186a"
   end
 
-  create_table "nodes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "nodes", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.bigint "sheet_id", null: false
     t.bigint "id_externe", null: false
@@ -553,7 +553,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["sheet_id"], name: "fk_rails_5b379f64b5"
   end
 
-  create_table "procedure_actions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "procedure_actions", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.bigint "procedure_id", null: false
     t.bigint "action_id", null: false
@@ -565,7 +565,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["procedure_id"], name: "fk_rails_2d7881d8f8"
   end
 
-  create_table "procedures", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "procedures", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.bigint "funcandscreen_id", null: false
     t.string "name", limit: 250, null: false
@@ -583,7 +583,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["version_id"], name: "fk_rails_0da3c6b1fd"
   end
 
-  create_table "project_versions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "project_versions", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.bigint "project_id", null: false
     t.bigint "version_id", null: false
@@ -596,7 +596,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["version_id"], name: "fk_rails_0220f42d7c"
   end
 
-  create_table "projects", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "projects", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.string "name", limit: 250, null: false
     t.text "description"
@@ -607,7 +607,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["domaine_id", "name"], name: "idx_projects_1"
   end
 
-  create_table "ref_screenshots", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "ref_screenshots", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.string "name", limit: 200, null: false
     t.string "location", limit: 200, null: false
@@ -618,7 +618,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["domaine_id", "name", "location"], name: "idx_ref_screenshots_1"
   end
 
-  create_table "releases", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "releases", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.string "name", limit: 250, null: false
     t.text "description"
@@ -649,7 +649,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["project_id"], name: "fk_rails_47fe2a0596"
   end
 
-  create_table "required_gems", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "required_gems", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.bigint "version_id"
     t.text "gems"
@@ -660,7 +660,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["version_id"], name: "fk_rails_142cb61e68"
   end
 
-  create_table "roles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "roles", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id"
     t.string "name", limit: 50, null: false
     t.string "droits", limit: 50, null: false
@@ -669,7 +669,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["domaine_id"], name: "idx_roles_1"
   end
 
-  create_table "run_authentications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "run_authentications", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.bigint "run_id", null: false
     t.bigint "user_id", null: false
@@ -681,7 +681,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["user_id"], name: "fk_rails_f1661a34e9"
   end
 
-  create_table "run_configs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "run_configs", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.bigint "run_id", null: false
     t.bigint "variable_id", null: false
@@ -693,7 +693,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["variable_id"], name: "fk_rails_e5b98d055d"
   end
 
-  create_table "run_ended_nodes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "run_ended_nodes", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.bigint "run_id", null: false
     t.bigint "test_node_id_externe"
@@ -703,7 +703,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["run_id"], name: "fk_rails_77b34d8676"
   end
 
-  create_table "run_screenshots", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "run_screenshots", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "guid", limit: 250, null: false
     t.bigint "domaine_id", null: false
     t.bigint "run_id", null: false
@@ -721,7 +721,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["run_id"], name: "fk_rails_28288951b4"
   end
 
-  create_table "run_step_results", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "run_step_results", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.bigint "run_id", null: false
     t.bigint "suite_id"
@@ -752,7 +752,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["run_id"], name: "fk_rails_8d60f3e19d"
   end
 
-  create_table "run_store_data", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "run_store_data", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.bigint "run_id", null: false
     t.string "key", limit: 120
@@ -763,7 +763,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["run_id"], name: "fk_rails_e1b1aa1cca"
   end
 
-  create_table "run_suite_schemes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "run_suite_schemes", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.bigint "run_id", null: false
     t.bigint "suite_id", null: false
@@ -777,7 +777,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["suite_id"], name: "fk_rails_76047f8dd9"
   end
 
-  create_table "runs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "runs", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.bigint "campain_id"
     t.bigint "user_id", null: false
@@ -809,7 +809,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["run_father_id"], name: "fk_rails_067a333d44"
   end
 
-  create_table "sheet_folders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "sheet_folders", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.bigint "project_id"
     t.bigint "sheet_folder_father_id"
@@ -824,7 +824,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["sheet_folder_father_id"], name: "fk_rails_02f42403a6"
   end
 
-  create_table "sheets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "sheets", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.bigint "sheet_folder_id", null: false
     t.string "name", limit: 250, null: false
@@ -845,7 +845,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["version_id"], name: "fk_rails_bbb2839171"
   end
 
-  create_table "test_constantes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "test_constantes", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.bigint "project_id", null: false
     t.string "name", limit: 50, null: false
@@ -859,7 +859,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["project_id"], name: "fk_rails_54df1e487b"
   end
 
-  create_table "test_folders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "test_folders", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.bigint "project_id"
     t.bigint "test_folder_father_id"
@@ -874,7 +874,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["test_folder_father_id"], name: "fk_rails_fad18306a6"
   end
 
-  create_table "test_steps", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "test_steps", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.bigint "test_id", null: false
     t.integer "sequence", limit: 2, null: false
@@ -899,7 +899,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["test_id"], name: "fk_rails_ae95cbb0f9"
   end
 
-  create_table "tests", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "tests", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.bigint "test_folder_id", null: false
     t.bigint "version_id"
@@ -934,7 +934,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["version_id"], name: "fk_rails_2ffaba8731"
   end
 
-  create_table "type_fiches", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "type_fiches", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.string "name", limit: 250, null: false
     t.text "jsondesc"
@@ -948,7 +948,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["sheet_id"], name: "fk_rails_792af3f509"
   end
 
-  create_table "user_notifications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "user_notifications", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.bigint "user_id", null: false
     t.string "sent_by", limit: 50
@@ -963,7 +963,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["user_id"], name: "fk_rails_cdbff2ee9e"
   end
 
-  create_table "user_preferences", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "user_preferences", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.bigint "user_id", null: false
     t.text "jsonpref"
@@ -973,7 +973,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["user_id"], name: "fk_rails_a69bfcfd81"
   end
 
-  create_table "userprojects", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "userprojects", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.bigint "user_id", null: false
     t.bigint "project_id", null: false
@@ -987,7 +987,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["user_id"], name: "fk_rails_c445826926"
   end
 
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id"
     t.string "login", limit: 50, null: false
     t.string "pwd", limit: 50, null: false
@@ -1006,7 +1006,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_085150) do
     t.index ["project_id"], name: "fk_rails_fedc809cf8"
   end
 
-  create_table "versions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "versions", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "domaine_id", null: false
     t.string "name", limit: 250, null: false
     t.datetime "versioning_date"

@@ -12,7 +12,7 @@
 default: &default
   adapter: mysql2
   encoding: utf8
-  socket: /srv/run/mysqld/mysqld.sock
+  socket: /run/mysqld/mysqld.sock
   pool: 5
   username: alfyft
   password: alfyft
@@ -20,7 +20,7 @@ default: &default
 
 development:
   <<: *default
-  database: alfyftdev
+  database: alfyftfree
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
