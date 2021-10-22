@@ -6,7 +6,7 @@ git_source(:github) do |repo_name|
 end
 gem 'chunky_png', '~> 1.3'
 gem 'mini_magick', '~> 4.10'
-gem 'sidekiq', '~> 6.0'
+gem 'sidekiq', '~> 6.2'
 gem 'rubysl-securerandom', '~> 2.0'
 gem 'valid_syntax', '~> 1.0'
 gem 'rails', '~> 6.0'
